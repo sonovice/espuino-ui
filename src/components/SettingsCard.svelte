@@ -4,9 +4,10 @@
   export let title;
   export let description;
   export let icon;
+  export let anchor = ""
 </script>
 
-<div class="relative overflow-hidden shadow sm:rounded-md">          
+<div id={anchor} class="relative overflow-hidden shadow sm:rounded-md">          
   <Icon name={icon} style="solid" class="absolute w-40 -right-3 -top-3 text-zinc-100 -rotate-6"/>
   <div class="px-4 py-5 space-y-6 bg-white sm:p-6">
     <div>

@@ -3,6 +3,7 @@
   export let value;
   export let type = "text";
 
+  // Prevent "type" from being a two way binding
   function typeAction(node) {
     node.type = type;
   }

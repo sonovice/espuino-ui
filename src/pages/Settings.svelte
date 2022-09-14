@@ -1,11 +1,11 @@
 <script>
   import { _ } from 'svelte-i18n';
 
+  import CardSetting from '../components/SettingsCard.svelte';
+  import Divider from '../components/Divider.svelte';
   import Icon from "../components/Icon.svelte";
   import RangedSetting from '../components/SettingRange.svelte';
-  import TextSetting from '../components/SettingText.svelte';
-  import Divider from '../components/Divider.svelte';
-  import CardSetting from '../components/SettingsCard.svelte';
+  import TextSetting from '../components/SettingText.svelte';  
 
   export let show;
 
@@ -14,10 +14,10 @@
   let setting_volume_max_headphones_percent = 40;
   let setting_led_restart_percent = 80;
   let setting_led_night_percent = 5;
-  let setting_sleep_timer_minutes = 30;
-  let setting_battery_warning_voltage = 3.4;
-  let setting_battery_low_voltage = 3.3;
-  let setting_battery_high_voltage = 3.7;
+  let setting_power_saving_minutes = 30;
+  let setting_battery_warning_voltage = 3.40;
+  let setting_battery_low_voltage = 3.30;
+  let setting_battery_high_voltage = 3.70;
   let setting_battery_interval_minutes = 5;
 
   let settings_wifi_ssid = "Pretty fly for a wifi";
@@ -32,7 +32,6 @@
   let settings_mqtt_port = "%MQTT_PORT%";
   let settings_mqtt_username = "%MQTT_USER%";
   let settings_mqtt_password = "%MQTT_PASS%";
-
 </script>
 
 <div class="{show ? 'block' : 'hidden'} max-w-5xl mx-auto">
@@ -54,27 +53,27 @@
     </div>
 
     <div class="mx-0 space-y-6 sm:mx-4">
-      <CardSetting title={$_("settings.general.card_title")} description={$_("settings.general.card_description")} icon="sliders">
+      <CardSetting title={$_("settings.general.card_title")} description={$_("settings.general.card_description")} icon="sliders" anchor="general">
         <div slot="main">
           <h4 class="mb-4 font-medium">{$_("settings.general.volume")}</h4>
           <div class="space-y-6">
-            <RangedSetting text={$_("settings.general.volume_after_start")} bind:value={setting_volume_start_percent} icon="volume" step="5" />
-            <RangedSetting text={$_("settings.general.volume_max_speaker")} bind:value={setting_volume_max_speaker_percent} icon="volume-high" step="5" />
-            <RangedSetting text={$_("settings.general.volume_max_headphones")} bind:value={setting_volume_max_headphones_percent} icon="headphones" step="5" />
+            <RangedSetting text={$_("settings.general.volume_after_start")} bind:value={setting_volume_start_percent} icon="volume" step="5" unit="%" />
+            <RangedSetting text={$_("settings.general.volume_max_speaker")} bind:value={setting_volume_max_speaker_percent} icon="volume-high" step="5" unit="%" />
+            <RangedSetting text={$_("settings.general.volume_max_headphones")} bind:value={setting_volume_max_headphones_percent} icon="headphones" step="5" unit="%" />
           </div>
           
           <Divider />
           
           <h4 class="mb-4 font-medium">{$_("settings.general.led_neopixel")}</h4>
           <div class="space-y-6">
-            <RangedSetting text={$_("settings.general.brightness_start")} bind:value={setting_led_restart_percent} icon="brightness" step="1" />
-            <RangedSetting text={$_("settings.general.brightness_night")} bind:value={setting_led_night_percent} icon="brightness-low" step="1" />
+            <RangedSetting text={$_("settings.general.brightness_start")} bind:value={setting_led_restart_percent} icon="brightness" step="1" unit="%" />
+            <RangedSetting text={$_("settings.general.brightness_night")} bind:value={setting_led_night_percent} icon="brightness-low" step="1" unit="%" />
           </div>
           
           <Divider />
           
-          <h4 class="mb-4 font-medium">{$_("settings.general.sleep_timer")}</h4>
-          <RangedSetting text={$_("settings.general.minutes_inactivity")} bind:value={setting_sleep_timer_minutes} icon="snooze" max="120" step="5" unit="m" />
+          <h4 class="mb-4 font-medium">{$_("settings.general.power_saving")}</h4>
+          <RangedSetting text={$_("settings.general.minutes_inactivity")} bind:value={setting_power_saving_minutes} icon="snooze" max="120" step="5" unit="m" />
           
           <Divider />
           
@@ -85,7 +84,6 @@
             <RangedSetting text={$_("settings.general.battery_warning")} bind:value={setting_battery_warning_voltage} icon="battery-exclamation" min="2.5" max="5" step="0.01" decimals="2" unit="V" />
             <RangedSetting text={$_("settings.general.battery_interval")} bind:value={setting_battery_interval_minutes} icon="clock" max="60" step="5" unit="m" />
           </div>
-          
         </div>
         <div slot="actions">
           <button type="submit" class="inline-flex justify-center px-4 py-2 mr-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-zinc-500 hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">{$_("common.reset")}</button>
@@ -93,7 +91,7 @@
         </div>
       </CardSetting>
 
-      <CardSetting title={$_("settings.wifi.card_title")} description={$_("settings.wifi.card_description")} icon="wifi">
+      <CardSetting title={$_("settings.wifi.card_title")} description={$_("settings.wifi.card_description")} icon="wifi" anchor="wifi">
         <div slot="main">
           <div class="grid grid-cols-2 gap-4">
             <TextSetting class="col-span-2 sm:col-span-1" title={$_("settings.wifi.ssid")} bind:value={settings_wifi_ssid} />
@@ -107,7 +105,7 @@
         </div>
       </CardSetting>
 
-      <CardSetting title={$_("settings.ftp.card_title")} description={$_("settings.ftp.card_description")} icon="folder-open">
+      <CardSetting title={$_("settings.ftp.card_title")} description={$_("settings.ftp.card_description")} icon="folder-open" anchor="ftp">
         <div slot="main">
           <div class="relative grid grid-cols-2 gap-4">
             <TextSetting class="col-span-2 sm:col-span-1" title={$_("common.username")} bind:value={settings_ftp_username} />
@@ -120,7 +118,7 @@
         </div>
       </CardSetting>
 
-      <CardSetting title={$_("settings.mqtt.card_title")} description={$_("settings.mqtt.card_description")} icon="server">
+      <CardSetting title={$_("settings.mqtt.card_title")} description={$_("settings.mqtt.card_description")} icon="server" anchor="mqtt">
         <div slot="main">
           <div class="relative grid grid-cols-4 gap-4">
             <TextSetting class="col-span-4 sm:col-span-3" title={$_("common.server")} bind:value={settings_mqtt_host} />

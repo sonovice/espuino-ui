@@ -4,7 +4,7 @@
   export let text;
   export let icon;
   export let value;
-  export let unit = "%";
+  export let unit = "";
   export let min = "0";
   export let max = "100";
   export let step = "1";
