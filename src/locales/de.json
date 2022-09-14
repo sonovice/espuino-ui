@@ -1,0 +1,57 @@
+{
+  "control": {
+    "page_name": "Steuerung"
+  },
+  "rfid": {
+    "page_name": "RFID"
+  },
+  "settings": {
+    "page_name": "Einstellungen",
+    "general": {
+      "card_title": "Allgemein",
+      "card_description": "Standard-, Grenz- und Schwellwerte für den allgemeinen Betrieb.",
+      "volume": "Lautstärke",
+      "volume_after_start": "Lautstärke nach dem Starten",
+      "volume_max_speaker": "Maximale Lautstärke für Lautsprecher",
+      "volume_max_headphones": "Maximale Lautstärke für Kopfhörer",
+      "led_neopixel": "LED (NeoPixel)",
+      "brightness_start": "Helligkeit nach dem Starten",
+      "brightness_night": "Helligkeit im Nachtmodus",
+      "sleep_timer": "Sleep-Timer",
+      "minutes_inactivity": "Minuten der Inaktivität zum Ausschalten",
+      "battery": "Akku",
+      "battery_low": "Geringste Spannung (eine LED an)",
+      "battery_high": "Höchste Spannung (alle LEDs an)",
+      "battery_warning": "Spannungsgrenzwert für Warnung",
+      "battery_interval": "Messintervall"
+    },
+    "wifi": {
+      "card_title": "WLAN",
+      "card_description": "WLAN Zugangsdaten, um diese Oberfläche zugänglich zu machen und Internet zur Verfügung zu stellen für Streaming.",
+      "ssid": "SSID (Names des Netzes)",
+      "hostname": "Hostname (Name, über den diese Oberfläche im Netz erreichbar ist)"
+    },
+    "ftp": {
+      "card_title": "FTP",
+      "card_description": "Der FTP-Server ermöglicht Dateiübertragung von und zum ESPuino mithilfe üblicher FTP-Clients.",
+      "start_server": "Starte Server"
+    },
+    "mqtt": {
+      "card_title": "MQTT",
+      "card_description": "Integration des ESPuino in Hausautomationeno oder andere Systeme über das MQTT-Protokoll."
+    }
+  },
+  "system": {
+    "page_name": "System"
+  },
+  "common": {
+    "reset": "Zurücksetzen",
+    "save": "Speichern",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "server": "Server",
+    "port": "Port",
+    "optional": "optional",
+    "community": "Community"
+  }
+}

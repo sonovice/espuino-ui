@@ -1,0 +1,57 @@
+{
+  "control": {
+    "page_name": "Control"
+  },
+  "rfid": {
+    "page_name": "RFID"
+  },
+  "settings": {
+    "page_name": "Settings",
+    "general": {
+      "card_title": "General",
+      "card_description": "Default values, limits and thresholds for general operation.",
+      "volume": "Volume",
+      "volume_after_start": "Volume after start",
+      "volume_max_speaker": "Maximum volume for speaker",
+      "volume_max_headphones": "Maximum volume for headphones",
+      "led_neopixel": "LED (NeoPixel)",
+      "brightness_start": "Brightness after start",
+      "brightness_night": "Brightness in night mode",
+      "sleep_timer": "Sleep timer",
+      "minutes_inactivity": "Minutes of inactivity until sleep",
+      "battery": "Battery",
+      "battery_low": "Lowest voltage indicated by a single LED",
+      "battery_high": "Highest voltage indicated by all LEDs",
+      "battery_warning": "Low battery warning threshold",
+      "battery_interval": "Measurement interval in minutes"
+    },
+    "wifi": {
+      "card_title": "WiFi",
+      "card_description": "WiFi access data to enable this web interface and grant access to the internet for streaming.",
+      "ssid": "SSID (network name)",
+      "hostname": "Hostname (name to access over network)"
+    },
+    "ftp": {
+      "card_title": "FTP",
+      "card_description": "The FTP server allows file transfers from and to the ESPuino using common FTP clients.",
+      "start_server": "Start server"
+    },
+    "mqtt": {
+      "card_title": "MQTT",
+      "card_description": "Integrate the ESPuino into home automation or other systems via the MQTT protocol."
+    }
+  },
+  "system": {
+    "page_name": "System"
+  },
+  "common": {
+    "reset": "Reset",
+    "save": "Save",
+    "username": "Username",
+    "password": "Password",
+    "server": "Server",
+    "port": "Port",
+    "optional": "optional",
+    "community": "Community"
+  }
+}
