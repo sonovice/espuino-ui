@@ -1,8 +1,8 @@
 <script>
   import { _ } from 'svelte-i18n';
 
-  import TopNavigation from "./components/TopNavigation.svelte";
-  import BottomNavigation from "./components/BottomNavigation.svelte";
+  import TopNavigation from "./components/NavigationTop.svelte";
+  import BottomNavigation from "./components/NavigationBottom.svelte";
   import Control from "./pages/Control.svelte";
   import Settings from "./pages/Settings.svelte";
   import Rfid from "./pages/Rfid.svelte";

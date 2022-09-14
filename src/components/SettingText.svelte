@@ -1,0 +1,14 @@
+<script>
+  export let title;
+  export let value;
+  export let type = "text";
+
+  function typeAction(node) {
+    node.type = type;
+  }
+</script>
+
+<div class={$$props.class}>
+  <span class="block text-sm font-medium text-zinc-700">{title}</span>
+  <input use:typeAction bind:value={value} class="block w-full mt-1 rounded-md shadow-sm border-zinc-300 focus:border-orange-500 focus:ring-orange-500 sm:text-sm">
+</div>
