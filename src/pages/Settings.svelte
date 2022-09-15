@@ -192,10 +192,10 @@
             <div class="absolute top-0 left-0 z-10 w-full h-full bg-opacity-60 bg-zinc-50" />
           {/if}
           <div class="relative grid grid-cols-4 gap-4">
-            <SettingText class="col-span-4 sm:col-span-3" title={$_("common.server")} bind:value={settings.mqtt.host} />
-            <SettingText class="col-span-4 sm:col-span-1" title={$_("common.port")} bind:value={settings.mqtt.port} type="number" />
-            <SettingText class="col-span-4 sm:col-span-2" title="{$_('common.username')} ({$_('common.optional')})" bind:value={settings.mqtt.username} />
-            <SettingText class="col-span-4 sm:col-span-2" title="{$_('common.password')} ({$_('common.optional')})" bind:value={settings.mqtt.password} type="password" />
+            <SettingText class="col-span-4 sm:col-span-3" title={$_("common.server")} bind:value={settings.mqtt.host} disabled={!settings.mqtt.enabled} />
+            <SettingText class="col-span-4 sm:col-span-1" title={$_("common.port")} bind:value={settings.mqtt.port} type="number" disabled={!settings.mqtt.enabled} />
+            <SettingText class="col-span-4 sm:col-span-2" title="{$_('common.username')} ({$_('common.optional')})" bind:value={settings.mqtt.username} disabled={!settings.mqtt.enabled} />
+            <SettingText class="col-span-4 sm:col-span-2" title="{$_('common.password')} ({$_('common.optional')})" bind:value={settings.mqtt.password} type="password" disabled={!settings.mqtt.enabled} />
           </div>
         </div>
         <div slot="actions" class="flex items-center justify-between"><!-- TODO Add enable thingy to bottom left-->
@@ -203,10 +203,10 @@
             <ToggleButton text="Enable" bind:enabled={settings.mqtt.enabled} />
           </div>
           <div>
-            <button class="mr-2 button-secondary" on:click={() => get_settings("mqtt")}>
+            <button class="mr-2 button-secondary" on:click={() => get_settings("mqtt")} disabled={!settings.mqtt.enabled}>
               {$_("common.reset")}
             </button>
-            <button class="button-primary" on:click={() => set_settings({mqtt: settings.mqtt})}>
+            <button class="button-primary" on:click={() => set_settings({mqtt: settings.mqtt})} disabled={!settings.mqtt.enabled}>
               {$_("common.save")}
             </button>
           </div>
