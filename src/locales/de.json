@@ -48,7 +48,10 @@
       "import_backup": "Backup-Datei importieren",
       "import": "Importieren",
       "update_firmware": "Firmware updaten",
-      "update": "Updaten"
+      "update": "Updaten",
+      "delete_links_description": "Über den Importer werden nur neue Einträge eingefügt, aber alte nicht gelöscht. \nNur falls bereits eine alte Zuordnung zum selben Eintrag existiert, wird diese überschrieben. \nMit dieser Funktion werden alle bestehenden RFID-Links gelöscht.",
+      "import_backup_description": "Hier kann eine Sicherungsdatei hochgeladen werden, um NVS-RFID-Links zu importieren.",
+      "update_firmware_description": "Die Firmware kann hier aktualisiert werden."
     }
   },
   "common": {
