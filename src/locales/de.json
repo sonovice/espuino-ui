@@ -43,7 +43,7 @@
     "system": {
       "card_title": "System",
       "card_description": "Systemweite Einstellungen. Achtung, einige dieser Einstellungen können potentiell zu Datenverlust führen!",
-      "delete_assignments": "Alle RFID-Verknüpfungen löschen",
+      "delete_links": "Alle RFID-Verknüpfungen löschen",
       "delete": "Löschen",
       "import_backup": "Backup-Datei importieren",
       "import": "Importieren",
