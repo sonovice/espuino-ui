@@ -20,7 +20,7 @@
       transform: scale(1);
     }
   }
-  animation: button-pop var(--animation-btn, 0.15s) ease-out;
+  animation: button-pop var(--animation-btn, 0.10s) ease-out;
   &:active:hover,
   &:active:focus {
     animation: none;
@@ -41,9 +41,9 @@
 }
 
 .button-secondary {
-  @apply button text-white bg-zinc-500 hover:bg-zinc-600 focus:ring-orange-500
+  @apply button text-white bg-zinc-500 hover:bg-zinc-600 focus:ring-zinc-500
 }
 
 .button-warning {
-  @apply button text-red-700 bg-red-100 hover:bg-red-200 focus:ring-red-500
+  @apply button text-white bg-red-500 hover:bg-red-600 focus:ring-red-500
 }
