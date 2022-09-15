@@ -5,15 +5,13 @@
   import BottomNavigation from "./components/NavigationBottom.svelte";
   import Control from "./pages/Control.svelte";
   import Settings from "./pages/Settings.svelte";
-  import Rfid from "./pages/Rfid.svelte";
-  import System from "./pages/System.svelte";
+  import Collection from "./pages/Collection.svelte";
 
   const navigationPages = [
     // [id,      name,                     icon]
-    ["control",  $_("control.page_name"),  "music"],
-    ["rfid",     $_("rfid.page_name"),     "nfc"],
+    ["control",  $_("control.page_name"),  "play-pause"],
+    ["collecton",     $_("collection.page_name"),     "album-collection"],
     ["settings", $_("settings.page_name"), "sliders"],
-    ["system",   $_("system.page_name"),   "gear"],
   ];
 
   let current_page = "control";
@@ -29,9 +27,8 @@
 <main class="flex flex-col items-center flex-1 h-full overflow-y-auto">
   <div class="w-full pt-4 pb-4">
   <Control show={current_page === "control"}/>
-  <Rfid show={current_page === "rfid"}/>
+  <Collection show={current_page === "collection"}/>
   <Settings show={current_page === "settings"}/>
-  <System show={current_page === "system"}/>
 </div>
 </main>
 

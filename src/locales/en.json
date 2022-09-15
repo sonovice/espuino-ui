@@ -2,8 +2,8 @@
   "control": {
     "page_name": "Control"
   },
-  "rfid": {
-    "page_name": "RFID"
+  "collection": {
+    "page_name": "Collection"
   },
   "settings": {
     "page_name": "Settings",
@@ -33,16 +33,23 @@
     },
     "ftp": {
       "card_title": "FTP",
-      "card_description": "The FTP server allows file transfers from and to the ESPuino using common FTP clients.",
+      "card_description": "The FTP serve1r allows file transfers from and to the ESPuino using common FTP clients.",
       "start_server": "Start server"
     },
     "mqtt": {
       "card_title": "MQTT",
       "card_description": "Integrate the ESPuino into home automation or other systems via the MQTT protocol."
+    },
+    "system": {
+      "card_title": "System",
+      "card_description": "System-wide settings. Handle with care as some of these might delete important data!",
+      "delete_assignments": "Delete all RFID assignments",
+      "delete": "Delete",
+      "import_backup": "Import backup file",
+      "import": "Import",
+      "update_firmware": "Update firmware",
+      "update": "Update"
     }
-  },
-  "system": {
-    "page_name": "System"
   },
   "common": {
     "reset": "Reset",

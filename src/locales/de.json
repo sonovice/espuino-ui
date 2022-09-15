@@ -2,8 +2,8 @@
   "control": {
     "page_name": "Steuerung"
   },
-  "rfid": {
-    "page_name": "RFID"
+  "collection": {
+    "page_name": "Sammlung"
   },
   "settings": {
     "page_name": "Einstellungen",
@@ -34,15 +34,22 @@
     "ftp": {
       "card_title": "FTP",
       "card_description": "Der FTP-Server ermöglicht Dateiübertragung von und zum ESPuino mithilfe üblicher FTP-Clients.",
-      "start_server": "Starte Server"
+      "start_server": "Server starten"
     },
     "mqtt": {
       "card_title": "MQTT",
-      "card_description": "Integration des ESPuino in Hausautomationeno oder andere Systeme über das MQTT-Protokoll."
+      "card_description": "Integration des ESPuino in Hausautomationen oder andere Systeme über das MQTT-Protokoll."
+    },
+    "system": {
+      "card_title": "System",
+      "card_description": "Systemweite Einstellungen. Achtung, einige dieser Einstellungen können potentiell zu Datenverlust führen!",
+      "delete_assignments": "Alle RFID-Verknüpfungen löschen",
+      "delete": "Löschen",
+      "import_backup": "Backup-Datei importieren",
+      "import": "Importieren",
+      "update_firmware": "Firmware updaten",
+      "update": "Updaten"
     }
-  },
-  "system": {
-    "page_name": "System"
   },
   "common": {
     "reset": "Zurücksetzen",

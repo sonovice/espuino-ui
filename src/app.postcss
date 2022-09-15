@@ -1,11 +1,42 @@
 /* Write your global styles here, in PostCSS syntax */
 
 @tailwind base;
-
 @tailwind components;
-
 @tailwind utilities;
 
 :root, html, body {
-  @apply bg-zinc-100 h-full;
+  @apply h-full bg-zinc-100;
 }
+
+.button-animate {
+  @keyframes button-pop {
+    0% {
+      transform: scale(var(--btn-focus-scale, 0.95));
+    }
+    50% {
+      transform: scale(1.02);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  animation: button-pop var(--animation-btn, 0.15s) ease-out;
+  &:active:hover,
+  &:active:focus {
+    animation: none;
+  }
+  &:active:hover,
+  &:active:focus {
+    transform: scale(var(--btn-focus-scale, 0.95));
+  }
+
+}
+
+.button-primary {
+  @apply button-animate inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-orange-500 border border-transparent rounded-md shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2
+}
+
+.button-secondary {
+  @apply button-animate inline-flex justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-zinc-500 hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2
+}
+

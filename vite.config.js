@@ -11,7 +11,6 @@ export default defineConfig({
     viteSingleFile(),
     viteCompression({
       algorithm: "brotliCompress",
-      deleteOriginFile: true,
     })
   ]
 })

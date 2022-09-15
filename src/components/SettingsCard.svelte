@@ -7,8 +7,8 @@
   export let anchor = ""
 </script>
 
-<div id={anchor} class="relative overflow-hidden shadow sm:rounded-md">          
-  <Icon name={icon} style="solid" class="absolute w-40 -right-3 -top-3 text-zinc-100 -rotate-6"/>
+<div id={anchor} class="relative overflow-hidden shadow sm:rounded-md">
+  <Icon name={icon} style="solid" class="absolute w-40 -right-3 -top-3 text-zinc-50 -rotate-6"/>
   <div class="px-4 py-5 space-y-6 bg-white sm:p-6">
     <div>
       <h3 class="relative text-lg font-medium leading-6">{title}</h3>
