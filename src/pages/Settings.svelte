@@ -52,11 +52,11 @@
   
   // Get settings from backend
   // If `group` is provided, ask only for that subset
-  async function get_settings(group = undefined) {
+  function get_settings(group = undefined) {
     let endpoint = "https://run.mocky.io/v3/bbe6b393-b162-473b-b8dc-69e3c1d56844"; // TODO replace with "/api/settings"
     if (group !== undefined) endpoint += `?group=${group}`;
 
-    await axios.get(endpoint)
+    axios.get(endpoint)
       .then((response) => {
         settings = { ...settings, ...response.data }; // Update local settings with response data
       })
@@ -67,11 +67,17 @@
 
   // Send settings to backend
   // Data might only contain partial settings -> Backend takes care of this
-  async function set_settings(data) {
-    await axios.put("/api/settings", data)
+  function set_settings(data) {
+    console.log(data);
+    axios.put("/api/settings", data)
       .catch((error) => {
         console.log(error) // TODO handle errors
       });
+  }
+
+  function enable_ftp() {
+    settings.ftp.enabled = true;
+    set_settings({ftp: settings.ftp});
   }
 
   function read_file(accept, callback) {
@@ -91,10 +97,13 @@
     input.click();
   }
 
-  function upload_firmware(data) {
-    // TODO send firmware to backend
-    console.log(data);
+  function upload_firmware() {
+    read_file(".bin", (content) => {
+      // TODO Actually upload firmware
+      console.log(content);
+    })
   }
+
 </script>
 
 
@@ -181,21 +190,21 @@
       <!-- FTP settings -->
       <CardSetting title={$_("settings.ftp.card_title")} description={$_("settings.ftp.card_description")} icon="folder-open" anchor="ftp" class="relative">
         <div slot="main">
-          {#if !settings.ftp.enabled}
+          {#if settings.ftp.enabled}
             <div class="absolute top-0 left-0 z-10 flex items-center justify-center w-full h-full px-4 text-lg font-medium leading-6 text-center bg-opacity-95 bg-zinc-50 text-zinc-500">
               {$_("settings.ftp.server_started")}
             </div>
           {/if}
           <div class="relative grid grid-cols-2 gap-4">
-            <SettingText class="col-span-2 sm:col-span-1" title={$_("common.username")} bind:value={settings.ftp.username} disabled={!settings.ftp.enabled} />
-            <SettingText class="col-span-2 sm:col-span-1" title={$_("common.password")} bind:value={settings.ftp.password} type="password" disabled={!settings.ftp.enabled} />
+            <SettingText class="col-span-2 sm:col-span-1" title={$_("common.username")} bind:value={settings.ftp.username} disabled={settings.ftp.enabled} />
+            <SettingText class="col-span-2 sm:col-span-1" title={$_("common.password")} bind:value={settings.ftp.password} type="password" disabled={settings.ftp.enabled} />
           </div>
         </div>
         <div slot="actions" class="flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
-          <button class="button-secondary" on:click={() => get_settings("ftp")} disabled={!settings.ftp.enabled}>
+          <button class="button-secondary" on:click={() => get_settings("ftp")} disabled={settings.ftp.enabled}>
               {$_("common.reset")}
             </button>
-            <button class="button-primary" on:click={() => set_settings({ftp: settings.ftp})} disabled={!settings.ftp.enabled}>
+            <button class="button-primary" on:click={enable_ftp} disabled={settings.ftp.enabled}>
               {$_("settings.ftp.start_server")}
             </button>
         </div>
@@ -234,7 +243,7 @@
         <div class="relative space-y-6" slot="main">
           <SettingButton name={$_("settings.system.delete_links")} description={$_("settings.system.delete_links_description")} buttonText={$_("settings.system.delete")} buttonClass="button-warning" />
           <SettingButton name={$_("settings.system.import_backup")} description={$_("settings.system.import_backup_description")} buttonText={$_("settings.system.import")} buttonClass="button-warning" />
-          <SettingButton name={$_("settings.system.update_firmware")} description={$_("settings.system.update_firmware_description")} buttonText={$_("settings.system.update")} buttonClass="button-warning" on:click={() => read_file(".bin", upload_firmware)} />
+          <SettingButton name={$_("settings.system.update_firmware")} description={$_("settings.system.update_firmware_description")} buttonText={$_("settings.system.update")} buttonClass="button-warning" on:click={upload_firmware} />
         </div>
       </CardSetting>
     </div>
