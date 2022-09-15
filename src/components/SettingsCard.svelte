@@ -17,7 +17,7 @@
     <slot name="main" />
   </div>
   {#if $$slots.actions}
-    <div class="px-4 py-3 text-right bg-zinc-50 sm:px-6">
+    <div class="px-4 py-3 bg-zinc-50 sm:px-6">
       <slot name="actions"/>
     </div>
   {/if}

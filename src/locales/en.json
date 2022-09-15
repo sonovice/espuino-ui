@@ -33,7 +33,9 @@
     },
     "ftp": {
       "card_title": "FTP",
-      "card_description": "The FTP server allows file transfers from and to the ESPuino using common FTP clients."
+      "card_description": "The FTP server allows file transfers from and to the ESPuino using common FTP clients.",
+      "start_server": "Start server",
+      "server_started": "FTP server is enabled. It will be disabled on next boot."
     },
     "mqtt": {
       "card_title": "MQTT",
@@ -43,13 +45,13 @@
       "card_title": "System",
       "card_description": "System-wide settings. Handle with care as some of these might delete important data!",
       "delete_links": "Delete all RFID links",
-      "delete_links_description": "Via importer new entries will only be inserted but old ones won't be erased. Only in case an old assignment to the same entry already exists, it will be overwritten. With this function all existing rfid-links will be erased.",
+      "delete_links_description": "This function will delete ALL RFID links. Potentially useful before importing a backup.",
       "delete": "Delete",
       "import_backup": "Import backup file",
-      "import_backup_description": "Backupfile can be uploaded right here in order to import NVS-RFID-links.",
+      "import_backup_description": "The ESPuino automatically saves all RFID links on the SD card.",
       "import": "Import",
       "update_firmware": "Update firmware",
-      "update_firmware_description": "Firmware can be updated right here.",
+      "update_firmware_description": "The firmware of the ESPuino can be updated over-the-air.",
       "update": "Update"
     }
   },

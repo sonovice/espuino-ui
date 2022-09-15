@@ -19,9 +19,9 @@
     <p class="text-sm text-gray-500">{description}</p>
   </div>
 
-  <div class="text-right">
+  <div>
     <div class="items-center mt-1 sm:mt-0 sm:ml-6">
-      <button class="{buttonClass} w-24" on:click={on_click}>{buttonText}</button>
+      <button class="{buttonClass} w-full sm:w-24" on:click={on_click}>{buttonText}</button>
     </div>
   </div>
 </div>
