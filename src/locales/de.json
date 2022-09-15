@@ -33,8 +33,7 @@
     },
     "ftp": {
       "card_title": "FTP",
-      "card_description": "Der FTP-Server ermöglicht Dateiübertragung von und zum ESPuino mithilfe üblicher FTP-Clients.",
-      "start_server": "Server starten"
+      "card_description": "Der FTP-Server ermöglicht Dateiübertragung von und zum ESPuino mithilfe üblicher FTP-Clients."
     },
     "mqtt": {
       "card_title": "MQTT",
@@ -62,6 +61,7 @@
     "server": "Server",
     "port": "Port",
     "optional": "optional",
-    "community": "Community"
+    "community": "Community",
+    "enable": "Aktivieren"
   }
 }

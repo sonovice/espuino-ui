@@ -9,7 +9,7 @@
   export let buttonClass;
 
   function on_click() {
-    dispatch("click")
+    dispatch("click");
   }
 </script>
 

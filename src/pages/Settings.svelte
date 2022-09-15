@@ -13,6 +13,7 @@
   
   export let show;
 
+
   let settings = {
     general: {
       volume_start_percent: undefined,
@@ -32,6 +33,7 @@
       hostname: undefined,
     },
     ftp: {
+      enabled: undefined,
       username: undefined,
       password: undefined,
     },
@@ -45,25 +47,31 @@
   };
 
   onMount(async () => {
-    // Get all settings from backend on page load
-    get_settings();
+    get_settings(); // Get all settings from backend on page load
   });
-
+  
   // Get settings from backend
   // If `group` is provided, ask only for that subset
   async function get_settings(group = undefined) {
-    let url = "https://run.mocky.io/v3/c8c837ba-8515-400b-ae6e-7d0e665778a6"; // TODO replace with "/api/settings"
-    if (group !== undefined) url += `?group=${group}`;
+    let endpoint = "https://run.mocky.io/v3/bbe6b393-b162-473b-b8dc-69e3c1d56844"; // TODO replace with "/api/settings"
+    if (group !== undefined) endpoint += `?group=${group}`;
 
-    await axios.get(url).then((response) => {
-      settings = { ...settings, ...response.data };
-    });
+    await axios.get(endpoint)
+      .then((response) => {
+        settings = { ...settings, ...response.data }; // Update local settings with response data
+      })
+      .catch((error) => {
+        console.log(error) // TODO handle errors
+      })
   }
 
   // Send settings to backend
   // Data might only contain partial settings -> Backend takes care of this
   async function set_settings(data) {
-    await axios.put("/api/settings", data);
+    await axios.put("/api/settings", data)
+      .catch((error) => {
+        console.log(error) // TODO handle errors
+      });
   }
 
   function read_file(accept, callback) {
@@ -88,6 +96,9 @@
     console.log(data);
   }
 </script>
+
+
+
 
 <div class="{show ? 'block' : 'hidden'} max-w-5xl mx-auto">
   <div class="flex flex-col justify-center md:flex-row">
@@ -168,20 +179,28 @@
       </CardSetting>
 
       <!-- FTP settings -->
-      <CardSetting title={$_("settings.ftp.card_title")} description={$_("settings.ftp.card_description")} icon="folder-open" anchor="ftp">
+      <CardSetting title={$_("settings.ftp.card_title")} description={$_("settings.ftp.card_description")} icon="folder-open" anchor="ftp" class="relative">
         <div slot="main">
+          {#if !settings.ftp.enabled}
+            <div class="absolute top-0 left-0 z-10 w-full h-full bg-opacity-60 bg-zinc-50" />
+          {/if}
           <div class="relative grid grid-cols-2 gap-4">
-            <SettingText class="col-span-2 sm:col-span-1" title={$_("common.username")} bind:value={settings.ftp.username} />
-            <SettingText class="col-span-2 sm:col-span-1" title={$_("common.password")} bind:value={settings.ftp.password} type="password" />
+            <SettingText class="col-span-2 sm:col-span-1" title={$_("common.username")} bind:value={settings.ftp.username} disabled={!settings.ftp.enabled} />
+            <SettingText class="col-span-2 sm:col-span-1" title={$_("common.password")} bind:value={settings.ftp.password} type="password"  disabled={!settings.ftp.enabled} />
           </div>
         </div>
-        <div slot="actions">
-          <button class="mr-2 button-secondary" on:click={() => get_settings("ftp")}>
-            {$_("common.reset")}
-          </button>
-          <button class="button-primary" on:click={() => set_settings({ftp: settings.ftp})}>
-            {$_("settings.ftp.start_server")}
-          </button>
+        <div slot="actions" class="flex items-center justify-between">
+          <div class="relative z-10">
+            <ToggleButton text={$_("common.enable")} bind:enabled={settings.ftp.enabled} on:toggle={() => set_settings({ftp: {enabled: settings.ftp.enabled}})} />
+          </div>
+          <div>
+            <button class="mr-2 button-secondary" on:click={() => get_settings("ftp")} disabled={!settings.ftp.enabled}>
+              {$_("common.reset")}
+            </button>
+            <button class="button-primary" on:click={() => set_settings({ftp: settings.ftp})} disabled={!settings.ftp.enabled}>
+              {$_("common.save")}
+            </button>
+          </div>
         </div>
       </CardSetting>
 
@@ -198,9 +217,9 @@
             <SettingText class="col-span-4 sm:col-span-2" title="{$_('common.password')} ({$_('common.optional')})" bind:value={settings.mqtt.password} type="password" disabled={!settings.mqtt.enabled} />
           </div>
         </div>
-        <div slot="actions" class="flex items-center justify-between"><!-- TODO Add enable thingy to bottom left-->
+        <div slot="actions" class="flex items-center justify-between">
           <div class="relative z-10">
-            <ToggleButton text="Enable" bind:enabled={settings.mqtt.enabled} />
+            <ToggleButton text={$_("common.enable")} bind:enabled={settings.mqtt.enabled} on:toggle={() => set_settings({mqtt: {enabled: settings.mqtt.enabled}})} />
           </div>
           <div>
             <button class="mr-2 button-secondary" on:click={() => get_settings("mqtt")} disabled={!settings.mqtt.enabled}>

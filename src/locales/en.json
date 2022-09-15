@@ -33,8 +33,7 @@
     },
     "ftp": {
       "card_title": "FTP",
-      "card_description": "The FTP server allows file transfers from and to the ESPuino using common FTP clients.",
-      "start_server": "Start server"
+      "card_description": "The FTP server allows file transfers from and to the ESPuino using common FTP clients."
     },
     "mqtt": {
       "card_title": "MQTT",
@@ -62,6 +61,7 @@
     "server": "Server",
     "port": "Port",
     "optional": "optional",
-    "community": "Community"
+    "community": "Community",
+    "enable": "Enable"
   }
 }
