@@ -8,10 +8,10 @@
   import Collection from "./pages/Collection.svelte";
 
   const navigationPages = [
-    // [id,      name,                     icon]
-    ["control",  $_("control.page_name"),  "play-pause"],
-    ["collecton",     $_("collection.page_name"),     "album-collection"],
-    ["settings", $_("settings.page_name"), "sliders"],
+    // [id,       name,                        icon]
+    ["control",   $_("control.page_name"),    "play-pause"],
+    ["collecton", $_("collection.page_name"), "album-collection"],
+    ["settings",  $_("settings.page_name"),   "sliders"],
   ];
 
   let current_page = "control";
