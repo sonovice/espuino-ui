@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { _ } from "svelte-i18n";
+  import axios from "axios";
 
   import CardSetting from "../components/SettingsCard.svelte";
   import Divider from "../components/Divider.svelte";
@@ -8,8 +9,8 @@
   import SettingButton from "../components/SettingButton.svelte";
   import SettingRange from "../components/SettingRange.svelte";
   import SettingText from "../components/SettingText.svelte";
-  import axios from "axios";
-
+  import ToggleButton from "../components/ToggleButton.svelte";
+  
   export let show;
 
   let settings = {
@@ -113,7 +114,6 @@
             <SettingRange text={$_("settings.general.volume_max_speaker")} bind:value={settings.general.volume_max_speaker_percent} icon="speaker" step="5" unit="%" />
             <SettingRange text={$_("settings.general.volume_max_headphones")} bind:value={settings.general.volume_max_headphones_percent} icon="headphones" step="5" unit="%" />
           </div>
-
           <Divider />
 
           <!-- LED (NeoPixel) -->
@@ -122,13 +122,11 @@
             <SettingRange text={$_("settings.general.brightness_start")} bind:value={settings.general.led_restart_percent} icon="brightness" step="1" unit="%" />
             <SettingRange text={$_("settings.general.brightness_night")} bind:value={settings.general.led_night_percent} icon="brightness-low" step="1" unit="%" />
           </div>
-
           <Divider />
 
           <!-- Power saving -->
           <h4 class="mb-4 font-medium">{$_("settings.general.power_saving")}</h4>
           <SettingRange text={$_("settings.general.minutes_inactivity")} bind:value={settings.general.power_saving_minutes} icon="snooze" min="5" max="120" step="5" unit="m" />
-
           <Divider />
 
           <!-- Battery -->
@@ -188,8 +186,11 @@
       </CardSetting>
 
       <!-- MQTT settings -->
-      <CardSetting title={$_("settings.mqtt.card_title")} description={$_("settings.mqtt.card_description")} icon="server" anchor="mqtt">
+      <CardSetting title={$_("settings.mqtt.card_title")} description={$_("settings.mqtt.card_description")} icon="server" anchor="mqtt" class="relative">
         <div slot="main">
+          {#if !settings.mqtt.enabled}
+            <div class="absolute top-0 left-0 z-10 w-full h-full bg-opacity-60 bg-zinc-50" />
+          {/if}
           <div class="relative grid grid-cols-4 gap-4">
             <SettingText class="col-span-4 sm:col-span-3" title={$_("common.server")} bind:value={settings.mqtt.host} />
             <SettingText class="col-span-4 sm:col-span-1" title={$_("common.port")} bind:value={settings.mqtt.port} type="number" />
@@ -197,13 +198,18 @@
             <SettingText class="col-span-4 sm:col-span-2" title="{$_('common.password')} ({$_('common.optional')})" bind:value={settings.mqtt.password} type="password" />
           </div>
         </div>
-        <div slot="actions">
-          <button class="mr-2 button-secondary" on:click={() => get_settings("mqtt")}>
-            {$_("common.reset")}
-          </button>
-          <button class="button-primary" on:click={() => set_settings({mqtt: settings.mqtt})}>
-            {$_("common.save")}
-          </button>
+        <div slot="actions" class="flex items-center justify-between"><!-- TODO Add enable thingy to bottom left-->
+          <div class="relative z-10">
+            <ToggleButton text="Enable" bind:enabled={settings.mqtt.enabled} />
+          </div>
+          <div>
+            <button class="mr-2 button-secondary" on:click={() => get_settings("mqtt")}>
+              {$_("common.reset")}
+            </button>
+            <button class="button-primary" on:click={() => set_settings({mqtt: settings.mqtt})}>
+              {$_("common.save")}
+            </button>
+          </div>
         </div>
       </CardSetting>
 
