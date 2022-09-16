@@ -12,8 +12,5 @@ export default defineConfig({
     viteCompression({
       algorithm: "brotliCompress",
     })
-  ],
-  build: {
-    outDir: "./docs"
-  }
+  ]
 })
