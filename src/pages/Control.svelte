@@ -16,8 +16,8 @@
       </div>
       <div class="flex flex-col justify-between w-full">
         <div class="my-4 ml-6">
-          <div class="text-lg font-medium sm:text-2xl">The Kids Aren't Alright</div>
-          <div class="text-md sm:text-lg">The Offspring</div>
+          <div class="text-lg font-medium sm:text-xl">The Kids Aren't Alright</div>
+          <div class="text-md">The Offspring</div>
         </div>
         <div class="flex flex-row items-center justify-around h-24 px-[5%] bg-zinc-50">
           <button class="p-2 rounded-full text-zinc-500 hover:text-zinc-600 focus:ring-4 focus:ring-zinc-500 focus:outline-none focus:ring-offset-2 focus:ring-offset-zinc-50">
