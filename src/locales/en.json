@@ -2,8 +2,8 @@
   "control": {
     "page_name": "Control"
   },
-  "collection": {
-    "page_name": "Collection"
+  "tags": {
+    "page_name": "Tags"
   },
   "settings": {
     "page_name": "Settings",

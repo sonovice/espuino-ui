@@ -2,8 +2,8 @@
   "control": {
     "page_name": "Steuerung"
   },
-  "collection": {
-    "page_name": "Sammlung"
+  "tags": {
+    "page_name": "Tags"
   },
   "settings": {
     "page_name": "Einstellungen",
