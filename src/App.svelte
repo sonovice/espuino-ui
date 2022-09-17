@@ -10,7 +10,7 @@
   const navigationPages = [
     // [id,       name,                        icon]
     ["control",   $_("control.page_name"),    "play-pause"],
-    ["collecton", $_("collection.page_name"), "album-collection"],
+    ["collecton", $_("collection.page_name"), "link"],
     ["settings",  $_("settings.page_name"),   "sliders"],
   ];
 

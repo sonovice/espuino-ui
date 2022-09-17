@@ -37,3 +37,6 @@ Dazu kommt noch ein `files` Endpoint, den ich erstmal etwas außen vor gelassen 
   POST: File upload
 ...
 ```
+
+# Minor ToDos
+- Replace DaisyUI with handmade range sliders without transparency

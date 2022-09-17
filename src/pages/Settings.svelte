@@ -123,8 +123,8 @@
       </div>
     </div>
 
-    <!-- General settings -->
     <div class="mx-0 space-y-6 sm:mx-4">
+      <!-- General settings -->
       <CardSetting title={$_("settings.general.card_title")} description={$_("settings.general.card_description")} icon="sliders" anchor="general">
         <div slot="main">
           <!-- Volume -->

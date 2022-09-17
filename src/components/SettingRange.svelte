@@ -1,7 +1,7 @@
 <script>
   import Icon from "./Icon.svelte";
 
-  export let text;
+  export let text = undefined;
   export let icon;
   export let value;
   export let unit = "";
@@ -14,7 +14,9 @@
 </script>
 
 <div class="space-y-1">
-  <span class="block text-sm font-medium text-zinc-700">{text}</span>
+  {#if text !== undefined}
+    <span class="block text-sm font-medium text-zinc-700">{text}</span>
+  {/if}
   <div class="flex items-center">
     <div class="flex-shrink-0 w-9">
       <Icon class="h-5 mx-auto text-zinc-800" name={icon} />
