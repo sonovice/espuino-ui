@@ -32,6 +32,7 @@
 
 }
 
+
 .button {
   @apply button-animate inline-flex justify-center items-center px-4 h-11 sm:h-9 text-sm font-medium border border-transparent rounded-md shadow-sm focus:ring-offset-2 focus:outline-none focus:ring-2
 }
@@ -46,4 +47,25 @@
 
 .button-warning {
   @apply button text-white bg-red-500 hover:bg-red-600 focus:ring-red-500
+}
+
+
+.range {
+  @apply w-full h-6 overflow-hidden bg-transparent rounded-full outline-none appearance-none;
+
+  &::-webkit-slider-runnable-track {
+    @apply w-full h-2 rounded-full bg-zinc-200;
+  }
+  &::-moz-range-track {
+    @apply w-full h-2 rounded-full bg-zinc-200;
+  }
+
+  &::-webkit-slider-thumb {
+    @apply relative w-6 h-6 text-orange-500 -translate-y-1/2 bg-white border-none rounded-full appearance-none top-1/2;
+    box-shadow: 0 0 0 3px inset, -100.6rem 0 0 100rem;
+  }
+  &::-moz-range-thumb {
+    @apply relative w-6 h-6 text-orange-500 bg-white border-none rounded-full appearance-none top-1/2;
+    box-shadow: 0 0 0 3px inset, -100.5.rem 0 0 100rem;
+  }
 }

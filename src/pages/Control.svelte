@@ -22,7 +22,7 @@
         />
       </div>
       <div class="relative flex flex-col justify-between w-full">
-        <div class="my-4 ml-6">
+        <div class="mx-4 my-4 sm:mx-6">
           <div class="text-lg font-medium sm:text-xl">The Kids Aren't Alright</div>
           <div class="text-md">The Offspring</div>
         </div>
