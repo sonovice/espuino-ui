@@ -136,8 +136,8 @@
           </div>
           <Divider />
 
-          <!-- LED (NeoPixel) -->
-          <h4 class="mb-4 font-medium">{$_("settings.general.led_neopixel")}</h4>
+          <!-- LED -->
+          <h4 class="mb-4 font-medium">{$_("settings.general.led")}</h4>
           <div class="space-y-6">
             <SettingRange text={$_("settings.general.brightness_start")} bind:value={settings.general.led_restart_percent} icon="brightness" step="1" unit="%" />
             <SettingRange text={$_("settings.general.brightness_night")} bind:value={settings.general.led_night_percent} icon="brightness-low" step="1" unit="%" />

@@ -14,7 +14,7 @@
       "volume_after_start": "Lautstärke nach dem Starten",
       "volume_max_speaker": "Maximale Lautstärke für Lautsprecher",
       "volume_max_headphones": "Maximale Lautstärke für Kopfhörer",
-      "led_neopixel": "LED (NeoPixel)",
+      "led": "LED",
       "brightness_start": "Helligkeit nach dem Starten",
       "brightness_night": "Helligkeit im Nachtmodus",
       "power_saving": "Stromsparmodus",

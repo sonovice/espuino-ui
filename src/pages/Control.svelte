@@ -53,7 +53,7 @@
     <Icon name="sliders" style="solid" class="absolute hidden w-32 sm:block -right-1 -top-3 text-zinc-50 -rotate-6"/>
     <div class="relative px-4 py-5 space-y-6">
       <SettingRange text="Volume" bind:value={volume} icon="volume" step="5" unit="%" />
-      <SettingRange text="LED brightness" bind:value={brightness} icon="brightness" step="5" unit="%" />
+      <SettingRange text="LED brightness" bind:value={brightness} icon="brightness" unit="%" />
     </div>
   </div>
 </div>
