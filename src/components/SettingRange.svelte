@@ -21,7 +21,7 @@
     <div class="flex-shrink-0 w-9">
       <Icon class="h-5 mx-auto text-zinc-800" name={icon} />
     </div>
-    <input type="range" class="range range-secondary" {min} {max} {step} bind:value />
+    <input type="range" class="range range-secondary range-lg sm:range-md" {min} {max} {step} bind:value />
     <span class="block ml-2 font-mono text-right w-14">{shown_value}{unit}</span>
   </div>
 </div>
