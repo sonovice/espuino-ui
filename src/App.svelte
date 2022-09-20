@@ -31,7 +31,7 @@
 <main class="flex flex-col items-center flex-1 h-full overflow-y-auto" bind:this={main_area}>
   <div class="w-full pt-4 pb-4">
     <Control show={current_page === "control"}/>
-    <Tags show={current_page === "collection"}/>
+    <Tags show={current_page === "tags"}/>
     <Settings show={current_page === "settings"}/>
   </div>
 </main>
