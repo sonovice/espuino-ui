@@ -29,12 +29,14 @@ function buildHeaderFile() {
       const compressed = zlib.brotliCompressSync(input);
       const ratio = compressed.length / input.length;
       const hexlified = compressed.toString("hex").match(/.{2}/g).map(c => "0x" + c).reverse().join(", ");
-      const output = `static const char HTML[] PROGMEM = {${hexlified}};`;
+      const output = `#define INDEX_HTML_LEN ${compressed.length}\nstatic const uint8_t INDEX_HTML[] PROGMEM = {${hexlified}};`;
       
       // Write header file only if a previous one exists
       // This avoids errors in development and GitHub actions
       if (fs.existsSync(outputPath)) {
         fs.writeFileSync(outputPath, output);
+      } else {
+        fs.writeFileSync(normalizePath(`${config.build.outDir}/index.h`), output);
       }
 
       config.logger.info(`\n${chalk.green("✓")} Compressed with Brotli: ${chalk.dim((compressed.length / 1024).toFixed(2) + " KiB (" + (ratio * 100).toFixed(1) + "%)")}`);

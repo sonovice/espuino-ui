@@ -8,7 +8,7 @@
   import Tags from "./pages/Tags.svelte";
 
   const navigationPages = [
-    // [id,       name,                        icon]
+    // [id,      name,                     icon]
     ["control",  $_("control.page_name"),  "play-pause"],
     ["tags",     $_("tags.page_name"),     "nfc"],
     ["settings", $_("settings.page_name"), "sliders"],
@@ -16,6 +16,8 @@
 
   let current_page = "control";
   let main_area;
+
+  const gateway = `ws://${window.location.hostname}/ws`;
 
   function changePage(event) {
     main_area.scrollTo(0, 0);

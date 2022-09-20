@@ -48,24 +48,3 @@
 .button-warning {
   @apply button text-white bg-red-500 hover:bg-red-600 focus:ring-red-500
 }
-
-
-.range {
-  @apply w-full overflow-hidden bg-transparent rounded-full outline-none appearance-none h-7 sm:h-6 hover:cursor-pointer;
-
-  &::-webkit-slider-runnable-track {
-    @apply w-full h-2 rounded-full bg-zinc-200;
-  }
-  &::-moz-range-track {
-    @apply w-full h-2 rounded-full bg-zinc-200;
-  }
-
-  &::-webkit-slider-thumb {
-    @apply relative text-orange-500 -translate-y-1/2 bg-white border-none rounded-full appearance-none w-7 sm:w-6 h-7 sm:h-6 top-1/2;
-    box-shadow: 0 0 0 3px inset, -100.6rem 0 0 100rem;
-  }
-  &::-moz-range-thumb {
-    @apply relative text-orange-500 bg-white border-none rounded-full appearance-none w-7 sm:w-6 h-7 sm:h-6 top-1/2;
-    box-shadow: 0 0 0 3px inset, -100.5.rem 0 0 100rem;
-  }
-}
