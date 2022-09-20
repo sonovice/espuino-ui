@@ -35,21 +35,28 @@
 </script>
 
 
-<div>
+<div class="">
   <div class="flex overflow-hidden" style="direction: rtl;">
     <div class="w-full"></div>
-    <!-- TODO Find better solution for right aligning the dir bar than "direction: rtl;"" -->
-    <div class="flex items-center py-1 text-left gap-x-1 whitespace-nowrap" style="direction: ltr;">
+    <!-- TODO What happens, if the folder name is to wide for a mobile screen? Need for a "back" button -->
+    <div class="flex items-center text-left whitespace-nowrap" style="direction: ltr;">
       {#each dir.split("/") as part, idx}
         {#if part !== ""}
           <span class="w-5 text-center sm:text-sm">/</span>
-          <button class="py-1 px-2 sm:text-sm rounded-md cursor-pointer h-9 sm:h-7 {selected_item === undefined && idx == dir.split('/').length - 1? 'bg-orange-500 text-white' : 'hover:bg-zinc-100'}"
+          <button class="px-2 sm:text-sm rounded-md cursor-pointer h-9 sm:h-7 {selected_item === undefined && idx == dir.split('/').length - 1? 'bg-orange-500 text-white' : 'hover:bg-zinc-100'}"
                 on:click={() => change_dir(idx)}>{part}</button>
         {/if}
       {/each}
     </div>
   </div>
-  <ul class="">
+  
+  <!-- Divider -->
+  <div class="py-2 divide-y divide-zinc-200">
+    <div />
+    <div />
+  </div>
+
+  <ul>
     {#each sorted_items as item}
       <li class="flex items-center px-2 py-1 h-9 sm:text-sm cursor-pointer sm:rounded-md sm:h-7 {selected_item == item ? 'bg-orange-500 hover:bg-orange-500 text-white' : 'hover:bg-zinc-100'}" on:click={() => select_item(item)}>
         <Icon class="flex-shrink-0 w-5 h-5" style="regular" name={item.type === "dir" ? "folder" : "file-audio"} />
