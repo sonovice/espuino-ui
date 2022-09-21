@@ -3,9 +3,9 @@
   import { _ } from "svelte-i18n";
   import axios from "axios";
 
-  import CardSetting from "../components/SettingsCard.svelte";
   import Divider from "../components/Divider.svelte";
   import Icon from "../components/Icon.svelte";
+  import SettingsCard from "../components/SettingsCard.svelte";
   import SettingButton from "../components/SettingButton.svelte";
   import SettingRange from "../components/SettingRange.svelte";
   import SettingText from "../components/SettingText.svelte";
@@ -125,7 +125,7 @@
 
     <div class="mx-0 space-y-6 sm:mx-4">
       <!-- General settings -->
-      <CardSetting title={$_("settings.general.card_title")} description={$_("settings.general.card_description")} icon="sliders" anchor="general">
+      <SettingsCard title={$_("settings.general.card_title")} description={$_("settings.general.card_description")} icon="sliders" anchor="general">
         <div slot="main">
           <!-- Volume -->
           <h4 class="mb-4 font-medium">{$_("settings.general.volume")}</h4>
@@ -166,10 +166,10 @@
             {$_("common.save")}
           </button>
         </div>
-      </CardSetting>
+      </SettingsCard>
 
       <!-- WiFi settings -->
-      <CardSetting title={$_("settings.wifi.card_title")} description={$_("settings.wifi.card_description")} icon="wifi"anchor="wifi">
+      <SettingsCard title={$_("settings.wifi.card_title")} description={$_("settings.wifi.card_description")} icon="wifi"anchor="wifi">
         <div slot="main">
           <div class="grid grid-cols-2 gap-4">
             <SettingText class="col-span-2 sm:col-span-1" title={$_("settings.wifi.ssid")} bind:value={settings.wifi.ssid} />
@@ -185,10 +185,10 @@
             {$_("common.save")}
           </button>
         </div>
-      </CardSetting>
+      </SettingsCard>
 
       <!-- FTP settings -->
-      <CardSetting title={$_("settings.ftp.card_title")} description={$_("settings.ftp.card_description")} icon="folder-open" anchor="ftp" class="relative">
+      <SettingsCard title={$_("settings.ftp.card_title")} description={$_("settings.ftp.card_description")} icon="folder-open" anchor="ftp" class="relative">
         <div slot="main">
           {#if settings.ftp.enabled}
             <div class="absolute top-0 left-0 z-10 flex items-center justify-center w-full h-full px-4 text-lg font-medium leading-6 text-center bg-opacity-95 bg-zinc-50 text-zinc-500">
@@ -208,10 +208,10 @@
               {$_("settings.ftp.start_server")}
             </button>
         </div>
-      </CardSetting>
+      </SettingsCard>
 
       <!-- MQTT settings -->
-      <CardSetting title={$_("settings.mqtt.card_title")} description={$_("settings.mqtt.card_description")} icon="server" anchor="mqtt" class="relative">
+      <SettingsCard title={$_("settings.mqtt.card_title")} description={$_("settings.mqtt.card_description")} icon="server" anchor="mqtt" class="relative">
         <div slot="main">
           {#if !settings.mqtt.enabled}
             <div class="absolute top-0 left-0 z-10 w-full h-full bg-opacity-60 bg-zinc-50" />
@@ -236,16 +236,16 @@
             </button>
           </div>
         </div>
-      </CardSetting>
+      </SettingsCard>
 
       <!-- System settings -->
-      <CardSetting title={$_("settings.system.card_title")} description={$_("settings.system.card_description")} icon="gear" anchor="system">
+      <SettingsCard title={$_("settings.system.card_title")} description={$_("settings.system.card_description")} icon="gear" anchor="system">
         <div class="relative space-y-6" slot="main">
           <SettingButton name={$_("settings.system.delete_links")} description={$_("settings.system.delete_links_description")} buttonText={$_("settings.system.delete")} buttonClass="button-warning" />
           <SettingButton name={$_("settings.system.import_backup")} description={$_("settings.system.import_backup_description")} buttonText={$_("settings.system.import")} buttonClass="button-warning" />
           <SettingButton name={$_("settings.system.update_firmware")} description={$_("settings.system.update_firmware_description")} buttonText={$_("settings.system.update")} buttonClass="button-warning" on:click={upload_firmware} />
         </div>
-      </CardSetting>
+      </SettingsCard>
     </div>
   </div>
 </div>
