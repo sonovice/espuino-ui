@@ -8,7 +8,7 @@
 <div class="{show ? '' : 'hidden'} max-w-3xl mx-auto space-y-6">
   <SettingsCard title="Files" icon="folder-open" description="Foo bar">
     <div slot="main" class="relative">
-      <FileViewer dir="/Music/Kids/Horror" />
+      <FileViewer dir="/Music/Kids/Horror" extensions={["mp3", "m4a", "wav"]}/>
     </div>
 </SettingsCard>
 </div>

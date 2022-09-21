@@ -6,6 +6,8 @@
   export let dir;
   export let selected_item = undefined;
 
+  export let extensions = []
+
   let breadcrumbs;
 
   $: selected_path = `${dir}/${selected_item !== undefined ? selected_item.name : ""}`;
@@ -18,10 +20,12 @@
     {type: "file", name: "02 Spooky Stories - We're out of milk.mp3"},
     {type: "dir", name: "Daddy did the cooking"},
     {type: "file", name: "README.md"},
+    {type: "file", name: "no_extension"},
+    {type: "file", name: "multiple.ext.ens.ions"},
     {type: "file", name: "Intro.mp3"},
   ];
   for (let i = 1; i < 100; i++) {
-    items.push({type: "file", name: `${String(i).padStart(2, "0")} Foobar.baz`});
+    items.push({type: "file", name: `${String(i).padStart(2, "0")} Foobar.mp3`});
   }
 
   $: sorted_items = items.sort((a, b) => (a.name < b.name) ? 1 : -1).sort((a, b) => (a.type > b.type) ? 1 : -1); // First by name, than by type
@@ -60,7 +64,8 @@
           {#if part !== ""}
             <span class="w-4 text-center sm:text-sm">/</span>
             <button class="px-2 sm:text-sm rounded-md cursor-pointer h-9 sm:h-7 {selected_item === undefined && idx == dir.split('/').length - 1 ? 'bg-orange-500 text-white' : 'hover:bg-zinc-200'}"
-                    on:click={() => go_up_dir(idx)}>{part}</button>
+                    on:click={() => go_up_dir(idx)}>{part}
+            </button>
           {/if}
         {/each}
       </div>
@@ -76,16 +81,17 @@
       </li>
     {/if}
     {#each sorted_items as item}
-      <li class="flex items-center px-4 py-1 h-9 sm:text-sm cursor-pointer sm:h-7 {selected_item == item ? 'bg-orange-500 hover:bg-orange-500 text-white' : 'hover:bg-zinc-100'}" on:click={() => select_item(item)}>
-        <Icon class="flex-shrink-0 w-5 h-5" style="regular" name={item.type === "dir" ? "folder" : "file-audio"} />
-        <span class="ml-2 truncate">{item.name}</span>
-      </li>
+      {#if item.type === "dir" || extensions.length == 0 || extensions.includes(item.name.split(".").pop().toLowerCase())}
+        <li class="flex items-center px-4 py-1 h-9 sm:text-sm cursor-pointer sm:h-7 {selected_item == item ? 'bg-orange-500 hover:bg-orange-500 text-white' : 'hover:bg-zinc-100'}" on:click={() => select_item(item)}>
+          <Icon class="flex-shrink-0 w-5 h-5" style="regular" name={item.type === "dir" ? "folder" : "file-audio"} />
+          <span class="ml-2 truncate">{item.name}</span>
+        </li>
+      {/if}
     {/each}
   </ul>
 </div>
 
 <!-- TODO Delete -->
-
 <div class="px-2 py-1 mt-3 space-y-2 font-mono text-xs border">
   <h4 class="font-bold">Debug</h4>
   <p>
