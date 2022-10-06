@@ -1,108 +1,108 @@
 <script>
-  import { onMount } from "svelte";
-  import { _ } from "svelte-i18n";
-  import axios from "axios";
+    import {onMount} from "svelte";
+    import {_} from "svelte-i18n";
+    import axios from "axios";
 
-  import Divider from "../components/Divider.svelte";
-  import Icon from "../components/Icon.svelte";
-  import SettingsCard from "../components/SettingsCard.svelte";
-  import SettingButton from "../components/SettingButton.svelte";
-  import SettingRange from "../components/SettingRange.svelte";
-  import SettingText from "../components/SettingText.svelte";
-  import ToggleButton from "../components/ToggleButton.svelte";
-  
-  export let show;
+    import Divider from "../components/Divider.svelte";
+    import Icon from "../components/Icon.svelte";
+    import SettingsCard from "../components/SettingsCard.svelte";
+    import SettingButton from "../components/SettingButton.svelte";
+    import SettingRange from "../components/SettingRange.svelte";
+    import SettingText from "../components/SettingText.svelte";
+    import ToggleButton from "../components/ToggleButton.svelte";
+
+    export let show;
 
 
-  let settings = {
-    general: {
-      volume_start_percent: undefined,
-      volume_max_speaker_percent: undefined,
-      volume_max_headphones_percent: undefined,
-      led_restart_percent: undefined,
-      led_night_percent: undefined,
-      power_saving_minutes: undefined,
-      battery_warning_voltage: undefined,
-      battery_low_voltage: undefined,
-      battery_high_voltage: undefined,
-      battery_interval_minutes: undefined,
-    },
-    wifi: {
-      ssid: undefined,
-      password: undefined,
-      hostname: undefined,
-    },
-    ftp: {
-      enabled: undefined,
-      username: undefined,
-      password: undefined,
-    },
-    mqtt: {
-      enabled: undefined,
-      host: undefined,
-      port: undefined,
-      username: undefined,
-      password: undefined,
-    },
-  };
+    let settings = {
+        general: {
+            volume_start_percent: undefined,
+            volume_max_speaker_percent: undefined,
+            volume_max_headphones_percent: undefined,
+            led_restart_percent: undefined,
+            led_night_percent: undefined,
+            power_saving_minutes: undefined,
+            battery_warning_voltage: undefined,
+            battery_low_voltage: undefined,
+            battery_high_voltage: undefined,
+            battery_interval_minutes: undefined,
+        },
+        wifi: {
+            ssid: undefined,
+            password: undefined,
+            hostname: undefined,
+        },
+        ftp: {
+            enabled: undefined,
+            username: undefined,
+            password: undefined,
+        },
+        mqtt: {
+            enabled: undefined,
+            host: undefined,
+            port: undefined,
+            username: undefined,
+            password: undefined,
+        },
+    };
 
-  onMount(async () => {
-    get_settings(); // Get all settings from backend on page load
-  });
-  
-  // Get settings from backend
-  // If `group` is provided, ask only for that subset
-  function get_settings(group = undefined) {
-    let endpoint = "https://run.mocky.io/v3/bbe6b393-b162-473b-b8dc-69e3c1d56844"; // TODO replace with "/api/settings"
-    if (group !== undefined) endpoint += `?group=${group}`;
+    onMount(async () => {
+        get_settings(); // Get all settings from backend on page load
+    });
 
-    axios.get(endpoint)
-      .then((response) => {
-        settings = { ...settings, ...response.data }; // Update local settings with response data
-      })
-      .catch((error) => {
-        console.log(error) // TODO handle errors
-      })
-  }
+    // Get settings from backend
+    // If `group` is provided, ask only for that subset
+    function get_settings(group = undefined) {
+        let endpoint = "https://run.mocky.io/v3/bbe6b393-b162-473b-b8dc-69e3c1d56844"; // TODO replace with "/api/settings"
+        if (group !== undefined) endpoint += `?group=${group}`;
 
-  // Send settings to backend
-  // Data might only contain partial settings -> Backend takes care of this
-  function set_settings(data) {
-    console.log(data);
-    axios.put("/api/settings", data)
-      .catch((error) => {
-        console.log(error) // TODO handle errors
-      });
-  }
-
-  function enable_ftp() {
-    settings.ftp.enabled = true;
-    set_settings({ftp: settings.ftp});
-  }
-
-  function read_file(accept, callback) {
-    let input = document.createElement("input");
-    input.type = "file";
-    input.accept = accept
-    input.onchange = (event) => {
-      // @ts-ignore
-      let file = event.target.files[0];
-      let reader = new FileReader();
-      reader.readAsBinaryString(file);
-      reader.onload = (readerEvent) => {
-        let content = readerEvent.target.result;
-        callback(content);
-      }
+        axios.get(endpoint)
+            .then((response) => {
+                settings = {...settings, ...response.data}; // Update local settings with response data
+            })
+            .catch((error) => {
+                console.log(error) // TODO handle errors
+            })
     }
-    input.click();
-  }
 
-  function upload_firmware() {
-    read_file(".bin", (content) => {
-      // TODO Actually upload firmware
-      console.log(content);
-    })
-  }
+    // Send settings to backend
+    // Data might only contain partial settings -> Backend takes care of this
+    function set_settings(data) {
+        console.log(data);
+        axios.put("/api/settings", data)
+            .catch((error) => {
+                console.log(error) // TODO handle errors
+            });
+    }
+
+    function enable_ftp() {
+        settings.ftp.enabled = true;
+        set_settings({ftp: settings.ftp});
+    }
+
+    function read_file(accept, callback) {
+        let input = document.createElement("input");
+        input.type = "file";
+        input.accept = accept
+        input.onchange = (event) => {
+            // @ts-ignore
+            let file = event.target.files[0];
+            let reader = new FileReader();
+            reader.readAsBinaryString(file);
+            reader.onload = (readerEvent) => {
+                let content = readerEvent.target.result;
+                callback(content);
+            }
+        }
+        input.click();
+    }
+
+    function upload_firmware() {
+        read_file(".bin", (content) => {
+            // TODO Actually upload firmware
+            console.log(content);
+        })
+    }
 
 </script>
 

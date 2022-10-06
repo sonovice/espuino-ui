@@ -5,6 +5,7 @@
 
   export let dir;
   export let selected_item = undefined;
+  export let selected_path = undefined;
 
   export let extensions = []
 
