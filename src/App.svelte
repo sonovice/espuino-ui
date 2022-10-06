@@ -20,12 +20,21 @@
     let main_area;
 
     let settings;
-    let isConnected = true;
+    let isConnected;
     let batteryLevel = 42;
 
 
     onMount(() => {
         const sse = new EventSource('/events');
+
+        sse.onopen = (e) => {
+            isConnected = true;
+        }
+
+        sse.onerror = (e) => {
+            isConnected = false;
+            // TODO show error message
+        }
 
         sse.addEventListener("status", (e) => {
             e.data // rssi, battery, battery loading status
