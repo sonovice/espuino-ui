@@ -105,7 +105,7 @@
         <div class="flex flex-col items-center space-y-4 w-full">
           {#if tag.id !== ""}
             <div class="text-green-400 text-lg font-bold">Tag detected</div>
-            <table class="text-sm w-full">
+            <table class="text-sm w-full sm:w-fit">
               <tr>
                 <th class="font-bold text-left w-1 align-text-top">ID:</th>
                 <td class="pl-3 font-mono">{tag.id}</td>
@@ -142,23 +142,19 @@
     </div>
 
     {#if tag.id}
-      <div class="flex flex-col sm:flex-row gap-2 px-4 py-3 bg-zinc-50 items-center">
-        <button class="button-secondary w-full flex flex-col sm:h-20" on:click={() => opened_modal="explorer"}>
-          <Icon name="folder-tree" style="solid" class="hidden sm:block h-5"/>
-          <span class="pt-1">Assign local path</span>
+      <div class="flex flex-col sm:flex-row gap-2 px-4 py-3 bg-zinc-50">
+        <button class="button button-secondary w-full sm:py-8" on:click={() => opened_modal="explorer"}>
+          Assign local path
         </button>
-        <button class="button-secondary w-full flex flex-col sm:h-20" on:click={() => opened_modal="stream"}>
-          <Icon name="cloud-music" style="solid" class="hidden sm:block h-5"/>
-          <span class="pt-1">Assign web stream</span>
+        <button class="button button-secondary w-full sm:py-8" on:click={() => opened_modal="stream"}>
+          Assign web stream
         </button>
-        <button class="button-secondary w-full flex flex-col sm:h-20" on:click={() => opened_modal="action"}>
-          <Icon name="rocket-launch" style="solid" class="hidden sm:block h-5"/>
-          <span class="pt-1">Assign action</span>
+        <button class="button button-secondary w-full sm:py-8" on:click={() => opened_modal="action"}>
+          Assign action
         </button>
         {#if "command" in tag}
-          <button class="button-warning w-full flex flex-col sm:h-20" on:click={() => opened_modal="remove"}>
-            <Icon name="trash" style="solid" class="hidden sm:block h-5"/>
-            <span class="pt-1">Remove assignment</span>
+          <button class="button button-warning w-full sm:py-8" on:click={() => opened_modal="remove"}>
+            Remove assignment
           </button>
         {/if}
       </div>
@@ -174,7 +170,7 @@
     <FileViewer dir="/Music/Kids/Horror" extensions={["mp3", "m4a", "wav"]} bind:selected_path/>
     <div class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
       <button class="button button-secondary" on:click={() => opened_modal=""}>Cancel</button>
-      <button class="button button-primary">Save</button>
+      <button class="button button-primary">Assign</button>
     </div>
   </div>
 </div>
@@ -187,7 +183,7 @@
     </div>
     <div class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
       <button class="button button-secondary" on:click={() => opened_modal=""}>Cancel</button>
-      <button class="button button-primary">Save</button>
+      <button class="button button-primary">Assign</button>
     </div>
   </div>
 </div>
@@ -207,7 +203,7 @@
     </div>
     <div class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
       <button class="button button-secondary" on:click={() => opened_modal=""}>Cancel</button>
-      <button class="button button-primary">Save</button>
+      <button class="button button-primary">Assign</button>
     </div>
   </div>
 </div>

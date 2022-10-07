@@ -51,7 +51,7 @@
 </script>
 
 
-<div class="overflow-hidden bg-white border border-zinc-100 flex flex-col">
+<div class="overflow-hidden bg-white flex flex-col">
 
   <!-- Directory breadcrumbs -->
   <div class="px-2 bg-zinc-100">
