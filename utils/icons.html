@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+</head>
+<body>
+<select name="style" id="style">
+  <option value="regular">Regular</option>
+  <option value="solid">Solid</option>
+</select>
+<input type="text" name="icon" id="name">
+<button onclick="getIcon()">Get</button>
+
+<script>
+    function getIcon() {
+        var style = document.getElementById("style").value;
+        var name = document.getElementById("name").value;
+
+        var url = `https://site-assets.fontawesome.com/releases/v6.2.0/svgs/${style}/${name}.svg`;
+        fetch(url)
+            .then((response) => response.text())
+            .then((svg) => {
+                var viewbox = svg.split('viewBox="')[1].split('"')[0];
+                var path = svg.split('-->')[1].split('</svg>')[0];
+
+                var json = `,\n"${name}": {\n    viewBox: "${viewbox}",\n    svg: \`${path}\`\n}`;
+                console.log(json);
+                navigator.clipboard.writeText(json);
+            })
+    }
+</script>
+
+</body>
+</html>
