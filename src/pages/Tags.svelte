@@ -23,9 +23,11 @@
     export let show;
     export let tag = {id: ""};
 
-    let opened_modal = "";
+    let openedModal = "remove";
 
-    let selected_path;
+    let selectedPath;
+    let selectedAction;
+    let webStreamUrl;
 
     // @formatter:off
     const TAG_TYPES = {
@@ -49,32 +51,32 @@
          8: {name: $_("tags.assignment_types.webstream"), type: TAG_TYPES.WEB_AUDIO},
 
         // Actions
-        179: {name: $_("tags.assignment_types.sleepmode"), type: TAG_TYPES.ACTION},
-        100: {name: $_("tags.assignment_types.lock_buttons_mod"), type: TAG_TYPES.ACTION},
-        101: {name: $_("tags.assignment_types.sleep_timer_mod_15"), type: TAG_TYPES.ACTION},
-        102: {name: $_("tags.assignment_types.sleep_timer_mod_30"), type: TAG_TYPES.ACTION},
-        103: {name: $_("tags.assignment_types.sleep_timer_mod_60"), type: TAG_TYPES.ACTION},
-        104: {name: $_("tags.assignment_types.sleep_timer_mod_120"), type: TAG_TYPES.ACTION},
-        105: {name: $_("tags.assignment_types.sleep_after_end_of_track"), type: TAG_TYPES.ACTION},
-        106: {name: $_("tags.assignment_types.sleep_after_end_of_playlist"), type: TAG_TYPES.ACTION},
-        107: {name: $_("tags.assignment_types.sleep_after_5_tracks"), type: TAG_TYPES.ACTION},
-        110: {name: $_("tags.assignment_types.repeat_playlist"), type: TAG_TYPES.ACTION},
-        111: {name: $_("tags.assignment_types.repeat_track"), type: TAG_TYPES.ACTION},
-        120: {name: $_("tags.assignment_types.dimm_leds_nightmode"), type: TAG_TYPES.ACTION},
-        130: {name: $_("tags.assignment_types.toggle_wifi_status"), type: TAG_TYPES.ACTION},
-        140: {name: $_("tags.assignment_types.toggle_bluetooth_mode"), type: TAG_TYPES.ACTION},
-        150: {name: $_("tags.assignment_types.enable_ftp_server"), type: TAG_TYPES.ACTION},
-        170: {name: $_("tags.assignment_types.playpause"), type: TAG_TYPES.ACTION},
-        171: {name: $_("tags.assignment_types.prevtrack"), type: TAG_TYPES.ACTION},
-        172: {name: $_("tags.assignment_types.nexttrack"), type: TAG_TYPES.ACTION},
-        173: {name: $_("tags.assignment_types.firsttrack"), type: TAG_TYPES.ACTION},
-        174: {name: $_("tags.assignment_types.lasttrack"), type: TAG_TYPES.ACTION},
-        175: {name: $_("tags.assignment_types.volumeinit"), type: TAG_TYPES.ACTION},
-        176: {name: $_("tags.assignment_types.volumeup"), type: TAG_TYPES.ACTION},
-        177: {name: $_("tags.assignment_types.volumedown"), type: TAG_TYPES.ACTION},
-        180: {name: $_("tags.assignment_types.seek_forwards"), type: TAG_TYPES.ACTION},
-        181: {name: $_("tags.assignment_types.seek_backwards"), type: TAG_TYPES.ACTION},
-        182: {name: $_("tags.assignment_types.stop"), type: TAG_TYPES.ACTION},
+        179: {name: $_("tags.assignment_types.sleepmode"), type: TAG_TYPES.ACTION, icon: "snooze"},
+        100: {name: $_("tags.assignment_types.lock_buttons_mod"), type: TAG_TYPES.ACTION, icon: "lock"},
+        101: {name: $_("tags.assignment_types.sleep_timer_mod_15"), type: TAG_TYPES.ACTION, icon: "snooze"},
+        102: {name: $_("tags.assignment_types.sleep_timer_mod_30"), type: TAG_TYPES.ACTION, icon: "snooze"},
+        103: {name: $_("tags.assignment_types.sleep_timer_mod_60"), type: TAG_TYPES.ACTION, icon: "snooze"},
+        104: {name: $_("tags.assignment_types.sleep_timer_mod_120"), type: TAG_TYPES.ACTION, icon: "snooze"},
+        105: {name: $_("tags.assignment_types.sleep_after_end_of_track"), type: TAG_TYPES.ACTION, icon: "snooze"},
+        106: {name: $_("tags.assignment_types.sleep_after_end_of_playlist"), type: TAG_TYPES.ACTION, icon: "snooze"},
+        107: {name: $_("tags.assignment_types.sleep_after_5_tracks"), type: TAG_TYPES.ACTION, icon: "snooze"},
+        110: {name: $_("tags.assignment_types.repeat_playlist"), type: TAG_TYPES.ACTION, icon: "repeat"},
+        111: {name: $_("tags.assignment_types.repeat_track"), type: TAG_TYPES.ACTION, icon: "repeat-1"},
+        120: {name: $_("tags.assignment_types.dimm_leds_nightmode"), type: TAG_TYPES.ACTION, icon: "brightness-low"},
+        130: {name: $_("tags.assignment_types.toggle_wifi_status"), type: TAG_TYPES.ACTION, icon: "wifi"},
+        140: {name: $_("tags.assignment_types.toggle_bluetooth_mode"), type: TAG_TYPES.ACTION, icon: "bluetooth"},
+        150: {name: $_("tags.assignment_types.enable_ftp_server"), type: TAG_TYPES.ACTION, icon: "folder-open"},
+        170: {name: $_("tags.assignment_types.playpause"), type: TAG_TYPES.ACTION, icon: "play-pause"},
+        171: {name: $_("tags.assignment_types.prevtrack"), type: TAG_TYPES.ACTION, icon: "backward-step"},
+        172: {name: $_("tags.assignment_types.nexttrack"), type: TAG_TYPES.ACTION, icon: "forward-step"},
+        173: {name: $_("tags.assignment_types.firsttrack"), type: TAG_TYPES.ACTION, icon: "backward-fast"},
+        174: {name: $_("tags.assignment_types.lasttrack"), type: TAG_TYPES.ACTION, icon: "forward-fast"},
+        175: {name: $_("tags.assignment_types.volumeinit"), type: TAG_TYPES.ACTION, icon: "volume"},
+        176: {name: $_("tags.assignment_types.volumeup"), type: TAG_TYPES.ACTION, icon: "volume-high"},
+        177: {name: $_("tags.assignment_types.volumedown"), type: TAG_TYPES.ACTION, icon: "volume-low"},
+        180: {name: $_("tags.assignment_types.seek_forwards"), type: TAG_TYPES.ACTION, icon: "forward"},
+        181: {name: $_("tags.assignment_types.seek_backwards"), type: TAG_TYPES.ACTION, icon: "backward"},
+        182: {name: $_("tags.assignment_types.stop"), type: TAG_TYPES.ACTION, icon: "stop"},
     };
     // @formatter:on
 
@@ -108,7 +110,7 @@
             <table class="text-sm w-full sm:w-fit">
               <tr>
                 <th class="font-bold text-left w-1 align-text-top">ID:</th>
-                <td class="pl-3 font-mono">{tag.id}</td>
+                <td class="pl-3 font-mono select-all">{tag.id}</td>
               </tr>
               <tr>
                 <th class="font-bold text-left w-1 align-text-top">Assignment:</th>
@@ -129,7 +131,7 @@
                       URL:
                     {/if}
                   </th>
-                  <td class="pl-3" style="word-break: break-all;">{tag.pathOrUrl}</td>
+                  <td class="pl-3 select-all" style="word-break: break-all;">{tag.pathOrUrl}</td>
                 </tr>
               {/if}
             </table>
@@ -143,17 +145,17 @@
 
     {#if tag.id}
       <div class="flex flex-col sm:flex-row gap-2 px-4 py-3 bg-zinc-50">
-        <button class="button button-secondary w-full sm:py-8" on:click={() => opened_modal="explorer"}>
+        <button class="button button-secondary w-full sm:py-8" on:click={() => openedModal="explorer"}>
           Assign local path
         </button>
-        <button class="button button-secondary w-full sm:py-8" on:click={() => opened_modal="stream"}>
+        <button class="button button-secondary w-full sm:py-8" on:click={() => openedModal="stream"}>
           Assign web stream
         </button>
-        <button class="button button-secondary w-full sm:py-8" on:click={() => opened_modal="action"}>
+        <button class="button button-secondary w-full sm:py-8" on:click={() => openedModal="action"}>
           Assign action
         </button>
         {#if "command" in tag}
-          <button class="button button-warning w-full sm:py-8" on:click={() => opened_modal="remove"}>
+          <button class="button button-warning w-full sm:py-8" on:click={() => openedModal="remove"}>
             Remove assignment
           </button>
         {/if}
@@ -165,57 +167,103 @@
 
 <!--MODALS-->
 <!--File explorer-->
-<div class="modal modal-bottom sm:modal-middle {opened_modal === 'explorer' ? 'modal-open' : ''}">
-  <div class="modal-box p-0 h-[80vh] flex flex-col">
-    <FileViewer dir="/Music/Kids/Horror" extensions={["mp3", "m4a", "wav"]} bind:selected_path/>
-    <div class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
-      <button class="button button-secondary" on:click={() => opened_modal=""}>Cancel</button>
+<div class="modal modal-bottom sm:modal-middle {openedModal === 'explorer' ? 'modal-open' : ''}">
+  <div class="modal-box p-0 flex flex-col">
+    <div class="font-medium px-4 py-2">
+      Select file or directory
+    </div>
+    <FileViewer dir="/Music/Kids/Horror" extensions={["mp3", "m4a", "wav"]} bind:selectedPath/>
+    <div
+        class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+      <button class="button button-secondary" on:click={() => openedModal=""}>Cancel</button>
       <button class="button button-primary">Assign</button>
     </div>
   </div>
 </div>
 
 <!--Web stream-->
-<div class="modal modal-bottom sm:modal-middle {opened_modal === 'stream' ? 'modal-open' : ''}">
+<div class="modal modal-bottom sm:modal-middle {openedModal === 'stream' ? 'modal-open' : ''}">
   <div class="modal-box p-0 flex flex-col">
-    <div class="px-4 py-3">
-      Web stream (TODO)
+    <div class="font-medium px-4 py-2">
+      Enter web stream URL
     </div>
-    <div class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
-      <button class="button button-secondary" on:click={() => opened_modal=""}>Cancel</button>
+    <div class="px-4 pb-2">
+      <input type="text" name="url" id="url"
+             class="block w-full rounded-md border-zinc-100 focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+             placeholder="https://">
+    </div>
+    <div
+        class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+      <button class="button button-secondary" on:click={() => openedModal=""}>Cancel</button>
       <button class="button button-primary">Assign</button>
     </div>
   </div>
 </div>
 
 <!--Action-->
-<div class="modal modal-bottom sm:modal-middle {opened_modal === 'action' ? 'modal-open' : ''}">
+<div class="modal modal-bottom sm:modal-middle {openedModal === 'action' ? 'modal-open' : ''}">
   <div class="modal-box p-0 flex flex-col">
-    <div class="px-4 py-3 form-control">
-      <!--{#each Object.entries(COMMANDS) as [key, values]}-->
-      <!--  {#if values.type === TAG_TYPES.ACTION}-->
-      <!--    <label class="label cursor-pointer py-1 sm:text-sm">-->
-      <!--      <input type="radio" name="action" class="radio radio-secondary sm:radio-sm">-->
-      <!--      <span class="pl-2">{values.name}</span>-->
-      <!--    </label>-->
-      <!--  {/if}-->
-      <!--{/each}-->
+    <div class="relative font-medium px-4 py-2">
+      Select action
     </div>
-    <div class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
-      <button class="button button-secondary" on:click={() => opened_modal=""}>Cancel</button>
+    <ul class="border-t border-zinc-100 overflow-y-auto">
+      {#each Object.entries(COMMANDS) as [key, values]}
+        {#if values.type === TAG_TYPES.ACTION}
+          <li class="flex items-center px-4 py-1 h-9 sm:text-sm cursor-pointer sm:h-7 {selectedAction === key ? 'bg-orange-500 hover:bg-orange-500 text-white' : 'hover:bg-zinc-100'}"
+              on:click={() => selectedAction=key}>
+            <Icon class="flex-shrink-0 w-5 h-5" style="regular" name={values.icon}/>
+            <span class="ml-3 truncate">{values.name}</span>
+          </li>
+        {/if}
+      {/each}
+    </ul>
+    <div
+        class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+      <button class="button button-secondary" on:click={() => openedModal=""}>Cancel</button>
       <button class="button button-primary">Assign</button>
     </div>
   </div>
 </div>
 
 <!--Remove-->
-<div class="modal modal-bottom sm:modal-middle {opened_modal === 'remove' ? 'modal-open' : ''}">
+<div class="modal modal-bottom sm:modal-middle {openedModal === 'remove' ? 'modal-open' : ''}">
   <div class="modal-box p-0 flex flex-col">
-    <div class="px-4 py-3">
-      Remove (TODO)
+    <div class="relative font-medium px-4 py-2">
+      Do you really want to remove this tag's assignment?
     </div>
-    <div class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
-      <button class="button button-secondary" on:click={() => opened_modal=""}>Cancel</button>
+    <div class="px-8 pb-2">
+      <table class="text-sm w-full sm:w-fit">
+        <tr>
+          <th class="font-bold text-left w-1 align-text-top">ID:</th>
+          <td class="pl-3 font-mono select-all">{tag.id}</td>
+        </tr>
+        <tr>
+          <th class="font-bold text-left w-1 align-text-top">Assignment:</th>
+          <td class="pl-3">
+            {#if "command" in tag}
+              {COMMANDS[tag.command].name}
+            {:else}
+              {$_("tags.assignment_types.none")}
+            {/if}
+          </td>
+        </tr>
+        {#if "pathOrUrl" in tag}
+          <tr>
+            <th class="font-bold text-left w-1 align-text-top">
+              {#if tag.pathOrUrl.startsWith("/")}
+                Path:
+              {:else}
+                URL:
+              {/if}
+            </th>
+            <td class="pl-3 select-all" style="word-break: break-all;">{tag.pathOrUrl}</td>
+          </tr>
+        {/if}
+      </table>
+    </div>
+    <div
+        class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+      <button class="button button-secondary" on:click={() => openedModal=""}>Cancel</button>
       <button class="button button-warning">Remove</button>
     </div>
   </div>
