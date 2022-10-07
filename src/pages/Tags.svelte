@@ -18,112 +18,209 @@
 <script>
     import {_} from "svelte-i18n";
     import Icon from "../components/Icon.svelte";
+    import FileViewer from "../components/FileViewer.svelte";
 
     export let show;
-    export let tag = undefined;
+    export let tag = {id: ""};
+
+    let opened_modal = "";
+
+    let selected_path;
 
     // @formatter:off
     const TAG_TYPES = {
-        PATH: 'audio',
-        MODIFICATION: 'modification',
-        EMPTY: 'empty'
+        LOCAL_AUDIO: 'local_audio',
+        WEB_AUDIO: 'web_audio',
+        ACTION: 'action',
     }
     // Constants correspond with `values.h`
-    const PLAY_MODES = {
-         1: "single_track",
-         2: "single_track_loop",
-        12: "single_track_of_dir_random",
-         3: "audiobook",
-         4: "audiobook_loop",
-         5: "all_tracks_of_dir_sorted",
-         6: "all_tracks_of_dir_random",
-         7: "all_tracks_of_dir_sorted_loop",
-         9: "all_tracks_of_dir_random_loop",
-         8: "webstream",
-        11: "local_m3u",
-    }
-    const MODIFICATION_TYPES = {
-        179: "sleepmode",
-        100: "lock_buttons_mod",
-        101: "sleep_timer_mod_15",
-        102: "sleep_timer_mod_30",
-        103: "sleep_timer_mod_60",
-        104: "sleep_timer_mod_120",
-        105: "sleep_after_end_of_track",
-        106: "sleep_after_end_of_playlist",
-        107: "sleep_after_5_tracks",
-        110: "repeat_playlist",
-        111: "repeat_track",
-        120: "dimm_leds_nightmode",
-        130: "toggle_wifi_status",
-        140: "toggle_bluetooth_mode",
-        150: "enable_ftp_server",
-        170: "playpause",
-        171: "prevtrack",
-        172: "nexttrack",
-        173: "firsttrack",
-        174: "lasttrack",
-        175: "volumeinit",
-        176: "volumeup",
-        177: "volumedown",
-        180: "seek_forwards",
-        181: "seek_backwards",
-        182: "stop",
-    }
+    const COMMANDS = {
+        // Play modes
+         1: {name: $_("tags.assignment_types.single_track"), type: TAG_TYPES.LOCAL_AUDIO},
+         2: {name: $_("tags.assignment_types.single_track_loop"), type: TAG_TYPES.LOCAL_AUDIO},
+        12: {name: $_("tags.assignment_types.single_track_of_dir_random"), type: TAG_TYPES.LOCAL_AUDIO},
+         3: {name: $_("tags.assignment_types.audiobook"), type: TAG_TYPES.LOCAL_AUDIO},
+         4: {name: $_("tags.assignment_types.audiobook_loop"), type: TAG_TYPES.LOCAL_AUDIO},
+         5: {name: $_("tags.assignment_types.all_tracks_of_dir_sorted"), type: TAG_TYPES.LOCAL_AUDIO},
+         6: {name: $_("tags.assignment_types.all_tracks_of_dir_random"), type: TAG_TYPES.LOCAL_AUDIO},
+         7: {name: $_("tags.assignment_types.all_tracks_of_dir_sorted_loop"), type: TAG_TYPES.LOCAL_AUDIO},
+         9: {name: $_("tags.assignment_types.all_tracks_of_dir_random_loop"), type: TAG_TYPES.LOCAL_AUDIO},
+        11: {name: $_("tags.assignment_types.local_m3u"), type: TAG_TYPES.LOCAL_AUDIO},
+         8: {name: $_("tags.assignment_types.webstream"), type: TAG_TYPES.WEB_AUDIO},
+
+        // Actions
+        179: {name: $_("tags.assignment_types.sleepmode"), type: TAG_TYPES.ACTION},
+        100: {name: $_("tags.assignment_types.lock_buttons_mod"), type: TAG_TYPES.ACTION},
+        101: {name: $_("tags.assignment_types.sleep_timer_mod_15"), type: TAG_TYPES.ACTION},
+        102: {name: $_("tags.assignment_types.sleep_timer_mod_30"), type: TAG_TYPES.ACTION},
+        103: {name: $_("tags.assignment_types.sleep_timer_mod_60"), type: TAG_TYPES.ACTION},
+        104: {name: $_("tags.assignment_types.sleep_timer_mod_120"), type: TAG_TYPES.ACTION},
+        105: {name: $_("tags.assignment_types.sleep_after_end_of_track"), type: TAG_TYPES.ACTION},
+        106: {name: $_("tags.assignment_types.sleep_after_end_of_playlist"), type: TAG_TYPES.ACTION},
+        107: {name: $_("tags.assignment_types.sleep_after_5_tracks"), type: TAG_TYPES.ACTION},
+        110: {name: $_("tags.assignment_types.repeat_playlist"), type: TAG_TYPES.ACTION},
+        111: {name: $_("tags.assignment_types.repeat_track"), type: TAG_TYPES.ACTION},
+        120: {name: $_("tags.assignment_types.dimm_leds_nightmode"), type: TAG_TYPES.ACTION},
+        130: {name: $_("tags.assignment_types.toggle_wifi_status"), type: TAG_TYPES.ACTION},
+        140: {name: $_("tags.assignment_types.toggle_bluetooth_mode"), type: TAG_TYPES.ACTION},
+        150: {name: $_("tags.assignment_types.enable_ftp_server"), type: TAG_TYPES.ACTION},
+        170: {name: $_("tags.assignment_types.playpause"), type: TAG_TYPES.ACTION},
+        171: {name: $_("tags.assignment_types.prevtrack"), type: TAG_TYPES.ACTION},
+        172: {name: $_("tags.assignment_types.nexttrack"), type: TAG_TYPES.ACTION},
+        173: {name: $_("tags.assignment_types.firsttrack"), type: TAG_TYPES.ACTION},
+        174: {name: $_("tags.assignment_types.lasttrack"), type: TAG_TYPES.ACTION},
+        175: {name: $_("tags.assignment_types.volumeinit"), type: TAG_TYPES.ACTION},
+        176: {name: $_("tags.assignment_types.volumeup"), type: TAG_TYPES.ACTION},
+        177: {name: $_("tags.assignment_types.volumedown"), type: TAG_TYPES.ACTION},
+        180: {name: $_("tags.assignment_types.seek_forwards"), type: TAG_TYPES.ACTION},
+        181: {name: $_("tags.assignment_types.seek_backwards"), type: TAG_TYPES.ACTION},
+        182: {name: $_("tags.assignment_types.stop"), type: TAG_TYPES.ACTION},
+    };
     // @formatter:on
 
     // TODO For tests only, remove
-    tag = null;
-    // tag = {id: 12345678, type: TAG_TYPES.EMPTY};
-    tag = {id: 12345678, type: TAG_TYPES.PATH, mode: 2, pathOrUrl: "/music/kids/horror/Please, no vitamins today.mp3"};
-    // tag = {id: 12345678, type: TAG_TYPES.MODIFICATION, modification: 101};
+    tag = {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"};
+    // tag = {id: "12345678", command: 103};
+    // tag = {id: "12345678"};
+    // tag = {id: ""};
+
 </script>
 
-<div class="{show ? 'block' : 'hidden'} max-w-3xl mx-auto sm:h-fit">
-  <div class="{$$props.class} relative overflow-hidden shadow sm:rounded-md bg-white">
+<div class="{show ? 'block' : 'hidden'} max-w-2xl mx-auto sm:h-fit">
+  <div class="{$$props.class} relative overflow-hidden shadow sm:rounded-md bg-white sm:mx-4 h-full">
     <Icon name="nfc" style="solid" class="absolute w-40 -right-3 -top-3 text-zinc-50 -rotate-6 hidden sm:block"/>
-    <div class="relative px-4 py-5 space-y-6 sm:p-6">
-      <div class="flex flex-col items-center justify-center my-auto">
-        <div class="flex flex-col justify-between sm:flex-row w-full">
-          <div class="flex flex-col items-center py-8 sm:py-0 min-w-fit px-8">
-            {#if tag}
-              <Icon name="nfc" style="regular" class="text-green-400 h-24"/>
-              <div class="text-green-400 pt-4 text-lg font-bold">Tag {tag.id} found.</div>
-            {:else}
-              <Icon name="nfc-slash" style="regular" class="text-red-400 h-24"/>
-              <div class="text-red-400 pt-3 text-lg font-bold">No Tag found.</div>
-              <div class="mt-3 text-sm text-zinc-500">Please place a tag on the ESPuino.</div>
-            {/if}
-          </div>
-
-          {#if tag}
-            <div>
-              {#if tag.type === TAG_TYPES.EMPTY}
-                Tag has no linked action.
-              {:else if tag.type === TAG_TYPES.PATH}
-                Path: "{tag.pathOrUrl}"
-                <span
-                    class="rounded-full text-white bg-orange-400 text-xs px-2 py-1 font-semibold">{PLAY_MODES[tag.mode]}</span>
-              {:else if tag.type === TAG_TYPES.MODIFICATION}
-                Modification: "{MODIFICATION_TYPES[tag.modification]}"
-              {/if}
+    <div class="relative px-4 py-3 space-y-6">
+      <div class="flex flex-col sm:flex-row w-full items-center">
+        <div class="py-8 w-48 flex-shrink-0 flex flex-col items-center">
+          {#if tag.id !== ""}
+            <div class="flex h-24 w-24 relative">
+              <Icon name="nfc" style="regular" class="absolute animate-ping h-full w-full text-green-300 opacity-75"/>
+              <Icon name="nfc" style="regular" class="absolute h-full w-full text-green-400"/>
             </div>
+          {:else}
+            <Icon name="nfc-slash" style="regular" class="text-red-400 h-24"/>
+          {/if}
+        </div>
 
-
+        <div class="flex flex-col items-center space-y-4 w-full">
+          {#if tag.id !== ""}
+            <div class="text-green-400 text-lg font-bold">Tag detected</div>
+            <table class="text-sm w-full">
+              <tr>
+                <th class="font-bold text-left w-1 align-text-top">ID:</th>
+                <td class="pl-3 font-mono">{tag.id}</td>
+              </tr>
+              <tr>
+                <th class="font-bold text-left w-1 align-text-top">Assignment:</th>
+                <td class="pl-3">
+                  {#if "command" in tag}
+                    {COMMANDS[tag.command].name}
+                  {:else}
+                    {$_("tags.assignment_types.none")}
+                  {/if}
+                </td>
+              </tr>
+              {#if "pathOrUrl" in tag}
+                <tr>
+                  <th class="font-bold text-left w-1 align-text-top">
+                    {#if tag.pathOrUrl.startsWith("/")}
+                      Path:
+                    {:else}
+                      URL:
+                    {/if}
+                  </th>
+                  <td class="pl-3" style="word-break: break-all;">{tag.pathOrUrl}</td>
+                </tr>
+              {/if}
+            </table>
+          {:else}
+            <div class="text-red-400 text-lg font-bold">No Tag detected</div>
+            <div class="text-sm">Please place a tag on the ESPuino.</div>
           {/if}
         </div>
       </div>
     </div>
 
-    {#if tag}
-      <div class="flex flex-col sm:flex-row justify-end gap-2 px-4 py-3 bg-zinc-50">
-        <button class="button-secondary">Assign new path</button>
-        <button class="button-secondary">Assign new modification</button>
-        {#if tag.type !== TAG_TYPES.EMPTY}
-          <button class="button-warning">Remove assignment</button>
+    {#if tag.id}
+      <div class="flex flex-col sm:flex-row gap-2 px-4 py-3 bg-zinc-50 items-center">
+        <button class="button-secondary w-full flex flex-col sm:h-20" on:click={() => opened_modal="explorer"}>
+          <Icon name="folder-tree" style="solid" class="hidden sm:block h-5"/>
+          <span class="pt-1">Assign local path</span>
+        </button>
+        <button class="button-secondary w-full flex flex-col sm:h-20" on:click={() => opened_modal="stream"}>
+          <Icon name="cloud-music" style="solid" class="hidden sm:block h-5"/>
+          <span class="pt-1">Assign web stream</span>
+        </button>
+        <button class="button-secondary w-full flex flex-col sm:h-20" on:click={() => opened_modal="action"}>
+          <Icon name="rocket-launch" style="solid" class="hidden sm:block h-5"/>
+          <span class="pt-1">Assign action</span>
+        </button>
+        {#if "command" in tag}
+          <button class="button-warning w-full flex flex-col sm:h-20" on:click={() => opened_modal="remove"}>
+            <Icon name="trash" style="solid" class="hidden sm:block h-5"/>
+            <span class="pt-1">Remove assignment</span>
+          </button>
         {/if}
       </div>
     {/if}
 
+  </div>
+</div>
+
+<!--MODALS-->
+<!--File explorer-->
+<div class="modal modal-bottom sm:modal-middle {opened_modal === 'explorer' ? 'modal-open' : ''}">
+  <div class="modal-box p-0 h-[80vh] flex flex-col">
+    <FileViewer dir="/Music/Kids/Horror" extensions={["mp3", "m4a", "wav"]} bind:selected_path/>
+    <div class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+      <button class="button button-secondary" on:click={() => opened_modal=""}>Cancel</button>
+      <button class="button button-primary">Save</button>
+    </div>
+  </div>
+</div>
+
+<!--Web stream-->
+<div class="modal modal-bottom sm:modal-middle {opened_modal === 'stream' ? 'modal-open' : ''}">
+  <div class="modal-box p-0 flex flex-col">
+    <div class="px-4 py-3">
+      Web stream (TODO)
+    </div>
+    <div class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+      <button class="button button-secondary" on:click={() => opened_modal=""}>Cancel</button>
+      <button class="button button-primary">Save</button>
+    </div>
+  </div>
+</div>
+
+<!--Action-->
+<div class="modal modal-bottom sm:modal-middle {opened_modal === 'action' ? 'modal-open' : ''}">
+  <div class="modal-box p-0 flex flex-col">
+    <div class="px-4 py-3 form-control">
+      <!--{#each Object.entries(COMMANDS) as [key, values]}-->
+      <!--  {#if values.type === TAG_TYPES.ACTION}-->
+      <!--    <label class="label cursor-pointer py-1 sm:text-sm">-->
+      <!--      <input type="radio" name="action" class="radio radio-secondary sm:radio-sm">-->
+      <!--      <span class="pl-2">{values.name}</span>-->
+      <!--    </label>-->
+      <!--  {/if}-->
+      <!--{/each}-->
+    </div>
+    <div class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+      <button class="button button-secondary" on:click={() => opened_modal=""}>Cancel</button>
+      <button class="button button-primary">Save</button>
+    </div>
+  </div>
+</div>
+
+<!--Remove-->
+<div class="modal modal-bottom sm:modal-middle {opened_modal === 'remove' ? 'modal-open' : ''}">
+  <div class="modal-box p-0 flex flex-col">
+    <div class="px-4 py-3">
+      Remove (TODO)
+    </div>
+    <div class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+      <button class="button button-secondary" on:click={() => opened_modal=""}>Cancel</button>
+      <button class="button button-warning">Remove</button>
+    </div>
   </div>
 </div>

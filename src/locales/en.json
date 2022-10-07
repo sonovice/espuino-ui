@@ -3,7 +3,49 @@
     "page_name": "Control"
   },
   "tags": {
-    "page_name": "Tags"
+    "page_name": "Tags",
+    "assignment_types": {
+      "none": "None (tag is not yet assigned)",
+      "single_track": "Play track",
+      "single_track_loop": "Play track (repeated)",
+      "single_track_of_dir_random": "Play random track",
+      "audiobook": "Play audiobook",
+      "audiobook_loop": "Play audiobook (repeated)",
+      "all_tracks_of_dir_sorted": "Play tracks of directory in sorted order",
+      "all_tracks_of_dir_random": "Play tracks of directory in random order",
+      "all_tracks_of_dir_sorted_loop": "Play tracks of directory in sorted order (repeated)",
+      "all_tracks_of_dir_random_loop": "Play tracks of directory in random order (repeated)",
+
+      "local_m3u": "Play files from playlist",
+      "webstream": "Play web stream",
+
+      "sleepmode": "Go to sleep mode",
+      "lock_buttons_mod": "Lock buttons",
+      "sleep_timer_mod_15": "Sleep in 15 minutes",
+      "sleep_timer_mod_30": "Sleep in 30 minutes",
+      "sleep_timer_mod_60": "Sleep in 60 minutes",
+      "sleep_timer_mod_120": "Sleep in 120 minutes",
+      "sleep_after_end_of_track": "Sleep after current track",
+      "sleep_after_end_of_playlist": "Sleep after end of playlist",
+      "sleep_after_5_tracks": "Sleep after 5 tracks",
+      "repeat_playlist": "Repeat playlist",
+      "repeat_track": "Repeat single track",
+      "dimm_leds_nightmode": "Dim lights (night mode)",
+      "toggle_wifi_status": "Toggle WiFi",
+      "toggle_bluetooth_mode": "Toggle Bluetooth mode",
+      "enable_ftp_server": "Enable FTP server",
+      "playpause": "Play/Pause",
+      "prevtrack": "Previous track",
+      "nexttrack": "Next track",
+      "firsttrack": "First track",
+      "lasttrack": "Last track",
+      "volumeinit": "Set volume to default",
+      "volumeup": "Volume up",
+      "volumedown": "Volume down",
+      "seek_forwards": "Skip forward",
+      "seek_backwards": "Skip backward",
+      "stop": "Stop"
+    }
   },
   "settings": {
     "page_name": "Settings",

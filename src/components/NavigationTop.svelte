@@ -8,6 +8,8 @@
   export let isConnected;
   export let batteryLevel;
 
+  $: batteryLevelSvg = batteryLevel / 100 * 352 + 96;
+
   const dispatch = createEventDispatcher();
 
   function changePage(page) {
@@ -43,9 +45,10 @@
       <div class="block sm:ml-2">
         <div class="flex items-center">
           <!-- Battery level -->
-          <Icon name="battery-half" style="regular" class="w-5 sm:w-6"/>
+          <svg class="w-5 sm:w-6 fill-white" viewBox="0 0 576 512">
+            <path d="M448 320H96V192H{batteryLevelSvg}V320zM0 176C0 131.8 35.82 96 80 96H464C508.2 96 544 131.8 544 176V192C561.7 192 576 206.3 576 224V288C576 305.7 561.7 320 544 320V336C544 380.2 508.2 416 464 416H80C35.82 416 0 380.2 0 336V176zM80 144C62.33 144 48 158.3 48 176V336C48 353.7 62.33 368 80 368H464C481.7 368 496 353.7 496 336V176C496 158.3 481.7 144 464 144H80z"/>
+          </svg>
           <span class="ml-1 text-xs">{batteryLevel}%</span>
-
 
           <!-- Heart beat (connection indicator) -->
           <span class="ml-2 flex w-2 h-2 relative">

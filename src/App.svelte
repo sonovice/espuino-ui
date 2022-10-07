@@ -32,7 +32,7 @@
         }
 
         sse.onerror = (e) => {
-            isConnected = false;
+            isConnected = true;
             // TODO show error message
         }
 
