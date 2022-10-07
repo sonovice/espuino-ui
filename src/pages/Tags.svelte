@@ -23,7 +23,7 @@
     export let show;
     export let tag = {id: ""};
 
-    let openedModal = "remove";
+    let openedModal = "";
 
     let selectedPath;
     let selectedAction;
@@ -38,45 +38,45 @@
     // Constants correspond with `values.h`
     const COMMANDS = {
         // Play modes
-         1: {name: $_("tags.assignment_types.single_track"), type: TAG_TYPES.LOCAL_AUDIO},
-         2: {name: $_("tags.assignment_types.single_track_loop"), type: TAG_TYPES.LOCAL_AUDIO},
-        12: {name: $_("tags.assignment_types.single_track_of_dir_random"), type: TAG_TYPES.LOCAL_AUDIO},
-         3: {name: $_("tags.assignment_types.audiobook"), type: TAG_TYPES.LOCAL_AUDIO},
-         4: {name: $_("tags.assignment_types.audiobook_loop"), type: TAG_TYPES.LOCAL_AUDIO},
-         5: {name: $_("tags.assignment_types.all_tracks_of_dir_sorted"), type: TAG_TYPES.LOCAL_AUDIO},
-         6: {name: $_("tags.assignment_types.all_tracks_of_dir_random"), type: TAG_TYPES.LOCAL_AUDIO},
+         1: {name: $_("tags.assignment_types.single_track"),                  type: TAG_TYPES.LOCAL_AUDIO},
+         2: {name: $_("tags.assignment_types.single_track_loop"),             type: TAG_TYPES.LOCAL_AUDIO},
+        12: {name: $_("tags.assignment_types.single_track_of_dir_random"),    type: TAG_TYPES.LOCAL_AUDIO},
+         3: {name: $_("tags.assignment_types.audiobook"),                     type: TAG_TYPES.LOCAL_AUDIO},
+         4: {name: $_("tags.assignment_types.audiobook_loop"),                type: TAG_TYPES.LOCAL_AUDIO},
+         5: {name: $_("tags.assignment_types.all_tracks_of_dir_sorted"),      type: TAG_TYPES.LOCAL_AUDIO},
+         6: {name: $_("tags.assignment_types.all_tracks_of_dir_random"),      type: TAG_TYPES.LOCAL_AUDIO},
          7: {name: $_("tags.assignment_types.all_tracks_of_dir_sorted_loop"), type: TAG_TYPES.LOCAL_AUDIO},
          9: {name: $_("tags.assignment_types.all_tracks_of_dir_random_loop"), type: TAG_TYPES.LOCAL_AUDIO},
-        11: {name: $_("tags.assignment_types.local_m3u"), type: TAG_TYPES.LOCAL_AUDIO},
-         8: {name: $_("tags.assignment_types.webstream"), type: TAG_TYPES.WEB_AUDIO},
+        11: {name: $_("tags.assignment_types.local_m3u"),                     type: TAG_TYPES.LOCAL_AUDIO},
+         8: {name: $_("tags.assignment_types.webstream"),                     type: TAG_TYPES.WEB_AUDIO},
 
         // Actions
-        179: {name: $_("tags.assignment_types.sleepmode"), type: TAG_TYPES.ACTION, icon: "snooze"},
-        100: {name: $_("tags.assignment_types.lock_buttons_mod"), type: TAG_TYPES.ACTION, icon: "lock"},
-        101: {name: $_("tags.assignment_types.sleep_timer_mod_15"), type: TAG_TYPES.ACTION, icon: "snooze"},
-        102: {name: $_("tags.assignment_types.sleep_timer_mod_30"), type: TAG_TYPES.ACTION, icon: "snooze"},
-        103: {name: $_("tags.assignment_types.sleep_timer_mod_60"), type: TAG_TYPES.ACTION, icon: "snooze"},
-        104: {name: $_("tags.assignment_types.sleep_timer_mod_120"), type: TAG_TYPES.ACTION, icon: "snooze"},
-        105: {name: $_("tags.assignment_types.sleep_after_end_of_track"), type: TAG_TYPES.ACTION, icon: "snooze"},
-        106: {name: $_("tags.assignment_types.sleep_after_end_of_playlist"), type: TAG_TYPES.ACTION, icon: "snooze"},
-        107: {name: $_("tags.assignment_types.sleep_after_5_tracks"), type: TAG_TYPES.ACTION, icon: "snooze"},
-        110: {name: $_("tags.assignment_types.repeat_playlist"), type: TAG_TYPES.ACTION, icon: "repeat"},
-        111: {name: $_("tags.assignment_types.repeat_track"), type: TAG_TYPES.ACTION, icon: "repeat-1"},
-        120: {name: $_("tags.assignment_types.dimm_leds_nightmode"), type: TAG_TYPES.ACTION, icon: "brightness-low"},
-        130: {name: $_("tags.assignment_types.toggle_wifi_status"), type: TAG_TYPES.ACTION, icon: "wifi"},
-        140: {name: $_("tags.assignment_types.toggle_bluetooth_mode"), type: TAG_TYPES.ACTION, icon: "bluetooth"},
-        150: {name: $_("tags.assignment_types.enable_ftp_server"), type: TAG_TYPES.ACTION, icon: "folder-open"},
-        170: {name: $_("tags.assignment_types.playpause"), type: TAG_TYPES.ACTION, icon: "play-pause"},
-        171: {name: $_("tags.assignment_types.prevtrack"), type: TAG_TYPES.ACTION, icon: "backward-step"},
-        172: {name: $_("tags.assignment_types.nexttrack"), type: TAG_TYPES.ACTION, icon: "forward-step"},
-        173: {name: $_("tags.assignment_types.firsttrack"), type: TAG_TYPES.ACTION, icon: "backward-fast"},
-        174: {name: $_("tags.assignment_types.lasttrack"), type: TAG_TYPES.ACTION, icon: "forward-fast"},
-        175: {name: $_("tags.assignment_types.volumeinit"), type: TAG_TYPES.ACTION, icon: "volume"},
-        176: {name: $_("tags.assignment_types.volumeup"), type: TAG_TYPES.ACTION, icon: "volume-high"},
-        177: {name: $_("tags.assignment_types.volumedown"), type: TAG_TYPES.ACTION, icon: "volume-low"},
-        180: {name: $_("tags.assignment_types.seek_forwards"), type: TAG_TYPES.ACTION, icon: "forward"},
-        181: {name: $_("tags.assignment_types.seek_backwards"), type: TAG_TYPES.ACTION, icon: "backward"},
-        182: {name: $_("tags.assignment_types.stop"), type: TAG_TYPES.ACTION, icon: "stop"},
+        179: {name: $_("tags.assignment_types.sleepmode"),                    type: TAG_TYPES.ACTION, icon: "snooze"},
+        100: {name: $_("tags.assignment_types.lock_buttons_mod"),             type: TAG_TYPES.ACTION, icon: "lock"},
+        101: {name: $_("tags.assignment_types.sleep_timer_mod_15"),           type: TAG_TYPES.ACTION, icon: "snooze"},
+        102: {name: $_("tags.assignment_types.sleep_timer_mod_30"),           type: TAG_TYPES.ACTION, icon: "snooze"},
+        103: {name: $_("tags.assignment_types.sleep_timer_mod_60"),           type: TAG_TYPES.ACTION, icon: "snooze"},
+        104: {name: $_("tags.assignment_types.sleep_timer_mod_120"),          type: TAG_TYPES.ACTION, icon: "snooze"},
+        105: {name: $_("tags.assignment_types.sleep_after_end_of_track"),     type: TAG_TYPES.ACTION, icon: "snooze"},
+        106: {name: $_("tags.assignment_types.sleep_after_end_of_playlist"),  type: TAG_TYPES.ACTION, icon: "snooze"},
+        107: {name: $_("tags.assignment_types.sleep_after_5_tracks"),         type: TAG_TYPES.ACTION, icon: "snooze"},
+        110: {name: $_("tags.assignment_types.repeat_playlist"),              type: TAG_TYPES.ACTION, icon: "repeat"},
+        111: {name: $_("tags.assignment_types.repeat_track"),                 type: TAG_TYPES.ACTION, icon: "repeat-1"},
+        120: {name: $_("tags.assignment_types.dimm_leds_nightmode"),          type: TAG_TYPES.ACTION, icon: "brightness-low"},
+        130: {name: $_("tags.assignment_types.toggle_wifi_status"),           type: TAG_TYPES.ACTION, icon: "wifi"},
+        140: {name: $_("tags.assignment_types.toggle_bluetooth_mode"),        type: TAG_TYPES.ACTION, icon: "bluetooth"},
+        150: {name: $_("tags.assignment_types.enable_ftp_server"),            type: TAG_TYPES.ACTION, icon: "folder-open"},
+        170: {name: $_("tags.assignment_types.playpause"),                    type: TAG_TYPES.ACTION, icon: "play-pause"},
+        171: {name: $_("tags.assignment_types.prevtrack"),                    type: TAG_TYPES.ACTION, icon: "backward-step"},
+        172: {name: $_("tags.assignment_types.nexttrack"),                    type: TAG_TYPES.ACTION, icon: "forward-step"},
+        173: {name: $_("tags.assignment_types.firsttrack"),                   type: TAG_TYPES.ACTION, icon: "backward-fast"},
+        174: {name: $_("tags.assignment_types.lasttrack"),                    type: TAG_TYPES.ACTION, icon: "forward-fast"},
+        175: {name: $_("tags.assignment_types.volumeinit"),                   type: TAG_TYPES.ACTION, icon: "volume"},
+        176: {name: $_("tags.assignment_types.volumeup"),                     type: TAG_TYPES.ACTION, icon: "volume-high"},
+        177: {name: $_("tags.assignment_types.volumedown"),                   type: TAG_TYPES.ACTION, icon: "volume-low"},
+        180: {name: $_("tags.assignment_types.seek_forwards"),                type: TAG_TYPES.ACTION, icon: "forward"},
+        181: {name: $_("tags.assignment_types.seek_backwards"),               type: TAG_TYPES.ACTION, icon: "backward"},
+        182: {name: $_("tags.assignment_types.stop"),                         type: TAG_TYPES.ACTION, icon: "stop"},
     };
     // @formatter:on
 
