@@ -169,7 +169,7 @@
       <div class="font-medium px-4 py-4">
         Select file or directory
       </div>
-      <FileViewer dir="/Music/Kids/Horror" extensions={["mp3", "m4a", "wav"]} bind:selectedPath/>
+      <FileViewer dir="/Music/Kids/Horror" extensions={["mp3", "m4a", "wav", "m3u"]} bind:selectedPath />
       <div
           class="px-4 py-3 bg-zinc-100 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
         <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
@@ -179,7 +179,7 @@
       <div class="px-4 py-4">
         <span class="font-medium">Select a play mode</span>
         <div class="text-xs text-zinc-500">
-          <span class="font-medium">Path: </span><span class="font-mono truncated">{selectedPath}</span>
+          <span class="font-medium">Path: </span><span class="select-all font-mono truncated">{selectedPath}</span>
         </div>
       </div>
 

@@ -5,13 +5,20 @@
 
     export let dir;
     export let selectedItem = undefined;
-    export let selectedPath = undefined;
+    export let selectedPath;
 
     export let extensions = []
 
     let breadcrumbs;
 
-    $: selectedPath = `${dir}/${selectedItem?.name || ""}`;
+    $: selectedPath = `${dir}/${selectedItem !== undefined ? selectedItem.name : ""}`;
+
+    const ICONS = {
+        mp3: "file-audio",
+        wav: "file-audio",
+        m4a: "file-audio",
+        m3u: "file-lines",
+    }
 
     // export let items = [];
     export let items = [
@@ -22,20 +29,22 @@
         {type: "dir", name: "Daddy did the cooking"},
         {type: "file", name: "README.md"},
         {type: "file", name: "no_extension"},
+        {type: "file", name: "multiple.ext.ens.ions.wav"},
         {type: "file", name: "multiple.ext.ens.ions"},
         {type: "file", name: "Intro.mp3"},
+        {type: "file", name: "Playlist.m3u"},
     ];
-    for (let i = 1; i < 100; i++) {
+    for (let i = 1; i < 50; i++) {
         items.push({type: "file", name: `${String(i).padStart(2, "0")} Foobar.mp3`});
     }
 
-    $: sorted_items = items.sort((a, b) => (a.name < b.name) ? 1 : -1).sort((a, b) => (a.type > b.type) ? 1 : -1); // First by name, than by type
+    $: sortedItems = items.sort((a, b) => (a.name < b.name) ? 1 : -1).sort((a, b) => (a.type > b.type) ? 1 : -1); // First by name, than by type
 
     afterUpdate(() => {
         breadcrumbs.scrollLeft = breadcrumbs.scrollWidth;
     });
 
-    function select_item(item) {
+    function selectItem(item) {
         if (item.type === "file") {
             selectedItem = item;
         } else {
@@ -44,7 +53,7 @@
         }
     }
 
-    function go_up_dir(idx) {
+    function goUpDirectory(idx) {
         selectedItem = undefined;
         dir = dir.split("/").slice(0, idx + 1).join("/");
     }
@@ -60,7 +69,7 @@
       <div class="flex items-center text-left whitespace-nowrap">
         <button
             class="px-2 sm:text-sm rounded-md cursor-pointer h-9 sm:h-7 {selectedItem === undefined && dir === '' ? 'bg-orange-500 text-white' : 'hover:bg-zinc-200'}"
-            on:click={() => go_up_dir(0)}>
+            on:click={() => goUpDirectory(0)}>
           <Icon class="w-5 h-5" style="regular" name="sd-card"/>
         </button>
         {#each dir.split("/") as part, idx}
@@ -68,7 +77,7 @@
             <span class="w-4 text-center sm:text-sm">/</span>
             <button
                 class="px-2 sm:text-sm rounded-md cursor-pointer h-9 sm:h-7 {selectedItem === undefined && idx == dir.split('/').length - 1 ? 'bg-orange-500 text-white' : 'hover:bg-zinc-200'}"
-                on:click={() => go_up_dir(idx)}>{part}
+                on:click={() => goUpDirectory(idx)}>{part}
             </button>
           {/if}
         {/each}
@@ -81,16 +90,16 @@
   <ul class="pt-1 overflow-y-auto">
     {#if dir !== ""}
       <li class="flex items-center px-4 py-1 cursor-pointer h-9 sm:text-sm sm:h-7 hover:bg-zinc-100"
-          on:click={() => go_up_dir(dir.split("/").length - 2)}>
+          on:click={() => goUpDirectory(dir.split("/").length - 2)}>
         <Icon class="flex-shrink-0 w-5 h-5" style="regular" name="folder-up" }/>
         <span class="ml-2 truncate">..</span>
       </li>
     {/if}
-    {#each sorted_items as item}
+    {#each sortedItems as item}
       {#if item.type === "dir" || extensions.length == 0 || extensions.includes(item.name.split(".").pop().toLowerCase())}
         <li class="flex items-center px-4 py-1 h-9 sm:text-sm cursor-pointer sm:h-7 {selectedItem == item ? 'bg-orange-500 hover:bg-orange-500 text-white' : 'hover:bg-zinc-100'}"
-            on:click={() => select_item(item)}>
-          <Icon class="flex-shrink-0 w-5 h-5" style="regular" name={item.type === "dir" ? "folder" : "file-audio"}/>
+            on:click={() => selectItem(item)}>
+          <Icon class="flex-shrink-0 w-5 h-5" style="regular" name={item.type === "dir" ? "folder" : ICONS[item.name.split(".").pop()]}/>
           <span class="ml-2 truncate">{item.name}</span>
         </li>
       {/if}
