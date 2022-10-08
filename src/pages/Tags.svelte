@@ -176,9 +176,13 @@
         <button class="button button-primary" on:click={() => openedModalId="explorer_2"}>Select<Icon class="h-4 pl-2" style="solid" name="chevron-right"/></button>
       </div>
     {:else if openedModalId === "explorer_2"}
-      <div class="font-medium px-4 py-4">
-        Select a play mode
+      <div class="px-4 py-4">
+        <span class="font-medium">Select a play mode</span>
+        <div class="text-xs text-zinc-500">
+          <span class="font-medium">Path: </span><span class="font-mono truncated">{selectedPath}</span>
+        </div>
       </div>
+
       <ul class="overflow-y-auto border border-t-zinc-100">
         {#each Object.entries(COMMANDS).sort((a, b) => (a[1].sorting > b[1].sorting ? 1 : -1)) as [key, values]}
           {#if values.type === TAG_TYPES.LOCAL_AUDIO}
