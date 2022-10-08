@@ -167,7 +167,7 @@
     </div>
     <FileViewer dir="/Music/Kids/Horror" extensions={["mp3", "m4a", "wav"]} bind:selectedPath/>
     <div
-        class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+        class="px-4 py-3 bg-zinc-100 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
       <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
       <button class="button button-primary" on:click={() => openedModalId=""}>Assign</button>
     </div>
@@ -186,7 +186,7 @@
              placeholder="https://">
     </div>
     <div
-        class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+        class="px-4 py-3 bg-zinc-100 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
       <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
       <button class="button button-primary" on:click={() => openedModalId=""}>Assign</button>
     </div>
@@ -201,7 +201,7 @@
     </div>
     <ul class="border-t border-zinc-100 overflow-y-auto">
       {#each ACTION_CATEGORIES as category_obj}
-        <div class="bg-zinc-50 font-semibold text-xs uppercase tracking-wider text-zinc-700 px-4 py-1">{category_obj.name}</div>
+        <div class="bg-zinc-100 font-semibold text-xs uppercase tracking-wider text-zinc-700 px-4 py-1">{category_obj.name}</div>
         {#each Object.entries(COMMANDS).sort((a, b) => (a[1].sorting > b[1].sorting ? 1 : -1)) as [key, values]}
           {#if values.type === TAG_TYPES.ACTION && values.category === category_obj.category}
             <li class="flex items-center pl-6 pr-4 py-1 h-9 sm:text-sm cursor-pointer sm:h-7 {selectedAction === key ? 'bg-orange-500 hover:bg-orange-500 text-white' : 'hover:bg-zinc-100'}"
@@ -215,7 +215,7 @@
 
     </ul>
     <div
-        class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+        class="px-4 py-3 bg-zinc-100 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
       <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
       <button class="button button-primary" on:click={() => openedModalId=""}>Assign</button>
     </div>
@@ -259,7 +259,7 @@
       </table>
     </div>
     <div
-        class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+        class="px-4 py-3 bg-zinc-100 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
       <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
       <button class="button button-warning" on:click={() => openedModalId=""}>Remove</button>
     </div>
