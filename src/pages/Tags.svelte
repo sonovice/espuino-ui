@@ -169,7 +169,7 @@
     <div
         class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
       <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
-      <button class="button button-primary">Assign</button>
+      <button class="button button-primary" on:click={() => openedModalId=""}>Assign</button>
     </div>
   </div>
 </div>
@@ -188,7 +188,7 @@
     <div
         class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
       <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
-      <button class="button button-primary">Assign</button>
+      <button class="button button-primary" on:click={() => openedModalId=""}>Assign</button>
     </div>
   </div>
 </div>
@@ -217,7 +217,7 @@
     <div
         class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
       <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
-      <button class="button button-primary">Assign</button>
+      <button class="button button-primary" on:click={() => openedModalId=""}>Assign</button>
     </div>
   </div>
 </div>
@@ -261,7 +261,7 @@
     <div
         class="px-4 py-3 bg-zinc-50 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
       <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
-      <button class="button button-warning">Remove</button>
+      <button class="button button-warning" on:click={() => openedModalId=""}>Remove</button>
     </div>
   </div>
 </div>
