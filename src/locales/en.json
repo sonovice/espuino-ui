@@ -19,7 +19,7 @@
       "local_m3u": "Play files from playlist",
       "webstream": "Play web stream",
 
-      "sleepmode": "Sleep immediately",
+      "sleepmode": "Sleep now",
       "lock_buttons_mod": "Lock buttons",
       "sleep_timer_mod_15": "Sleep in 15 minutes",
       "sleep_timer_mod_30": "Sleep in 30 minutes",
@@ -33,7 +33,7 @@
       "dimm_leds_nightmode": "Dim lights (night mode)",
       "toggle_wifi_status": "Toggle WiFi",
       "toggle_bluetooth_mode": "Toggle Bluetooth mode",
-      "enable_ftp_server": "Enable FTP server",
+      "enable_ftp_server": "Enable FTP server (until reboot)",
       "playpause": "Play/Pause",
       "prevtrack": "Previous track",
       "nexttrack": "Next track",
@@ -45,6 +45,12 @@
       "seek_forwards": "Skip forward",
       "seek_backwards": "Skip backward",
       "stop": "Stop"
+    },
+    "action_categories": {
+      "sleep": "Sleep",
+      "control": "Media control",
+      "volume": "Volume",
+      "misc": "Miscellaneous"
     }
   },
   "settings": {
@@ -106,6 +112,7 @@
     "port": "Port",
     "optional": "optional",
     "community": "Community",
-    "enable": "Enable"
+    "enable": "Enable",
+    "save_and_reboot": "Save and reboot"
   }
 }

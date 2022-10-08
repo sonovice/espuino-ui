@@ -28,25 +28,25 @@
         <div class="flex flex-row items-center justify-around h-24 px-[5%] bg-zinc-50">
           <button
               class="p-2 rounded-full text-zinc-500 hover:text-zinc-600 focus:ring-4 focus:ring-zinc-500 focus:outline-none focus:ring-offset-2 focus:ring-offset-zinc-50">
-            <Icon class="h-7" name="backward-fast" style="solid"/>
+            <Icon class="h-7 w-7" name="backward-fast" style="solid"/>
           </button>
           <button
               class="p-2 rounded-full text-zinc-500 hover:text-zinc-600 focus:ring-4 focus:ring-zinc-500 focus:outline-none focus:ring-offset-2 focus:ring-offset-zinc-50">
-            <Icon class="h-7" name="backward" style="solid"/>
+            <Icon class="h-7 w-7" name="backward-step" style="solid"/>
           </button>
           <button
               class="p-0 text-white rounded-full focus:ring-4 focus:ring-orange-500 focus:outline-none focus:ring-offset-1 focus:ring-offset-zinc-50">
             <div class="flex items-center justify-center w-16 h-16 bg-orange-500 rounded-full hover:bg-orange-600">
-              <Icon class="h-10 " name="pause" style="solid"/>
+              <Icon class="h-10 w-10" name="pause" style="solid"/>
             </div>
           </button>
           <button
               class="p-2 rounded-full text-zinc-500 hover:text-zinc-600 focus:ring-4 focus:ring-zinc-500 focus:outline-none focus:ring-offset-2 focus:ring-offset-zinc-50">
-            <Icon class="h-7" name="forward" style="solid"/>
+            <Icon class="h-7 w-7" name="forward-step" style="solid"/>
           </button>
           <button
               class="p-2 rounded-full text-zinc-500 hover:text-zinc-600 focus:ring-4 focus:ring-zinc-500 focus:outline-none focus:ring-offset-2 focus:ring-offset-zinc-50">
-            <Icon class="h-7" name="forward-fast" style="solid"/>
+            <Icon class="h-7 w-7" name="forward-fast" style="solid"/>
           </button>
         </div>
       </div>
