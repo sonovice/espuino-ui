@@ -4,14 +4,14 @@
     import Icon from "./Icon.svelte";
 
     export let dir;
-    export let selected_item = undefined;
-    export let selected_path = undefined;
+    export let selectedItem = undefined;
+    export let selectedPath = undefined;
 
     export let extensions = []
 
     let breadcrumbs;
 
-    $: selected_path = `${dir}/${selected_item !== undefined ? selected_item.name : ""}`;
+    $: selectedPath = `${dir}/${selectedItem?.name || ""}`;
 
     // export let items = [];
     export let items = [
@@ -37,15 +37,15 @@
 
     function select_item(item) {
         if (item.type === "file") {
-            selected_item = item;
+            selectedItem = item;
         } else {
-            selected_item = undefined;
+            selectedItem = undefined;
             dir = `${dir}/${item.name}`;
         }
     }
 
     function go_up_dir(idx) {
-        selected_item = undefined;
+        selectedItem = undefined;
         dir = dir.split("/").slice(0, idx + 1).join("/");
     }
 </script>
@@ -59,7 +59,7 @@
          class="flex h-12 overflow-hidden overflow-x-visible rounded-t-md sm:h-10 hide-scrollbars">
       <div class="flex items-center text-left whitespace-nowrap">
         <button
-            class="px-2 sm:text-sm rounded-md cursor-pointer h-9 sm:h-7 {selected_item === undefined && dir === '' ? 'bg-orange-500 text-white' : 'hover:bg-zinc-200'}"
+            class="px-2 sm:text-sm rounded-md cursor-pointer h-9 sm:h-7 {selectedItem === undefined && dir === '' ? 'bg-orange-500 text-white' : 'hover:bg-zinc-200'}"
             on:click={() => go_up_dir(0)}>
           <Icon class="w-5 h-5" style="regular" name="sd-card"/>
         </button>
@@ -67,7 +67,7 @@
           {#if part !== ""}
             <span class="w-4 text-center sm:text-sm">/</span>
             <button
-                class="px-2 sm:text-sm rounded-md cursor-pointer h-9 sm:h-7 {selected_item === undefined && idx == dir.split('/').length - 1 ? 'bg-orange-500 text-white' : 'hover:bg-zinc-200'}"
+                class="px-2 sm:text-sm rounded-md cursor-pointer h-9 sm:h-7 {selectedItem === undefined && idx == dir.split('/').length - 1 ? 'bg-orange-500 text-white' : 'hover:bg-zinc-200'}"
                 on:click={() => go_up_dir(idx)}>{part}
             </button>
           {/if}
@@ -88,7 +88,7 @@
     {/if}
     {#each sorted_items as item}
       {#if item.type === "dir" || extensions.length == 0 || extensions.includes(item.name.split(".").pop().toLowerCase())}
-        <li class="flex items-center px-4 py-1 h-9 sm:text-sm cursor-pointer sm:h-7 {selected_item == item ? 'bg-orange-500 hover:bg-orange-500 text-white' : 'hover:bg-zinc-100'}"
+        <li class="flex items-center px-4 py-1 h-9 sm:text-sm cursor-pointer sm:h-7 {selectedItem == item ? 'bg-orange-500 hover:bg-orange-500 text-white' : 'hover:bg-zinc-100'}"
             on:click={() => select_item(item)}>
           <Icon class="flex-shrink-0 w-5 h-5" style="regular" name={item.type === "dir" ? "folder" : "file-audio"}/>
           <span class="ml-2 truncate">{item.name}</span>
@@ -102,6 +102,6 @@
 <!--<div class="px-2 py-1 mt-3 space-y-2 font-mono text-xs border">-->
 <!--  <h4 class="font-bold">Debug</h4>-->
 <!--  <p>-->
-<!--    <span class="bg-orange-200">Selected path:</span> {selected_path}-->
+<!--    <span class="bg-orange-200">Selected path:</span> {selectedPath}-->
 <!--  </p>-->
 <!--</div>-->

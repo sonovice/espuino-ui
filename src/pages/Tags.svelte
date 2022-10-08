@@ -27,16 +27,17 @@
     // Constants correspond with `values.h`
     const COMMANDS = {
         // Play modes
-         1: {name: $_("tags.assignment_types.single_track"),                  type: TAG_TYPES.LOCAL_AUDIO},
-         2: {name: $_("tags.assignment_types.single_track_loop"),             type: TAG_TYPES.LOCAL_AUDIO},
-        12: {name: $_("tags.assignment_types.single_track_of_dir_random"),    type: TAG_TYPES.LOCAL_AUDIO},
-         3: {name: $_("tags.assignment_types.audiobook"),                     type: TAG_TYPES.LOCAL_AUDIO},
-         4: {name: $_("tags.assignment_types.audiobook_loop"),                type: TAG_TYPES.LOCAL_AUDIO},
-         5: {name: $_("tags.assignment_types.all_tracks_of_dir_sorted"),      type: TAG_TYPES.LOCAL_AUDIO},
-         6: {name: $_("tags.assignment_types.all_tracks_of_dir_random"),      type: TAG_TYPES.LOCAL_AUDIO},
-         7: {name: $_("tags.assignment_types.all_tracks_of_dir_sorted_loop"), type: TAG_TYPES.LOCAL_AUDIO},
-         9: {name: $_("tags.assignment_types.all_tracks_of_dir_random_loop"), type: TAG_TYPES.LOCAL_AUDIO},
-        11: {name: $_("tags.assignment_types.local_m3u"),                     type: TAG_TYPES.LOCAL_AUDIO},
+         1: {name: $_("tags.assignment_types.single_track"),                  type: TAG_TYPES.LOCAL_AUDIO, sorting: 1},
+         2: {name: $_("tags.assignment_types.single_track_loop"),             type: TAG_TYPES.LOCAL_AUDIO, sorting: 2},
+        12: {name: $_("tags.assignment_types.single_track_of_dir_random"),    type: TAG_TYPES.LOCAL_AUDIO, sorting: 3},
+         3: {name: $_("tags.assignment_types.audiobook"),                     type: TAG_TYPES.LOCAL_AUDIO, sorting: 4},
+         4: {name: $_("tags.assignment_types.audiobook_loop"),                type: TAG_TYPES.LOCAL_AUDIO, sorting: 5},
+         5: {name: $_("tags.assignment_types.all_tracks_of_dir_sorted"),      type: TAG_TYPES.LOCAL_AUDIO, sorting: 6},
+         6: {name: $_("tags.assignment_types.all_tracks_of_dir_random"),      type: TAG_TYPES.LOCAL_AUDIO, sorting: 7},
+         7: {name: $_("tags.assignment_types.all_tracks_of_dir_sorted_loop"), type: TAG_TYPES.LOCAL_AUDIO, sorting: 8},
+         9: {name: $_("tags.assignment_types.all_tracks_of_dir_random_loop"), type: TAG_TYPES.LOCAL_AUDIO, sorting: 9},
+        11: {name: $_("tags.assignment_types.local_m3u"),                     type: TAG_TYPES.LOCAL_AUDIO, sorting: 10},
+
          8: {name: $_("tags.assignment_types.webstream"),                     type: TAG_TYPES.WEB_AUDIO},
 
         // Actions
@@ -68,7 +69,9 @@
         120: {name: $_("tags.assignment_types.dimm_leds_nightmode"),          type: TAG_TYPES.ACTION, category: "misc", sorting: 2,  icon: "brightness-low"},
         150: {name: $_("tags.assignment_types.enable_ftp_server"),            type: TAG_TYPES.ACTION, category: "misc", sorting: 3,  icon: "folder-open"},
         130: {name: $_("tags.assignment_types.toggle_wifi_status"),           type: TAG_TYPES.ACTION, category: "misc", sorting: 4,  icon: "wifi"},
-        140: {name: $_("tags.assignment_types.toggle_bluetooth_mode"),        type: TAG_TYPES.ACTION, category: "misc", sorting: 5,  icon: "bluetooth"},
+        140: {name: $_("tags.assignment_types.toggle_bluetooth_sink"),        type: TAG_TYPES.ACTION, category: "misc", sorting: 5,  icon: "bluetooth"},
+        141: {name: $_("tags.assignment_types.toggle_bluetooth_source"),      type: TAG_TYPES.ACTION, category: "misc", sorting: 6,  icon: "bluetooth"},
+        151: {name: $_("tags.assignment_types.tell_ip_address"),              type: TAG_TYPES.ACTION, category: "misc", sorting: 7,  icon: "network-wired"},
     };
     // @formatter:on
 
@@ -78,7 +81,7 @@
     // tag = {id: "12345678"};
     // tag = {id: ""};
 
-      console.log(Object.entries(COMMANDS));
+    console.log(Object.entries(COMMANDS));
 </script>
 
 <div class="{show ? 'block' : 'hidden'} max-w-2xl mx-auto sm:h-fit">
@@ -138,7 +141,7 @@
 
     {#if tag.id}
       <div class="flex flex-col sm:flex-row gap-2 px-4 py-3 bg-zinc-50">
-        <button class="button button-secondary w-full sm:py-8" on:click={() => openedModalId="explorer"}>
+        <button class="button button-secondary w-full sm:py-8" on:click={() => openedModalId="explorer_1"}>
           Assign file or directory
         </button>
         <button class="button button-secondary w-full sm:py-8" on:click={() => openedModalId="stream"}>
@@ -160,27 +163,49 @@
 
 <!--MODALS-->
 <!--File explorer-->
-<div class="modal modal-bottom sm:modal-middle {openedModalId === 'explorer' ? 'modal-open' : ''}">
-  <div class="modal-box p-0 flex flex-col max-h-[80vh]">
-    <div class="font-medium px-4 py-4">
-      Select file or directory
-    </div>
-    <FileViewer dir="/Music/Kids/Horror" extensions={["mp3", "m4a", "wav"]} bind:selectedPath/>
-    <div
-        class="px-4 py-3 bg-zinc-100 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
-      <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
-      <button class="button button-primary" on:click={() => openedModalId=""}>Assign</button>
-    </div>
+<div class="modal modal-bottom sm:modal-middle {openedModalId.startsWith('explorer') ? 'modal-open' : ''}">
+  <div class="modal-box p-0 flex flex-col max-h-[75vh]">
+    {#if openedModalId === "explorer_1"}
+      <div class="font-medium px-4 py-4">
+        Select file or directory
+      </div>
+      <FileViewer dir="/Music/Kids/Horror" extensions={["mp3", "m4a", "wav"]} bind:selectedPath/>
+      <div
+          class="px-4 py-3 bg-zinc-100 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+        <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
+        <button class="button button-primary" on:click={() => openedModalId="explorer_2"}>Select<Icon class="h-4 pl-2" style="solid" name="chevron-right"/></button>
+      </div>
+    {:else if openedModalId === "explorer_2"}
+      <div class="font-medium px-4 py-4">
+        Select a play mode
+      </div>
+      <ul class="overflow-y-auto border border-t-zinc-100">
+        {#each Object.entries(COMMANDS).sort((a, b) => (a[1].sorting > b[1].sorting ? 1 : -1)) as [key, values]}
+          {#if values.type === TAG_TYPES.LOCAL_AUDIO}
+            <li class="flex items-center px-6 py-1 h-9 sm:text-sm cursor-pointer sm:h-7 {selectedAction === key ? 'bg-orange-500 hover:bg-orange-500 text-white' : 'hover:bg-zinc-100'}"
+                on:click={() => selectedAction=key}>
+              <span class="">{values.name}</span>
+            </li>
+          {/if}
+        {/each}
+      </ul>
+      <div
+          class="px-4 py-3 bg-zinc-100 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+        <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
+        <button class="button button-secondary" on:click={() => openedModalId="explorer_1"}><Icon class="h-4 pr-2" style="solid" name="chevron-left"/>Back</button>
+        <button class="button button-primary" on:click={() => openedModalId=""}>Assign</button>
+      </div>
+    {/if}
   </div>
 </div>
 
 <!--Web stream-->
 <div class="modal modal-bottom sm:modal-middle {openedModalId === 'stream' ? 'modal-open' : ''}">
-  <div class="modal-box p-0 flex flex-col max-h-[80vh]">
+  <div class="modal-box p-0 flex flex-col max-h-[75vh]">
     <div class="font-medium px-4 py-4">
       Enter web stream URL
     </div>
-    <div class="px-4 pb-2">
+    <div class="px-4 pb-4">
       <input type="text" name="url" id="url"
              class="block w-full rounded-md border-zinc-300 focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
              placeholder="https://">
@@ -195,24 +220,26 @@
 
 <!--Action-->
 <div class="modal modal-bottom sm:modal-middle {openedModalId === 'action' ? 'modal-open' : ''}">
-  <div class="modal-box p-0 flex flex-col max-h-[80vh]">
+  <div class="modal-box p-0 flex flex-col max-h-[75vh]">
     <div class="relative font-medium px-4 py-4">
       Select action
     </div>
-    <ul class="border-t border-zinc-100 overflow-y-auto">
+    <ul class="overflow-y-auto">
       {#each ACTION_CATEGORIES as category_obj}
-        <div class="bg-zinc-100 font-semibold text-xs uppercase tracking-wider text-zinc-700 px-4 py-1">{category_obj.name}</div>
+        <div
+            class="bg-zinc-100 font-semibold text-xs uppercase tracking-wider text-zinc-700 px-4 py-1">{category_obj.name}</div>
         {#each Object.entries(COMMANDS).sort((a, b) => (a[1].sorting > b[1].sorting ? 1 : -1)) as [key, values]}
           {#if values.type === TAG_TYPES.ACTION && values.category === category_obj.category}
             <li class="flex items-center pl-6 pr-4 py-1 h-9 sm:text-sm cursor-pointer sm:h-7 {selectedAction === key ? 'bg-orange-500 hover:bg-orange-500 text-white' : 'hover:bg-zinc-100'}"
                 on:click={() => selectedAction=key}>
-              <div class="w-6 flex flex-col items-center"><Icon class="flex-shrink-0 h-5" style="regular" name={values.icon}/></div>
+              <div class="w-6 flex flex-col items-center">
+                <Icon class="flex-shrink-0 h-5" style="regular" name={values.icon}/>
+              </div>
               <span class="ml-3 truncate">{values.name}</span>
             </li>
           {/if}
         {/each}
       {/each}
-
     </ul>
     <div
         class="px-4 py-3 bg-zinc-100 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
@@ -224,7 +251,7 @@
 
 <!--Remove-->
 <div class="modal modal-bottom sm:modal-middle {openedModalId === 'remove' ? 'modal-open' : ''}">
-  <div class="modal-box p-0 flex flex-col max-h-[80vh]">
+  <div class="modal-box p-0 flex flex-col max-h-[75vh]">
     <div class="relative font-medium px-4 py-4">
       Do you really want to remove this tag's assignment?
     </div>
