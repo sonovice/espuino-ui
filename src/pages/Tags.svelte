@@ -8,7 +8,7 @@
     export let show;
     export let tag = {id: ""};
 
-    let openedModalId = "explorer_2";
+    let openedModalId = "";
 
     let selectedPath;
     let selectedMode;

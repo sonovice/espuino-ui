@@ -2,7 +2,6 @@
     import {_} from "svelte-i18n";
     export let isDisabled = false;
     export let isToggled = false;
-
 </script>
 
 <button class="relative cursor-pointer flex flex-row w-full ml-3 w-full tracking-wider uppercase h-full overflow-hidden" disabled={isDisabled}>
