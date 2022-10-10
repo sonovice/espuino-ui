@@ -75,9 +75,8 @@
         {#each dir.split("/") as part, idx}
           {#if part !== ""}
             <span class="w-4 text-center sm:text-sm">/</span>
-            <button
-                class="px-2 sm:text-sm rounded-md cursor-pointer h-9 sm:h-7 {selectedItem === undefined && idx == dir.split('/').length - 1 ? 'bg-orange-500 text-white' : 'hover:bg-zinc-200'}"
-                on:click={() => goUpDirectory(idx)}>{part}
+            <button class="px-2 sm:text-sm rounded-md cursor-pointer h-9 sm:h-7 {selectedItem === undefined && idx == dir.split('/').length - 1 ? 'bg-orange-500 text-white' : 'hover:bg-zinc-200'}"
+                    on:click={() => goUpDirectory(idx)}>{part}
             </button>
           {/if}
         {/each}

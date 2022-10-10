@@ -48,9 +48,9 @@
       </table>
     </div>
     <div
-        class="px-4 py-3 bg-zinc-100 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
-      <button class="button button-secondary" on:click={() => isOpened=false}>Cancel</button>
-      <button class="button button-warning" on:click={() => isOpened=false}>Remove</button>
+        class="px-4 py-3 bg-zinc-100 flex flex-row gap-x-2 sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+      <button class="button button-secondary w-full" on:click={() => isOpened=false}>Cancel</button>
+      <button class="button button-warning w-full" on:click={() => isOpened=false}>Remove</button>
     </div>
   </div>
 </div>

@@ -158,11 +158,11 @@
             <SettingRange text={$_("settings.general.battery_interval")} bind:value={settings.general.battery_interval_minutes} icon="clock" max="60" step="5" unit="m" />
           </div>
         </div>
-        <div slot="actions" class="flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
-          <button class="button-secondary" on:click={() => get_settings("general")}>
+        <div slot="actions" class="flex flex-row gap-x-2 sm:justify-end">
+          <button class="button-secondary w-full" on:click={() => get_settings("general")}>
             {$_("common.reset")}
           </button>
-          <button class="button-primary" on:click={() => set_settings({general: settings.general})}>
+          <button class="button-primary w-full" on:click={() => set_settings({general: settings.general})}>
             {$_("common.save")}
           </button>
         </div>
@@ -177,11 +177,11 @@
             <SettingText class="col-span-2" title={$_("settings.wifi.hostname")} bind:value={settings.wifi.hostname} />
           </div>
         </div>
-        <div slot="actions" class="flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
-          <button class="button-secondary" on:click={() => get_settings("wifi")}>
+        <div slot="actions" class="flex flex-row gap-x-2 sm:justify-end">
+          <button class="button-secondary w-full" on:click={() => get_settings("wifi")}>
             {$_("common.reset")}
           </button>
-          <button class="button-primary" on:click={() => set_settings({wifi: settings.wifi})}>
+          <button class="button-primary w-full" on:click={() => set_settings({wifi: settings.wifi})}>
             {$_("common.save")}
           </button>
         </div>
@@ -200,11 +200,11 @@
             <SettingText class="col-span-2 sm:col-span-1" title={$_("common.password")} bind:value={settings.ftp.password} type="password" disabled={settings.ftp.enabled} />
           </div>
         </div>
-        <div slot="actions" class="flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
-          <button class="button-secondary" on:click={() => get_settings("ftp")} disabled={settings.ftp.enabled}>
+        <div slot="actions" class="flex flex-row gap-x-2 sm:justify-end">
+          <button class="button-secondary w-full" on:click={() => get_settings("ftp")} disabled={settings.ftp.enabled}>
               {$_("common.reset")}
             </button>
-            <button class="button-primary" on:click={enable_ftp} disabled={settings.ftp.enabled}>
+            <button class="button-primary w-full" on:click={enable_ftp} disabled={settings.ftp.enabled}>
               {$_("settings.ftp.start_server")}
             </button>
         </div>
@@ -227,11 +227,11 @@
           <div class="relative z-10 mr-4">
             <ToggleButton text={$_("common.enable")} bind:enabled={settings.mqtt.enabled} on:toggle={() => set_settings({mqtt: {enabled: settings.mqtt.enabled}})} />
           </div>
-          <div class="flex flex-col-reverse w-full gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
-            <button class="button-secondary" on:click={() => get_settings("mqtt")} disabled={!settings.mqtt.enabled}>
+          <div class="flex flex-row w-full gap-x-2 sm:justify-end">
+            <button class="button-secondary w-full" on:click={() => get_settings("mqtt")} disabled={!settings.mqtt.enabled}>
               {$_("common.reset")}
             </button>
-            <button class="button-primary" on:click={() => set_settings({mqtt: settings.mqtt})} disabled={!settings.mqtt.enabled}>
+            <button class="button-primary w-full" on:click={() => set_settings({mqtt: settings.mqtt})} disabled={!settings.mqtt.enabled}>
               {$_("common.save")}
             </button>
           </div>
