@@ -1,0 +1,113 @@
+<script>
+    import {_} from "svelte-i18n";
+    import Icon from "../components/Icon.svelte";
+    import FileViewer from "../components/FileViewer.svelte";
+    import ToggleButtonOnOff from "../components/ToggleButtonOnOff.svelte";
+
+    export let openedModalId = "";
+    export let selectedPath;
+
+    let isStopAfterOneTrackToggled = false;
+    let isShuffleToggled = false;
+    let isRepeatToggled = false;
+    let isSavePositionToggled = false;
+    let isSleepWhenFinishedToggled = false;
+    let isDimLedsToggled = false;
+</script>
+
+<div class="modal modal-bottom sm:modal-middle {openedModalId.startsWith('explorer') ? 'modal-open' : ''}">
+  <div class="modal-box p-0 flex flex-col max-h-[85vh]">
+    {#if openedModalId === "explorer_1"}
+      <div class="font-medium px-4 py-4">
+        Select file or directory
+      </div>
+      <FileViewer dir="/Music/Kids/Horror" extensions={["mp3", "m4a", "wav", "m3u"]} bind:selectedPath/>
+      <div
+          class="px-4 py-3 bg-zinc-100 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+        <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
+        <button class="button button-primary" on:click={() => openedModalId="explorer_2"}>Select
+          <Icon class="h-3 pl-2" style="solid" name="chevron-right"/>
+        </button>
+      </div>
+    {:else if openedModalId === "explorer_2"}
+      <div class="px-4 pt-4">
+        <span class="font-medium">Select playback options</span>
+        <div class="text-xs text-zinc-500">
+          <span class="font-medium">Path: </span><span class="select-all font-mono truncated">{selectedPath}</span>
+        </div>
+      </div>
+
+      <div class="px-4 py-3 space-y-2 sm:self-center w-full">
+
+        <!-- Save position -->
+        <div class="flex flex-row text-sm w-full h-11 sm:h-9">
+          <div class="flex flex-row items-center font-medium">
+            <Icon class="mr-1 h-5 w-8 text-zinc-800" name="book-bookmark" style="regular"/>
+            <span class="w-24 leading-tight">Save position:</span>
+          </div>
+          <ToggleButtonOnOff bind:isToggled={isSavePositionToggled} isDisabled={isShuffleToggled}/>
+        </div>
+
+        <!-- Shuffle -->
+        {#if selectedPath && (selectedPath.endsWith("/") || selectedPath.endsWith(".m3u"))}
+          <div class="flex flex-row text-sm w-full h-11 sm:h-9">
+            <div class="flex flex-row items-center font-medium">
+              <Icon class="mr-1 h-5 w-8 text-zinc-800" name="shuffle" style="regular"/>
+              <span class="w-24 leading-tight">Shuffle:</span>
+            </div>
+            <ToggleButtonOnOff bind:isToggled={isShuffleToggled} isDisabled={isSavePositionToggled}/>
+          </div>
+        {/if}
+
+        <!-- Repeat -->
+        <div class="flex flex-row text-sm w-full h-11 sm:h-9">
+          <div class="flex flex-row items-center font-medium">
+            <Icon class="mr-1 h-5 w-8 text-zinc-800" name="repeat" style="regular"/>
+            <span class="w-24 leading-tight">Repeat:</span>
+          </div>
+          <ToggleButtonOnOff bind:isToggled={isRepeatToggled} isDisabled={isStopAfterOneTrackToggled}/>
+        </div>
+
+        <!-- Stop after one track -->
+        {#if selectedPath && (selectedPath.endsWith("/") || selectedPath.endsWith(".m3u"))}
+          <div class="flex flex-row text-sm w-full h-11 sm:h-9">
+            <div class="flex flex-row items-center font-medium">
+              <Icon class="mr-1 h-5 w-8 text-zinc-800" name="arrow-right-to-line" style="regular"/>
+              <span class="w-24 leading-tight">Stop after one track:</span>
+            </div>
+            <ToggleButtonOnOff bind:isToggled={isStopAfterOneTrackToggled} isDisabled={isRepeatToggled}/>
+          </div>
+        {/if}
+
+        <!-- Sleep when finished -->
+        <div class="flex flex-row text-sm w-full h-11 sm:h-9">
+          <div class="flex flex-row items-center font-medium">
+            <Icon class="mr-1 h-5 w-8 text-zinc-800" name="snooze" style="regular"/>
+            <span class="w-24 leading-tight">Sleep when finished:</span>
+          </div>
+          <ToggleButtonOnOff bind:isToggled={isSleepWhenFinishedToggled} isDisabled={isRepeatToggled}/>
+        </div>
+
+        <!-- Dim brightness -->
+        <div class="flex flex-row text-sm w-full h-11 sm:h-9">
+          <div class="flex flex-row items-center font-medium">
+            <Icon class="mr-1 h-5 w-8 text-zinc-800" name="brightness-low" style="regular"/>
+            <span class="w-24 leading-tight">Dim brightness:</span>
+          </div>
+          <ToggleButtonOnOff bind:isToggled={isDimLedsToggled}/>
+        </div>
+
+      </div>
+
+      <div
+          class="px-4 py-3 bg-zinc-100 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+        <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
+        <button class="button button-secondary" on:click={() => openedModalId="explorer_1"}>
+          <Icon class="h-3 pr-2" style="solid" name="chevron-left"/>
+          Back
+        </button>
+        <button class="button button-primary" on:click={() => openedModalId=""}>Assign</button>
+      </div>
+    {/if}
+  </div>
+</div>
