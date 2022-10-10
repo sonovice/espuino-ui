@@ -154,7 +154,7 @@
               <Icon class="mr-1 h-5 w-8 text-zinc-800" name="shuffle" style="regular"/>
               <span class="w-24">Shuffle:</span>
             </div>
-            <ToggleButtonOnOff bind:isToggled={isShuffleToggled}/>
+            <ToggleButtonOnOff bind:isToggled={isShuffleToggled} isDisabled={isSavePositionToggled}/>
           </div>
         {/if}
 
@@ -173,7 +173,7 @@
             <Icon class="mr-1 h-5 w-8 text-zinc-800" name="book-bookmark" style="regular"/>
             <span class="w-24">Save position:</span>
           </div>
-          <ToggleButtonOnOff bind:isToggled={isSavePositionToggled} />
+          <ToggleButtonOnOff bind:isToggled={isSavePositionToggled} isDisabled={isShuffleToggled}/>
         </div>
       </div>
 
