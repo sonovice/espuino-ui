@@ -9,7 +9,7 @@
     export let show;
     export let tag = {id: ""};
 
-    let openedModalId = "explorer_2";
+    let openedModalId = "";
 
     let selectedPath;
     let selectedMode;
@@ -131,14 +131,17 @@
         </div>
       </div>
 
+
       <div class="px-4 py-3 space-y-2 sm:self-center w-full">
-        <div class="flex flex-row text-sm w-full h-11 sm:h-9">
-          <div class="flex flex-row items-center font-semibold">
-            <Icon class="mr-1 h-5 w-8 text-zinc-800" name="shuffle" style="regular"/>
-            <span class="w-24">Shuffle:</span>
+        {#if selectedPath && (selectedPath.endsWith("/") || selectedPath.endsWith(".m3u"))}
+          <div class="flex flex-row text-sm w-full h-11 sm:h-9">
+            <div class="flex flex-row items-center font-semibold">
+              <Icon class="mr-1 h-5 w-8 text-zinc-800" name="shuffle" style="regular"/>
+              <span class="w-24">Shuffle:</span>
+            </div>
+            <ToggleButtonOnOff/>
           </div>
-          <ToggleButtonOnOff/>
-        </div>
+        {/if}
 
         <div class="flex flex-row text-sm w-full h-11 sm:h-9">
           <div class="flex flex-row items-center font-semibold">
@@ -156,13 +159,15 @@
           <ToggleButtonOnOff/>
         </div>
 
-        <div class="flex flex-row text-sm w-full h-11 sm:h-9">
-          <div class="flex flex-row items-center font-semibold">
-            <Icon class="mr-1 h-5 w-8 text-zinc-800" name="arrow-right-to-line" style="regular"/>
-            <span class="w-24">Stop after one track:</span>
+        {#if selectedPath && (selectedPath.endsWith("/") || selectedPath.endsWith(".m3u"))}
+          <div class="flex flex-row text-sm w-full h-11 sm:h-9">
+            <div class="flex flex-row items-center font-semibold">
+              <Icon class="mr-1 h-5 w-8 text-zinc-800" name="arrow-right-to-line" style="regular"/>
+              <span class="w-24">Stop after one track:</span>
+            </div>
+            <ToggleButtonOnOff/>
           </div>
-          <ToggleButtonOnOff/>
-        </div>
+        {/if}
       </div>
 
       <!--      <ul class="overflow-y-auto border border-t-zinc-100">-->
