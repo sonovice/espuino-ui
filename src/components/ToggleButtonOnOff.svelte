@@ -6,7 +6,7 @@
 <button class="cursor-pointer flex flex-row w-full ml-3 w-full tracking-wider uppercase h-full">
   <div on:click={() => isToggled = false}
        class="flex items-center justify-center w-full h-full rounded-l-md
-              {isToggled ? 'border-l border-y border-zinc-400 bg-zinc-100 uppercase text-zinc-400' : 'border border-orange-500 bg-orange-500 font-bold text-white'}"
+              {isToggled ? 'border-l border-y border-zinc-400 bg-zinc-100 uppercase text-zinc-400' : 'border border-zinc-500 bg-zinc-500 font-bold text-white'}"
   >
     {$_("common.off")}
   </div>

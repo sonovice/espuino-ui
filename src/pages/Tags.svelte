@@ -3,7 +3,6 @@
     import Icon from "../components/Icon.svelte";
     import FileViewer from "../components/FileViewer.svelte";
     import * as CONSTS from "../constants.js";
-    import ToggleButton from "../components/ToggleButton.svelte";
     import ToggleButtonOnOff from "../components/ToggleButtonOnOff.svelte";
 
     export let show;
@@ -135,7 +134,7 @@
       <div class="px-4 py-3 space-y-2 sm:self-center w-full">
         {#if selectedPath && (selectedPath.endsWith("/") || selectedPath.endsWith(".m3u"))}
           <div class="flex flex-row text-sm w-full h-11 sm:h-9">
-            <div class="flex flex-row items-center font-semibold">
+            <div class="flex flex-row items-center font-medium">
               <Icon class="mr-1 h-5 w-8 text-zinc-800" name="arrow-right-to-line" style="regular"/>
               <span class="w-24">Stop after one track:</span>
             </div>
@@ -146,7 +145,7 @@
         {#if selectedPath && (selectedPath.endsWith("/") || selectedPath.endsWith(".m3u"))}
 <!--          Disable if "stop after one track"-->
           <div class="flex flex-row text-sm w-full h-11 sm:h-9">
-            <div class="flex flex-row items-center font-semibold">
+            <div class="flex flex-row items-center font-medium">
               <Icon class="mr-1 h-5 w-8 text-zinc-800" name="shuffle" style="regular"/>
               <span class="w-24">Shuffle:</span>
             </div>
@@ -156,7 +155,7 @@
 
 <!--        Disable if "stop after one track"-->
         <div class="flex flex-row text-sm w-full h-11 sm:h-9">
-          <div class="flex flex-row items-center font-semibold">
+          <div class="flex flex-row items-center font-medium">
             <Icon class="mr-1 h-5 w-8 text-zinc-800" name="repeat" style="regular"/>
             <span class="w-24">Repeat:</span>
           </div>
@@ -165,7 +164,7 @@
 
 <!--        Disable if "stop after one track"-->
         <div class="flex flex-row text-sm w-full h-11 sm:h-9">
-          <div class="flex flex-row items-center font-semibold">
+          <div class="flex flex-row items-center font-medium">
             <Icon class="mr-1 h-5 w-8 text-zinc-800" name="book-bookmark" style="regular"/>
             <span class="w-24">Save position:</span>
           </div>
@@ -173,14 +172,6 @@
         </div>
       </div>
 
-      <!--      <ul class="overflow-y-auto border border-t-zinc-100">-->
-      <!--        {#each Object.entries(CONSTS.LOCAL_PLAY_MODES).sort((a, b) => (a[1].sorting > b[1].sorting ? 1 : -1)) as [key, values]}-->
-      <!--            <li class="flex items-center px-6 py-1 h-9 sm:text-sm cursor-pointer sm:h-7 {selectedMode === key ? 'bg-orange-500 hover:bg-orange-500 text-white' : 'hover:bg-zinc-100'}"-->
-      <!--                on:click={() => selectedMode=key}>-->
-      <!--              <span class="">{$_(values.i18n_key)}</span>-->
-      <!--            </li>-->
-      <!--        {/each}-->
-      <!--      </ul>-->
       <div
           class="px-4 py-3 bg-zinc-100 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
         <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
