@@ -2,11 +2,11 @@
     import {_} from "svelte-i18n";
     import * as CONSTS from "../constants.js";
 
-    export let openedModalId = "";
+    export let isOpened = false;
     export let currentTag;
 </script>
 
-<div class="modal modal-bottom sm:modal-middle {openedModalId === 'remove' ? 'modal-open' : ''}">
+<div class="modal modal-bottom sm:modal-middle {isOpened ? 'modal-open' : ''}">
   <div class="modal-box p-0 flex flex-col max-h-[85vh]">
     <div class="relative font-medium px-4 py-4">
       Do you really want to remove this tag's assignment?
@@ -49,8 +49,8 @@
     </div>
     <div
         class="px-4 py-3 bg-zinc-100 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
-      <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
-      <button class="button button-warning" on:click={() => openedModalId=""}>Remove</button>
+      <button class="button button-secondary" on:click={() => isOpened=false}>Cancel</button>
+      <button class="button button-warning" on:click={() => isOpened=false}>Remove</button>
     </div>
   </div>
 </div>

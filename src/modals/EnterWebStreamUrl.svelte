@@ -1,9 +1,11 @@
 <script>
-  export let openedModalId = "";
-  export let webStreamUrl = "";
+    export let isOpened = false;
+    export let webStreamUrl = "";
+
+
 </script>
 
-<div class="modal modal-bottom sm:modal-middle {openedModalId === 'stream' ? 'modal-open' : ''}">
+<div class="modal modal-bottom sm:modal-middle {isOpened ? 'modal-open' : ''}">
   <div class="modal-box p-0 flex flex-col max-h-[85vh]">
     <div class="font-medium px-4 py-4">
       Enter web stream URL
@@ -17,8 +19,8 @@
     </div>
     <div
         class="px-4 py-3 bg-zinc-100 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
-      <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
-      <button class="button button-primary" on:click={() => openedModalId=""}>Assign</button>
+      <button class="button button-secondary" on:click={() => isOpened=false}>Cancel</button>
+      <button class="button button-primary" on:click={() => isOpened=false}>Assign</button>
     </div>
   </div>
 </div>

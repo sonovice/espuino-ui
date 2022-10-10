@@ -1,6 +1,5 @@
 <script>
     import {afterUpdate} from 'svelte';
-
     import Icon from "./Icon.svelte";
 
     export let dir;
@@ -20,8 +19,9 @@
         m3u: "file-lines",
     }
 
-    // export let items = [];
-    export let items = [
+    export let items = [];
+    // TODO remove
+    items = [
         {type: "dir", name: "You did not tidy up, Vol. 1"},
         {type: "dir", name: "You did not tidy up, Vol. 2"},
         {type: "file", name: "01 Spooky Stories - Bed time is earlier today.mp3"},

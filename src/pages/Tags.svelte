@@ -2,21 +2,36 @@
     import {_} from "svelte-i18n";
     import Icon from "../components/Icon.svelte";
     import * as CONSTS from "../constants.js";
-    import SelectPath from "../modals/SelectPath.svelte";
-    import WebStream from "../modals/WebStream.svelte";
-    import SelectAction from "../modals/SelectAction.svelte";
-    import ConfirmRemove from "../modals/ConfirmRemove.svelte";
+    import SelectPathModal from "../modals/SelectPath.svelte";
+    import EnterWebStreamUrlModal from "../modals/EnterWebStreamUrl.svelte";
+    import SelectActionModal from "../modals/SelectAction.svelte";
+    import ConfirmRemoveModal from "../modals/ConfirmRemove.svelte";
 
     export let show;
     export let currentTag = {id: ""};
     export let tags = [];
 
-
     let openedModalId = "";
+
+    let isOpenedSelectPathModal;
+    let isOpenedEnterWebStreamUrlModal;
+    let isOpenedSelectActionModal;
+    let isOpenedConfirmRemoveModal;
+
+    $: isOpenedSelectPathModal = openedModalId === "selectPath";
+    $: isOpenedEnterWebStreamUrlModal = openedModalId === "enterWebStreamUrl";
+    $: isOpenedSelectActionModal = openedModalId === "selectAction";
+    $: isOpenedConfirmRemoveModal = openedModalId === "confirmRemove";
 
     let selectedPath;
     let selectedAction;
     let webStreamUrl;
+
+    function openModal(modal) {
+        // Force update event
+        openedModalId = "";
+        openedModalId = modal;
+    }
 
 
     // TODO For tests only, remove
@@ -96,17 +111,17 @@
     <!-- Buttons -->
     {#if currentTag.id}
       <div class="flex flex-col sm:flex-row gap-2 px-4 py-3 bg-zinc-50">
-        <button class="button button-secondary w-full sm:py-8" on:click={() => openedModalId="explorer_1"}>
+        <button class="button button-secondary w-full sm:py-8" on:click={() => openModal("selectPath")}>
           Assign file or directory
         </button>
-        <button class="button button-secondary w-full sm:py-8" on:click={() => openedModalId="stream"}>
+        <button class="button button-secondary w-full sm:py-8" on:click={() => openModal("enterWebStreamUrl")}>
           Assign web stream
         </button>
-        <button class="button button-secondary w-full sm:py-8" on:click={() => openedModalId="action"}>
+        <button class="button button-secondary w-full sm:py-8" on:click={() => openModal("selectAction")}>
           Assign action
         </button>
         {#if "command" in currentTag}
-          <button class="button button-warning w-full sm:py-8" on:click={() => openedModalId="remove"}>
+          <button class="button button-warning w-full sm:py-8" on:click={() => openModal("confirmRemove")}>
             Remove assignment
           </button>
         {/if}
@@ -184,8 +199,8 @@
 </div>
 
 
-<!--MODALS-->
-<SelectPath {openedModalId} {selectedPath} />
-<WebStream {openedModalId} {webStreamUrl} />
-<SelectAction {openedModalId} {selectedAction} />
-<ConfirmRemove {openedModalId} {currentTag} />
+<!-- MODALS -->
+<SelectPathModal bind:isOpened={isOpenedSelectPathModal} {selectedPath} />
+<EnterWebStreamUrlModal bind:isOpened={isOpenedEnterWebStreamUrlModal} {webStreamUrl} />
+<SelectActionModal bind:isOpened={isOpenedSelectActionModal} {selectedAction} />
+<ConfirmRemoveModal bind:isOpened={isOpenedConfirmRemoveModal} {currentTag} />
