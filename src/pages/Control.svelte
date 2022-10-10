@@ -10,7 +10,7 @@
     let brightness = 55;
 </script>
 
-<div class="{show ? 'block' : 'hidden'} max-w-3xl mx-auto space-y-6">
+<div class="{show ? 'block' : 'hidden'} max-w-3xl mx-auto space-y-6 pb-4">
   <div class="relative overflow-hidden shadow-md sm:rounded-md sm:mx-4">
     <Icon name="music" style="solid" class="absolute hidden w-32 sm:block -right-1 -top-3 text-zinc-50 -rotate-6"/>
     <div class="flex flex-col items-center bg-white sm:items-stretch sm:flex-row">

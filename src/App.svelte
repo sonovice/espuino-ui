@@ -91,7 +91,7 @@
 {:else}
   <TopNavigation navigationPages={navigationPages} page={current_page} {isConnected} {batteryLevel} on:changePage={changePage}/>
   <main class="flex flex-col items-center flex-1 h-full overflow-y-auto" bind:this={main_area}>
-    <div class="w-full pt-4 pb-4 h-full">
+    <div class="w-full h-full py-4">
       <Control show={current_page === "control"}/>
       <Tags show={current_page === "tags"}/>
       <Settings show={current_page === "settings"}/>

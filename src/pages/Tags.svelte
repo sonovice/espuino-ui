@@ -6,7 +6,9 @@
     import ToggleButtonOnOff from "../components/ToggleButtonOnOff.svelte";
 
     export let show;
-    export let tag = {id: ""};
+    export let currentTag = {id: ""};
+    export let tags = [];
+
 
     let openedModalId = "";
 
@@ -20,20 +22,32 @@
     let isSavePositionToggled = false;
 
     // TODO For tests only, remove
-    tag = {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"};
+    currentTag = {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"};
     // tag = {id: "12345678", command: 103};
     // tag = {id: "12345678"};
     // tag = {id: ""};
 
+    tags = [
+        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"},
+        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"},
+        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"},
+        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"},
+        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/sdfgsdfgsdfgsdfg sdfgsdfgsdfgsdfgsdf"},
+        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/sdfg sdfg sdfh aetj aetrh erwgawergaertjratfvcvskrsykarsykyrakraghydfehsrytikj"},
+        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"},
+        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"},
+        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"},
+    ];
+
 </script>
 
-<div class="{show ? 'block' : 'hidden'} max-w-2xl mx-auto sm:h-fit">
+<div class="{show ? 'block' : 'hidden'} max-w-2xl mx-auto sm:h-fit space-y-6 pb-4">
   <div class="{$$props.class} relative overflow-hidden shadow sm:rounded-md bg-white sm:mx-4 h-full">
     <Icon name="nfc" style="solid" class="absolute w-40 -right-3 -top-3 text-zinc-50 -rotate-6 hidden sm:block"/>
     <div class="relative px-4 py-3 space-y-6">
       <div class="flex flex-col sm:flex-row w-full items-center">
         <div class="py-8 w-48 flex-shrink-0 flex flex-col items-center">
-          {#if tag.id !== ""}
+          {#if currentTag.id !== ""}
             <div class="flex h-24 w-24 relative">
               <Icon name="nfc" style="regular" class="absolute animate-ping h-full w-full text-green-300 opacity-75"/>
               <Icon name="nfc" style="regular" class="absolute h-full w-full text-green-400"/>
@@ -44,39 +58,39 @@
         </div>
 
         <div class="flex flex-col items-center space-y-4 w-full">
-          {#if tag.id !== ""}
+          {#if currentTag.id !== ""}
             <div class="text-green-400 text-lg font-bold">Tag detected</div>
             <table class="text-sm w-full sm:w-fit">
               <tr>
                 <th class="font-medium text-left w-1 align-text-top">ID:</th>
-                <td class="pl-3 font-mono select-all">{tag.id}</td>
+                <td class="pl-3 font-mono select-all">{currentTag.id}</td>
               </tr>
               <tr>
                 <th class="font-medium text-left w-1 align-text-top">Assignment:</th>
                 <td class="pl-3">
-                  {#if "command" in tag && (tag.command in CONSTS.LOCAL_PLAY_MODES || tag.command in CONSTS.ACTIONS || tag.command in CONSTS.WEB_STREAM)}
-                    {#if tag.command in CONSTS.LOCAL_PLAY_MODES}
-                      {$_(CONSTS.LOCAL_PLAY_MODES[tag.command].i18n_key)}
-                    {:else if tag.command in CONSTS.ACTIONS}
-                      {$_(CONSTS.ACTIONS[tag.command].i18n_key)}
-                    {:else if tag.command in CONSTS.WEB_STREAM}
-                      {$_(CONSTS.WEB_STREAM[tag.command].i18n_key)}
+                  {#if "command" in currentTag && (currentTag.command in CONSTS.LOCAL_PLAY_MODES || currentTag.command in CONSTS.ACTIONS || currentTag.command in CONSTS.WEB_STREAM)}
+                    {#if currentTag.command in CONSTS.LOCAL_PLAY_MODES}
+                      {$_(CONSTS.LOCAL_PLAY_MODES[currentTag.command].i18n_key)}
+                    {:else if currentTag.command in CONSTS.ACTIONS}
+                      {$_(CONSTS.ACTIONS[currentTag.command].i18n_key)}
+                    {:else if currentTag.command in CONSTS.WEB_STREAM}
+                      {$_(CONSTS.WEB_STREAM[currentTag.command].i18n_key)}
                     {/if}
                   {:else}
                     {$_("tags.assignment_types.none")}
                   {/if}
                 </td>
               </tr>
-              {#if "pathOrUrl" in tag}
+              {#if "pathOrUrl" in currentTag}
                 <tr>
                   <th class="font-medium text-left w-1 align-text-top">
-                    {#if tag.pathOrUrl.startsWith("/")}
+                    {#if currentTag.pathOrUrl.startsWith("/")}
                       Path:
                     {:else}
                       URL:
                     {/if}
                   </th>
-                  <td class="pl-3 select-all" style="word-break: break-all;">{tag.pathOrUrl}</td>
+                  <td class="pl-3 select-all break-all select-all">{currentTag.pathOrUrl}</td>
                 </tr>
               {/if}
             </table>
@@ -88,7 +102,7 @@
       </div>
     </div>
 
-    {#if tag.id}
+    {#if currentTag.id}
       <div class="flex flex-col sm:flex-row gap-2 px-4 py-3 bg-zinc-50">
         <button class="button button-secondary w-full sm:py-8" on:click={() => openedModalId="explorer_1"}>
           Assign file or directory
@@ -99,7 +113,7 @@
         <button class="button button-secondary w-full sm:py-8" on:click={() => openedModalId="action"}>
           Assign action
         </button>
-        {#if "command" in tag}
+        {#if "command" in currentTag}
           <button class="button button-warning w-full sm:py-8" on:click={() => openedModalId="remove"}>
             Remove assignment
           </button>
@@ -107,6 +121,57 @@
       </div>
     {/if}
 
+  </div>
+
+  <div class="relative overflow-hidden shadow sm:rounded-md bg-white sm:mx-4 h-full">
+    <Icon name="list" style="solid" class="absolute w-40 -right-3 -top-3 text-zinc-50 -rotate-6 hidden sm:block"/>
+    <div class="relative px-4 py-5 space-y-6">
+      <div>
+        <h3 class="relative text-lg font-medium leading-6">Assigned playback tags</h3>
+        <p class="relative mt-1 text-sm text-zinc-500">This is a list of tags with playback assignments for quick reference or manual triggering.</p>
+      </div>
+      <div>
+        <table class="w-full text-sm text-left h-full">
+          <thead>
+            <tr>
+              <th class="font-medium">ID</th>
+              <th class="pl-5 font-medium">Playback options</th>
+              <th class="pl-5 font-medium hidden sm:table-cell">Path / URL</th>
+              <th></th><!-- Space for buttons -->
+            </tr>
+          </thead>
+          <tbody>
+            {#each tags as tag}
+              <tr class="h-full border-zinc-300 border-t">
+                <td class="pt-2 sm:pb-2 font-mono w-0 select-all">
+                  {tag.id}
+                </td>
+                <td class="pt-2 sm:pb-2 pl-5 flex flex-row space-x-1 h-full">
+                  <!--{tag.command}-->
+                  <Icon class="my-auto h-8 w-8 border border-orange-500 bg-orange-500 rounded-md px-2 py-1 text-white" name="book-bookmark" style="regular"/>
+                  <Icon class="my-auto h-8 w-8 border border-zinc-300 bg-zinc-100 rounded-md px-2 py-1 text-zinc-400" name="shuffle" style="regular"/>
+                  <Icon class="my-auto h-8 w-8 border border-orange-500 bg-orange-500 rounded-md px-2 py-1 text-white" name="repeat" style="regular"/>
+                  <Icon class="my-auto h-8 w-8 border border-zinc-300 bg-zinc-100 rounded-md px-2 py-1 text-zinc-400" name="arrow-right-to-line" style="regular"/>
+                </td>
+                <td class="pt-2 sm:pb-2 px-5 w-full hidden sm:table-cell text-zinc-500 break-all select-all font-mono text-xs">
+                  {tag.pathOrUrl}
+                </td>
+                <td class="pt-2 sm:pb-2 w-0">
+                  <button class="button button-secondary max-h-8">
+                    <Icon class="h-5 w-5 text-white" name="play" style="solid"/>
+                  </button>
+                </td>
+              </tr>
+              <tr class="sm:hidden">
+                <td colspan="3" class="pb-2">
+                  <span class="font-medium">Path / URL: </span><span class="text-zinc-500 break-all select-all font-mono text-xs">{tag.pathOrUrl}</span>
+                </td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -134,18 +199,18 @@
         </div>
       </div>
 
-
       <div class="px-4 py-3 space-y-2 sm:self-center w-full">
-        {#if selectedPath && (selectedPath.endsWith("/") || selectedPath.endsWith(".m3u"))}
-          <div class="flex flex-row text-sm w-full h-11 sm:h-9">
-            <div class="flex flex-row items-center font-medium">
-              <Icon class="mr-1 h-5 w-8 text-zinc-800" name="arrow-right-to-line" style="regular"/>
-              <span class="w-24">Stop after one track:</span>
-            </div>
-            <ToggleButtonOnOff bind:isToggled={isStopAfterOneTrackToggled} isDisabled={isRepeatToggled}/>
-          </div>
-        {/if}
 
+        <!-- Save position -->
+        <div class="flex flex-row text-sm w-full h-11 sm:h-9">
+          <div class="flex flex-row items-center font-medium">
+            <Icon class="mr-1 h-5 w-8 text-zinc-800" name="book-bookmark" style="regular"/>
+            <span class="w-24">Save position:</span>
+          </div>
+          <ToggleButtonOnOff bind:isToggled={isSavePositionToggled} isDisabled={isShuffleToggled}/>
+        </div>
+
+        <!-- Shuffle -->
         {#if selectedPath && (selectedPath.endsWith("/") || selectedPath.endsWith(".m3u"))}
           <div class="flex flex-row text-sm w-full h-11 sm:h-9">
             <div class="flex flex-row items-center font-medium">
@@ -156,6 +221,7 @@
           </div>
         {/if}
 
+        <!-- Repeat -->
         <div class="flex flex-row text-sm w-full h-11 sm:h-9">
           <div class="flex flex-row items-center font-medium">
             <Icon class="mr-1 h-5 w-8 text-zinc-800" name="repeat" style="regular"/>
@@ -164,13 +230,17 @@
           <ToggleButtonOnOff bind:isToggled={isRepeatToggled} isDisabled={isStopAfterOneTrackToggled}/>
         </div>
 
-        <div class="flex flex-row text-sm w-full h-11 sm:h-9">
-          <div class="flex flex-row items-center font-medium">
-            <Icon class="mr-1 h-5 w-8 text-zinc-800" name="book-bookmark" style="regular"/>
-            <span class="w-24">Save position:</span>
+        <!-- Stop after one track -->
+        {#if selectedPath && (selectedPath.endsWith("/") || selectedPath.endsWith(".m3u"))}
+          <div class="flex flex-row text-sm w-full h-11 sm:h-9">
+            <div class="flex flex-row items-center font-medium">
+              <Icon class="mr-1 h-5 w-8 text-zinc-800" name="arrow-right-to-line" style="regular"/>
+              <span class="w-24">Stop after one track:</span>
+            </div>
+            <ToggleButtonOnOff bind:isToggled={isStopAfterOneTrackToggled} isDisabled={isRepeatToggled}/>
           </div>
-          <ToggleButtonOnOff bind:isToggled={isSavePositionToggled} isDisabled={isShuffleToggled}/>
-        </div>
+        {/if}
+
       </div>
 
       <div
@@ -248,34 +318,34 @@
       <table class="text-sm w-full sm:w-fit">
         <tr>
           <th class="font-medium text-left w-1 align-text-top">ID:</th>
-          <td class="pl-3 font-mono select-all">{tag.id}</td>
+          <td class="pl-3 font-mono select-all">{currentTag.id}</td>
         </tr>
         <tr>
           <th class="font-medium text-left w-1 align-text-top">Assignment:</th>
           <td class="pl-3">
-            {#if "command" in tag && (tag.command in CONSTS.LOCAL_PLAY_MODES || tag.command in CONSTS.ACTIONS || tag.command in CONSTS.WEB_STREAM)}
-              {#if tag.command in CONSTS.LOCAL_PLAY_MODES}
-                {$_(CONSTS.LOCAL_PLAY_MODES[tag.command].i18n_key)}
-              {:else if tag.command in CONSTS.ACTIONS}
-                {$_(CONSTS.ACTIONS[tag.command].i18n_key)}
-              {:else if tag.command in CONSTS.WEB_STREAM}
-                {$_(CONSTS.WEB_STREAM[tag.command].i18n_key)}
+            {#if "command" in currentTag && (currentTag.command in CONSTS.LOCAL_PLAY_MODES || currentTag.command in CONSTS.ACTIONS || currentTag.command in CONSTS.WEB_STREAM)}
+              {#if currentTag.command in CONSTS.LOCAL_PLAY_MODES}
+                {$_(CONSTS.LOCAL_PLAY_MODES[currentTag.command].i18n_key)}
+              {:else if currentTag.command in CONSTS.ACTIONS}
+                {$_(CONSTS.ACTIONS[currentTag.command].i18n_key)}
+              {:else if currentTag.command in CONSTS.WEB_STREAM}
+                {$_(CONSTS.WEB_STREAM[currentTag.command].i18n_key)}
               {/if}
             {:else}
               {$_("tags.assignment_types.none")}
             {/if}
           </td>
         </tr>
-        {#if "pathOrUrl" in tag}
+        {#if "pathOrUrl" in currentTag}
           <tr>
             <th class="font-medium text-left w-1 align-text-top">
-              {#if tag.pathOrUrl.startsWith("/")}
+              {#if currentTag.pathOrUrl.startsWith("/")}
                 Path:
               {:else}
                 URL:
               {/if}
             </th>
-            <td class="pl-3 select-all" style="word-break: break-all;">{tag.pathOrUrl}</td>
+            <td class="pl-3 select-all break-all select-all">{currentTag.pathOrUrl}</td>
           </tr>
         {/if}
       </table>

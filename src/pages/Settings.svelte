@@ -109,7 +109,7 @@
 
 
 
-<div class="{show ? 'block' : 'hidden'} max-w-5xl mx-auto">
+<div class="{show ? 'block' : 'hidden'} max-w-5xl mx-auto pb-4">
   <div class="flex flex-col justify-center md:flex-row">
     <!-- Quick access navigation -->
     <div class="mx-0 mb-4 md:sticky top-4 sm:mx-4 h-fit">
