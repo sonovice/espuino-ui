@@ -8,14 +8,22 @@
     export let selectedPath;
 
     let page = 0;
-    $ : page = !isOpened ? 0 : page; // Reset page when modal is closed
+    $: page = !isOpened ? 0 : page; // Reset page when modal is closed
 
     let isStopAfterOneTrackToggled = false;
-    let isShuffleToggled = false;
-    let isRepeatToggled = false;
-    let isSavePositionToggled = false;
+    let isShuffleToggled           = false;
+    let isRepeatToggled            = false;
+    let isSavePositionToggled      = false;
     let isSleepWhenFinishedToggled = false;
-    let isDimLedsToggled = false;
+    let isDimLedsToggled           = false;
+
+    // Reset toggles when modal is closed
+    $: isStopAfterOneTrackToggled = !isOpened || page === 0 ? false : isStopAfterOneTrackToggled;
+    $: isShuffleToggled           = !isOpened || page === 0 ? false : isShuffleToggled;
+    $: isRepeatToggled            = !isOpened || page === 0 ? false : isRepeatToggled;
+    $: isSavePositionToggled      = !isOpened || page === 0 ? false : isSavePositionToggled;
+    $: isSleepWhenFinishedToggled = !isOpened || page === 0 ? false : isSleepWhenFinishedToggled;
+    $: isDimLedsToggled           = !isOpened || page === 0 ? false : isDimLedsToggled;
 </script>
 
 <div class="modal modal-bottom sm:modal-middle {isOpened ? 'modal-open' : ''}">
@@ -43,7 +51,7 @@
         </div>
       </div>
 
-      <div class="px-4 py-3 space-y-2 sm:self-center w-full">
+      <div class="px-4 py-3 space-y-2 sm:self-center w-full overflow-y-auto">
 
         <!-- Save position -->
         <div class="flex flex-row text-sm w-full h-11 sm:h-9">
