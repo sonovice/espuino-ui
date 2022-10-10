@@ -11,7 +11,6 @@
     let openedModalId = "";
 
     let selectedPath;
-    let selectedMode;
     let selectedAction;
     let webStreamUrl;
 
@@ -129,7 +128,7 @@
       </div>
     {:else if openedModalId === "explorer_2"}
       <div class="px-4 pt-4">
-        <span class="font-medium">Select playing options</span>
+        <span class="font-medium">Select playback options</span>
         <div class="text-xs text-zinc-500">
           <span class="font-medium">Path: </span><span class="select-all font-mono truncated">{selectedPath}</span>
         </div>
@@ -143,12 +142,11 @@
               <Icon class="mr-1 h-5 w-8 text-zinc-800" name="arrow-right-to-line" style="regular"/>
               <span class="w-24">Stop after one track:</span>
             </div>
-            <ToggleButtonOnOff bind:isToggled={isStopAfterOneTrackToggled} />
+            <ToggleButtonOnOff bind:isToggled={isStopAfterOneTrackToggled} isDisabled={isRepeatToggled}/>
           </div>
         {/if}
 
         {#if selectedPath && (selectedPath.endsWith("/") || selectedPath.endsWith(".m3u"))}
-<!--          Disable if "stop after one track"-->
           <div class="flex flex-row text-sm w-full h-11 sm:h-9">
             <div class="flex flex-row items-center font-medium">
               <Icon class="mr-1 h-5 w-8 text-zinc-800" name="shuffle" style="regular"/>
@@ -158,7 +156,6 @@
           </div>
         {/if}
 
-<!--        Disable if "stop after one track"-->
         <div class="flex flex-row text-sm w-full h-11 sm:h-9">
           <div class="flex flex-row items-center font-medium">
             <Icon class="mr-1 h-5 w-8 text-zinc-800" name="repeat" style="regular"/>
@@ -167,7 +164,6 @@
           <ToggleButtonOnOff bind:isToggled={isRepeatToggled} isDisabled={isStopAfterOneTrackToggled}/>
         </div>
 
-<!--        Disable if "stop after one track"-->
         <div class="flex flex-row text-sm w-full h-11 sm:h-9">
           <div class="flex flex-row items-center font-medium">
             <Icon class="mr-1 h-5 w-8 text-zinc-800" name="book-bookmark" style="regular"/>
@@ -199,7 +195,9 @@
     <div class="px-4 pb-4">
       <input type="text" name="url" id="url"
              class="block w-full rounded-md border-zinc-300 focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
-             placeholder="https://">
+             placeholder="https://"
+             bind:value={webStreamUrl}
+      >
     </div>
     <div
         class="px-4 py-3 bg-zinc-100 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
