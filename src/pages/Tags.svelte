@@ -8,12 +8,17 @@
     export let show;
     export let tag = {id: ""};
 
-    let openedModalId = "";
+    let openedModalId = "explorer_2";
 
     let selectedPath;
     let selectedMode;
     let selectedAction;
     let webStreamUrl;
+
+    let isStopAfterOneTrackToggled = false;
+    let isShuffleToggled = false;
+    let isRepeatToggled = false;
+    let isSavePositionToggled = false;
 
     // TODO For tests only, remove
     tag = {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"};
@@ -138,7 +143,7 @@
               <Icon class="mr-1 h-5 w-8 text-zinc-800" name="arrow-right-to-line" style="regular"/>
               <span class="w-24">Stop after one track:</span>
             </div>
-            <ToggleButtonOnOff/>
+            <ToggleButtonOnOff bind:isToggled={isStopAfterOneTrackToggled} />
           </div>
         {/if}
 
@@ -149,7 +154,7 @@
               <Icon class="mr-1 h-5 w-8 text-zinc-800" name="shuffle" style="regular"/>
               <span class="w-24">Shuffle:</span>
             </div>
-            <ToggleButtonOnOff/>
+            <ToggleButtonOnOff bind:isToggled={isShuffleToggled}/>
           </div>
         {/if}
 
@@ -159,7 +164,7 @@
             <Icon class="mr-1 h-5 w-8 text-zinc-800" name="repeat" style="regular"/>
             <span class="w-24">Repeat:</span>
           </div>
-          <ToggleButtonOnOff/>
+          <ToggleButtonOnOff bind:isToggled={isRepeatToggled} isDisabled={isStopAfterOneTrackToggled}/>
         </div>
 
 <!--        Disable if "stop after one track"-->
@@ -168,7 +173,7 @@
             <Icon class="mr-1 h-5 w-8 text-zinc-800" name="book-bookmark" style="regular"/>
             <span class="w-24">Save position:</span>
           </div>
-          <ToggleButtonOnOff/>
+          <ToggleButtonOnOff bind:isToggled={isSavePositionToggled} />
         </div>
       </div>
 
