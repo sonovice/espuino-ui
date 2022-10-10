@@ -51,7 +51,7 @@
           <span class="ml-1 text-xs">{batteryLevel}%</span>
 
           <!-- Heart beat (connection indicator) -->
-          <span class="ml-2 flex w-2 h-2 relative">
+          <span class="ml-2 sm:ml-4 flex w-2 h-2 relative">
             {#if isConnected}
               <span class="animate-ping absolute h-full w-full rounded-full bg-green-300 opacity-75"></span>
               <span class="absolute inline-flex rounded-full h-2 w-2 bg-green-400"></span>
@@ -59,6 +59,15 @@
               <span class="absolute inline-flex rounded-full h-2 w-2 bg-red-400"></span>
             {/if}
           </span>
+
+          <!-- Community icon -->
+          <div class="ml-2 sm:ml-4">
+            <div class="flex items-center">
+              <a href="https://forum.espuino.de/" target="_blank" class="p-1 rounded-full bg-zinc-800 text-zinc-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-zinc-800">
+                <Icon name="comments" style="solid" class="w-5 h-5 sm:w-6 sm:h-6" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
