@@ -79,7 +79,7 @@
             <Icon class="mr-1 h-5 w-8 text-zinc-800" name="repeat" style="regular"/>
             <span class="w-24 leading-tight">Repeat</span>
           </div>
-          <ToggleButtonOnOff bind:isToggled={isRepeatToggled} isDisabled={isStopAfterOneTrackToggled}/>
+          <ToggleButtonOnOff bind:isToggled={isRepeatToggled} isDisabled={isStopAfterOneTrackToggled || isSleepWhenFinishedToggled}/>
         </div>
 
         <!-- Stop after one track -->
