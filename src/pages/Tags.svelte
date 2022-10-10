@@ -20,6 +20,8 @@
     let isShuffleToggled = false;
     let isRepeatToggled = false;
     let isSavePositionToggled = false;
+    let isSleepWhenFinishedToggled = false;
+    let isDimLedsToggled = false;
 
     // TODO For tests only, remove
     currentTag = {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"};
@@ -27,17 +29,9 @@
     // tag = {id: "12345678"};
     // tag = {id: ""};
 
-    tags = [
-        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"},
-        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"},
-        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"},
-        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"},
-        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/sdfgsdfgsdfgsdfg sdfgsdfgsdfgsdfgsdf"},
-        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/sdfg sdfg sdfh aetj aetrh erwgawergaertjratfvcvskrsykarsykyrakraghydfehsrytikj"},
-        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"},
-        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"},
-        {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"},
-    ];
+    for (let i = 1; i <= 10; i++) {
+        tags.push({id: String(i).padStart(8, '0'), command: 12, pathOrUrl: "/music/short stories/"});
+    }
 
 </script>
 
@@ -125,7 +119,7 @@
 
   <div class="relative overflow-hidden shadow sm:rounded-md bg-white sm:mx-4 h-full">
     <Icon name="list" style="solid" class="absolute w-40 -right-3 -top-3 text-zinc-50 -rotate-6 hidden sm:block"/>
-    <div class="relative px-4 py-5 space-y-6">
+    <div class="relative px-4 pt-5 pb-1 space-y-6">
       <div>
         <h3 class="relative text-lg font-medium leading-6">Assigned playback tags</h3>
         <p class="relative mt-1 text-sm text-zinc-500">This is a list of tags with playback assignments for quick reference or manual triggering.</p>
@@ -146,18 +140,22 @@
                 <td class="pt-2 sm:pb-2 font-mono w-0 select-all">
                   {tag.id}
                 </td>
-                <td class="pt-2 sm:pb-2 pl-5 flex flex-row space-x-1 h-full">
+                <td class="pt-2 sm:pb-2 pl-5 ">
                   <!--{tag.command}-->
-                  <Icon class="my-auto h-8 w-8 border border-orange-500 bg-orange-500 rounded-md px-2 py-1 text-white" name="book-bookmark" style="regular"/>
-                  <Icon class="my-auto h-8 w-8 border border-zinc-300 bg-zinc-100 rounded-md px-2 py-1 text-zinc-400" name="shuffle" style="regular"/>
-                  <Icon class="my-auto h-8 w-8 border border-orange-500 bg-orange-500 rounded-md px-2 py-1 text-white" name="repeat" style="regular"/>
-                  <Icon class="my-auto h-8 w-8 border border-zinc-300 bg-zinc-100 rounded-md px-2 py-1 text-zinc-400" name="arrow-right-to-line" style="regular"/>
+                  <div class="flex flex-row h-full w-fit rounded-md overflow-hidden">
+                    <Icon class="my-auto h-8 w-8 bg-orange-500 px-2 py-1 text-white" name="book-bookmark" style="regular"/>
+                    <Icon class="my-auto h-8 w-8 bg-zinc-100 px-2 py-1 text-zinc-400" name="shuffle" style="regular"/>
+                    <Icon class="my-auto h-8 w-8 bg-orange-500 px-2 py-1 text-white" name="repeat" style="regular"/>
+                    <Icon class="my-auto h-8 w-8 bg-zinc-100 px-2 py-1 text-zinc-400" name="arrow-right-to-line" style="regular"/>
+                    <Icon class="my-auto h-8 w-8 bg-zinc-100 px-2 py-1 text-zinc-400" name="snooze" style="regular"/>
+                    <Icon class="my-auto h-8 w-8 bg-zinc-100 px-2 py-1 text-zinc-400" name="brightness-low" style="regular"/>
+                  </div>
                 </td>
                 <td class="pt-2 sm:pb-2 px-5 w-full hidden sm:table-cell text-zinc-500 break-all select-all font-mono text-xs">
                   {tag.pathOrUrl}
                 </td>
                 <td class="pt-2 sm:pb-2 w-0">
-                  <button class="button button-secondary max-h-8">
+                  <button class="button button-secondary max-h-8 w-12">
                     <Icon class="h-5 w-5 text-white" name="play" style="solid"/>
                   </button>
                 </td>
@@ -171,6 +169,18 @@
           </tbody>
         </table>
       </div>
+    </div>
+
+    <!-- Pagination -->
+    <div
+        class="px-4 py-3 bg-zinc-100 flex gap-x-2 flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+      <button class="button button-secondary w-full sm:w-fit">
+        <Icon class="h-3 pr-2" style="solid" name="chevron-left"/>
+        Previous </button>
+      <button class="button button-secondary w-full sm:w-fit">
+        Next
+        <Icon class="h-3 pl-2" style="solid" name="chevron-right"/>
+      </button>
     </div>
   </div>
 </div>
@@ -205,7 +215,7 @@
         <div class="flex flex-row text-sm w-full h-11 sm:h-9">
           <div class="flex flex-row items-center font-medium">
             <Icon class="mr-1 h-5 w-8 text-zinc-800" name="book-bookmark" style="regular"/>
-            <span class="w-24">Save position:</span>
+            <span class="w-24 leading-tight">Save position:</span>
           </div>
           <ToggleButtonOnOff bind:isToggled={isSavePositionToggled} isDisabled={isShuffleToggled}/>
         </div>
@@ -215,7 +225,7 @@
           <div class="flex flex-row text-sm w-full h-11 sm:h-9">
             <div class="flex flex-row items-center font-medium">
               <Icon class="mr-1 h-5 w-8 text-zinc-800" name="shuffle" style="regular"/>
-              <span class="w-24">Shuffle:</span>
+              <span class="w-24 leading-tight">Shuffle:</span>
             </div>
             <ToggleButtonOnOff bind:isToggled={isShuffleToggled} isDisabled={isSavePositionToggled}/>
           </div>
@@ -225,7 +235,7 @@
         <div class="flex flex-row text-sm w-full h-11 sm:h-9">
           <div class="flex flex-row items-center font-medium">
             <Icon class="mr-1 h-5 w-8 text-zinc-800" name="repeat" style="regular"/>
-            <span class="w-24">Repeat:</span>
+            <span class="w-24 leading-tight">Repeat:</span>
           </div>
           <ToggleButtonOnOff bind:isToggled={isRepeatToggled} isDisabled={isStopAfterOneTrackToggled}/>
         </div>
@@ -235,11 +245,29 @@
           <div class="flex flex-row text-sm w-full h-11 sm:h-9">
             <div class="flex flex-row items-center font-medium">
               <Icon class="mr-1 h-5 w-8 text-zinc-800" name="arrow-right-to-line" style="regular"/>
-              <span class="w-24">Stop after one track:</span>
+              <span class="w-24 leading-tight">Stop after one track:</span>
             </div>
             <ToggleButtonOnOff bind:isToggled={isStopAfterOneTrackToggled} isDisabled={isRepeatToggled}/>
           </div>
         {/if}
+
+        <!-- Sleep when finished -->
+        <div class="flex flex-row text-sm w-full h-11 sm:h-9">
+          <div class="flex flex-row items-center font-medium">
+            <Icon class="mr-1 h-5 w-8 text-zinc-800" name="snooze" style="regular"/>
+            <span class="w-24 leading-tight">Sleep when finished:</span>
+          </div>
+          <ToggleButtonOnOff bind:isToggled={isSleepWhenFinishedToggled} isDisabled={isRepeatToggled}/>
+        </div>
+
+        <!-- Dim brightness -->
+        <div class="flex flex-row text-sm w-full h-11 sm:h-9">
+          <div class="flex flex-row items-center font-medium">
+            <Icon class="mr-1 h-5 w-8 text-zinc-800" name="brightness-low" style="regular"/>
+            <span class="w-24 leading-tight">Dim brightness:</span>
+          </div>
+          <ToggleButtonOnOff bind:isToggled={isDimLedsToggled}/>
+        </div>
 
       </div>
 
