@@ -2,6 +2,7 @@
     import {_} from "svelte-i18n";
     import Icon from "../components/Icon.svelte";
     import FileViewer from "../components/FileViewer.svelte";
+    import * as CONSTS from "../constants.js";
 
     export let show;
     export let tag = {id: ""};
@@ -9,71 +10,9 @@
     let openedModalId = "";
 
     let selectedPath;
+    let selectedMode;
     let selectedAction;
     let webStreamUrl;
-
-    // @formatter:off
-    const TAG_TYPES = {
-        LOCAL_AUDIO: 'local_audio',
-        WEB_AUDIO: 'web_audio',
-        ACTION: 'action',
-    }
-    const ACTION_CATEGORIES = [
-        {category: "sleep", name: $_("tags.action_categories.sleep")},
-        {category: "control", name: $_("tags.action_categories.control")},
-        {category: "volume", name: $_("tags.action_categories.volume")},
-        {category: "misc", name: $_("tags.action_categories.misc")},
-    ]
-    // Constants correspond with `values.h`
-    const COMMANDS = {
-        // Play modes
-         1: {name: $_("tags.assignment_types.single_track"),                  type: TAG_TYPES.LOCAL_AUDIO, sorting: 1},
-         2: {name: $_("tags.assignment_types.single_track_loop"),             type: TAG_TYPES.LOCAL_AUDIO, sorting: 2},
-        12: {name: $_("tags.assignment_types.single_track_of_dir_random"),    type: TAG_TYPES.LOCAL_AUDIO, sorting: 3},
-         3: {name: $_("tags.assignment_types.audiobook"),                     type: TAG_TYPES.LOCAL_AUDIO, sorting: 4},
-         4: {name: $_("tags.assignment_types.audiobook_loop"),                type: TAG_TYPES.LOCAL_AUDIO, sorting: 5},
-         5: {name: $_("tags.assignment_types.all_tracks_of_dir_sorted"),      type: TAG_TYPES.LOCAL_AUDIO, sorting: 6},
-         6: {name: $_("tags.assignment_types.all_tracks_of_dir_random"),      type: TAG_TYPES.LOCAL_AUDIO, sorting: 7},
-         7: {name: $_("tags.assignment_types.all_tracks_of_dir_sorted_loop"), type: TAG_TYPES.LOCAL_AUDIO, sorting: 8},
-         9: {name: $_("tags.assignment_types.all_tracks_of_dir_random_loop"), type: TAG_TYPES.LOCAL_AUDIO, sorting: 9},
-        11: {name: $_("tags.assignment_types.local_m3u"),                     type: TAG_TYPES.LOCAL_AUDIO, sorting: 10},
-
-         8: {name: $_("tags.assignment_types.webstream"),                     type: TAG_TYPES.WEB_AUDIO},
-
-        // Actions
-        179: {name: $_("tags.assignment_types.sleepmode"),                    type: TAG_TYPES.ACTION, category: "sleep", sorting: 1, icon: "snooze"},
-        101: {name: $_("tags.assignment_types.sleep_timer_mod_15"),           type: TAG_TYPES.ACTION, category: "sleep", sorting: 2, icon: "snooze"},
-        102: {name: $_("tags.assignment_types.sleep_timer_mod_30"),           type: TAG_TYPES.ACTION, category: "sleep", sorting: 3, icon: "snooze"},
-        103: {name: $_("tags.assignment_types.sleep_timer_mod_60"),           type: TAG_TYPES.ACTION, category: "sleep", sorting: 4, icon: "snooze"},
-        104: {name: $_("tags.assignment_types.sleep_timer_mod_120"),          type: TAG_TYPES.ACTION, category: "sleep", sorting: 5, icon: "snooze"},
-        105: {name: $_("tags.assignment_types.sleep_after_end_of_track"),     type: TAG_TYPES.ACTION, category: "sleep", sorting: 6, icon: "snooze"},
-        106: {name: $_("tags.assignment_types.sleep_after_end_of_playlist"),  type: TAG_TYPES.ACTION, category: "sleep", sorting: 8, icon: "snooze"},
-        107: {name: $_("tags.assignment_types.sleep_after_5_tracks"),         type: TAG_TYPES.ACTION, category: "sleep", sorting: 7, icon: "snooze"},
-
-        170: {name: $_("tags.assignment_types.playpause"),                    type: TAG_TYPES.ACTION, category: "control", sorting: 1, icon: "play-pause"},
-        182: {name: $_("tags.assignment_types.stop"),                         type: TAG_TYPES.ACTION, category: "control", sorting: 2, icon: "stop"},
-        173: {name: $_("tags.assignment_types.firsttrack"),                   type: TAG_TYPES.ACTION, category: "control", sorting: 3, icon: "backward-fast"},
-        171: {name: $_("tags.assignment_types.prevtrack"),                    type: TAG_TYPES.ACTION, category: "control", sorting: 4, icon: "backward-step"},
-        181: {name: $_("tags.assignment_types.seek_backwards"),               type: TAG_TYPES.ACTION, category: "control", sorting: 5, icon: "backward"},
-        180: {name: $_("tags.assignment_types.seek_forwards"),                type: TAG_TYPES.ACTION, category: "control", sorting: 6, icon: "forward"},
-        172: {name: $_("tags.assignment_types.nexttrack"),                    type: TAG_TYPES.ACTION, category: "control", sorting: 7, icon: "forward-step"},
-        174: {name: $_("tags.assignment_types.lasttrack"),                    type: TAG_TYPES.ACTION, category: "control", sorting: 8, icon: "forward-fast"},
-        111: {name: $_("tags.assignment_types.repeat_track"),                 type: TAG_TYPES.ACTION, category: "control", sorting: 9, icon: "repeat-1"},
-        110: {name: $_("tags.assignment_types.repeat_playlist"),              type: TAG_TYPES.ACTION, category: "control", sorting: 10, icon: "repeat"},
-
-        177: {name: $_("tags.assignment_types.volumedown"),                   type: TAG_TYPES.ACTION, category: "volume", sorting: 1,icon: "volume-low"},
-        175: {name: $_("tags.assignment_types.volumeinit"),                   type: TAG_TYPES.ACTION, category: "volume", sorting: 2,icon: "volume"},
-        176: {name: $_("tags.assignment_types.volumeup"),                     type: TAG_TYPES.ACTION, category: "volume", sorting: 3,icon: "volume-high"},
-
-        100: {name: $_("tags.assignment_types.lock_buttons_mod"),             type: TAG_TYPES.ACTION, category: "misc", sorting: 1,  icon: "lock"},
-        120: {name: $_("tags.assignment_types.dimm_leds_nightmode"),          type: TAG_TYPES.ACTION, category: "misc", sorting: 2,  icon: "brightness-low"},
-        150: {name: $_("tags.assignment_types.enable_ftp_server"),            type: TAG_TYPES.ACTION, category: "misc", sorting: 3,  icon: "folder-open"},
-        130: {name: $_("tags.assignment_types.toggle_wifi_status"),           type: TAG_TYPES.ACTION, category: "misc", sorting: 4,  icon: "wifi"},
-        140: {name: $_("tags.assignment_types.toggle_bluetooth_sink"),        type: TAG_TYPES.ACTION, category: "misc", sorting: 5,  icon: "bluetooth"},
-        141: {name: $_("tags.assignment_types.toggle_bluetooth_source"),      type: TAG_TYPES.ACTION, category: "misc", sorting: 6,  icon: "bluetooth"},
-        151: {name: $_("tags.assignment_types.tell_ip_address"),              type: TAG_TYPES.ACTION, category: "misc", sorting: 7,  icon: "network-wired"},
-    };
-    // @formatter:on
 
     // TODO For tests only, remove
     tag = {id: "12345678", command: 12, pathOrUrl: "/music/short stories/"};
@@ -81,7 +20,6 @@
     // tag = {id: "12345678"};
     // tag = {id: ""};
 
-    console.log(Object.entries(COMMANDS));
 </script>
 
 <div class="{show ? 'block' : 'hidden'} max-w-2xl mx-auto sm:h-fit">
@@ -111,8 +49,14 @@
               <tr>
                 <th class="font-medium text-left w-1 align-text-top">Assignment:</th>
                 <td class="pl-3">
-                  {#if "command" in tag}
-                    {COMMANDS[tag.command].name}
+                  {#if "command" in tag && (tag.command in CONSTS.LOCAL_PLAY_MODES || tag.command in CONSTS.ACTIONS || tag.command in CONSTS.WEB_STREAM)}
+                    {#if tag.command in CONSTS.LOCAL_PLAY_MODES}
+                      {CONSTS.LOCAL_PLAY_MODES[tag.command].i18n_key}
+                    {:else if tag.command in CONSTS.ACTIONS}
+                      {CONSTS.ACTIONS[tag.command].i18n_key}
+                    {:else if tag.command in CONSTS.WEB_STREAM}
+                      {CONSTS.WEB_STREAM[tag.command].i18n_key}
+                    {/if}
                   {:else}
                     {$_("tags.assignment_types.none")}
                   {/if}
@@ -173,7 +117,7 @@
       <div
           class="px-4 py-3 bg-zinc-100 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
         <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
-        <button class="button button-primary" on:click={() => openedModalId="explorer_2"}>Select<Icon class="h-4 pl-2" style="solid" name="chevron-right"/></button>
+        <button class="button button-primary" on:click={() => openedModalId="explorer_2"}>Select<Icon class="h-3 pl-2" style="solid" name="chevron-right"/></button>
       </div>
     {:else if openedModalId === "explorer_2"}
       <div class="px-4 py-4">
@@ -184,19 +128,17 @@
       </div>
 
       <ul class="overflow-y-auto border border-t-zinc-100">
-        {#each Object.entries(COMMANDS).sort((a, b) => (a[1].sorting > b[1].sorting ? 1 : -1)) as [key, values]}
-          {#if values.type === TAG_TYPES.LOCAL_AUDIO}
-            <li class="flex items-center px-6 py-1 h-9 sm:text-sm cursor-pointer sm:h-7 {selectedAction === key ? 'bg-orange-500 hover:bg-orange-500 text-white' : 'hover:bg-zinc-100'}"
-                on:click={() => selectedAction=key}>
-              <span class="">{values.name}</span>
+        {#each Object.entries(CONSTS.LOCAL_PLAY_MODES).sort((a, b) => (a[1].sorting > b[1].sorting ? 1 : -1)) as [key, values]}
+            <li class="flex items-center px-6 py-1 h-9 sm:text-sm cursor-pointer sm:h-7 {selectedMode === key ? 'bg-orange-500 hover:bg-orange-500 text-white' : 'hover:bg-zinc-100'}"
+                on:click={() => selectedMode=key}>
+              <span class="">{$_(values.i18n_key)}</span>
             </li>
-          {/if}
         {/each}
       </ul>
       <div
           class="px-4 py-3 bg-zinc-100 sm:px-6 flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
         <button class="button button-secondary" on:click={() => openedModalId=""}>Cancel</button>
-        <button class="button button-secondary" on:click={() => openedModalId="explorer_1"}><Icon class="h-4 pr-2" style="solid" name="chevron-left"/>Back</button>
+        <button class="button button-secondary" on:click={() => openedModalId="explorer_1"}><Icon class="h-3 pr-2" style="solid" name="chevron-left"/>Back</button>
         <button class="button button-primary" on:click={() => openedModalId=""}>Assign</button>
       </div>
     {/if}
@@ -229,17 +171,17 @@
       Select action
     </div>
     <ul class="overflow-y-auto">
-      {#each ACTION_CATEGORIES as category_obj}
+      {#each CONSTS.ACTION_CATEGORIES as category_obj}
         <div
             class="bg-zinc-100 font-semibold text-xs uppercase tracking-wider text-zinc-700 px-4 py-1">{category_obj.name}</div>
-        {#each Object.entries(COMMANDS).sort((a, b) => (a[1].sorting > b[1].sorting ? 1 : -1)) as [key, values]}
-          {#if values.type === TAG_TYPES.ACTION && values.category === category_obj.category}
+        {#each Object.entries(CONSTS.ACTIONS).sort((a, b) => (a[1].sorting > b[1].sorting ? 1 : -1)) as [key, values]}
+          {#if values.category === category_obj.category}
             <li class="flex items-center pl-6 pr-4 py-1 h-9 sm:text-sm cursor-pointer sm:h-7 {selectedAction === key ? 'bg-orange-500 hover:bg-orange-500 text-white' : 'hover:bg-zinc-100'}"
                 on:click={() => selectedAction=key}>
               <div class="w-6 flex flex-col items-center">
                 <Icon class="flex-shrink-0 h-5" style="regular" name={values.icon}/>
               </div>
-              <span class="ml-3 truncate">{values.name}</span>
+              <span class="ml-3 truncate">{$_(values.i18n_key)}</span>
             </li>
           {/if}
         {/each}
@@ -268,8 +210,14 @@
         <tr>
           <th class="font-medium text-left w-1 align-text-top">Assignment:</th>
           <td class="pl-3">
-            {#if "command" in tag}
-              {COMMANDS[tag.command].name}
+            {#if "command" in tag && (tag.command in CONSTS.LOCAL_PLAY_MODES || tag.command in CONSTS.ACTIONS || tag.command in CONSTS.WEB_STREAM)}
+              {#if tag.command in CONSTS.LOCAL_PLAY_MODES}
+                {$_(CONSTS.LOCAL_PLAY_MODES[tag.command].i18n_key)}
+              {:else if tag.command in CONSTS.ACTIONS}
+                {$_(CONSTS.ACTIONS[tag.command].i18n_key)}
+              {:else if tag.command in CONSTS.WEB_STREAM}
+                {$_(CONSTS.WEB_STREAM[tag.command].i18n_key)}
+              {/if}
             {:else}
               {$_("tags.assignment_types.none")}
             {/if}
