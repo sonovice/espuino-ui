@@ -159,10 +159,10 @@
           </div>
         </div>
         <div slot="actions" class="flex flex-row gap-x-2 sm:justify-end">
-          <button class="button-secondary w-full" on:click={() => get_settings("general")}>
+          <button class="button-secondary w-full sm:w-fit" on:click={() => get_settings("general")}>
             {$_("common.reset")}
           </button>
-          <button class="button-primary w-full" on:click={() => set_settings({general: settings.general})}>
+          <button class="button-primary w-full sm:w-fit" on:click={() => set_settings({general: settings.general})}>
             {$_("common.save")}
           </button>
         </div>
@@ -178,10 +178,10 @@
           </div>
         </div>
         <div slot="actions" class="flex flex-row gap-x-2 sm:justify-end">
-          <button class="button-secondary w-full" on:click={() => get_settings("wifi")}>
+          <button class="button-secondary w-full sm:w-fit" on:click={() => get_settings("wifi")}>
             {$_("common.reset")}
           </button>
-          <button class="button-primary w-full" on:click={() => set_settings({wifi: settings.wifi})}>
+          <button class="button-primary w-full sm:w-fit" on:click={() => set_settings({wifi: settings.wifi})}>
             {$_("common.save")}
           </button>
         </div>
@@ -201,10 +201,10 @@
           </div>
         </div>
         <div slot="actions" class="flex flex-row gap-x-2 sm:justify-end">
-          <button class="button-secondary w-full" on:click={() => get_settings("ftp")} disabled={settings.ftp.enabled}>
+          <button class="button-secondary w-full sm:w-fit" on:click={() => get_settings("ftp")} disabled={settings.ftp.enabled}>
               {$_("common.reset")}
             </button>
-            <button class="button-primary w-full" on:click={enable_ftp} disabled={settings.ftp.enabled}>
+            <button class="button-primary w-full sm:w-fit" on:click={enable_ftp} disabled={settings.ftp.enabled}>
               {$_("settings.ftp.start_server")}
             </button>
         </div>
@@ -228,10 +228,10 @@
             <ToggleButton text={$_("common.enable")} bind:enabled={settings.mqtt.enabled} on:toggle={() => set_settings({mqtt: {enabled: settings.mqtt.enabled}})} />
           </div>
           <div class="flex flex-row w-full gap-x-2 sm:justify-end">
-            <button class="button-secondary w-full" on:click={() => get_settings("mqtt")} disabled={!settings.mqtt.enabled}>
+            <button class="button-secondary w-full sm:w-fit" on:click={() => get_settings("mqtt")} disabled={!settings.mqtt.enabled}>
               {$_("common.reset")}
             </button>
-            <button class="button-primary w-full" on:click={() => set_settings({mqtt: settings.mqtt})} disabled={!settings.mqtt.enabled}>
+            <button class="button-primary w-full sm:w-fit" on:click={() => set_settings({mqtt: settings.mqtt})} disabled={!settings.mqtt.enabled}>
               {$_("common.save")}
             </button>
           </div>

@@ -27,9 +27,9 @@
       </div>
       <FileViewer dir="/Music/Kids/Horror" extensions={["mp3", "m4a", "wav", "m3u"]} bind:selectedPath/>
       <div
-          class="px-4 py-3 bg-zinc-100 flex flex-row gap-x-2 sm:gap-x-2 sm:gap-y-0 sm:justify-end">
-        <button class="button button-secondary w-full" on:click={() => isOpened=false}>Cancel</button>
-        <button class="button button-primary w-full" on:click={() => page++}>Select
+          class="px-4 py-3 bg-zinc-100 flex flex-row gap-x-2 sm:justify-end">
+        <button class="button button-secondary w-full sm:w-fit" on:click={() => isOpened=false}>Cancel</button>
+        <button class="button button-primary w-full sm:w-fit" on:click={() => page++}>Select
           <Icon class="h-3 pl-2" style="solid" name="chevron-right"/>
         </button>
       </div>
@@ -106,13 +106,13 @@
       </div>
 
       <div
-          class="px-4 py-3 bg-zinc-100 flex flex-row gap-x-2 sm:gap-x-2 sm:gap-y-0 sm:justify-end">
+          class="px-4 py-3 bg-zinc-100 flex flex-row gap-x-2 sm:justify-end">
 <!--        <button class="button button-secondary w-full" on:click={() => isOpened=false}>Cancel</button>-->
-        <button class="button button-secondary w-full" on:click={() => page--}>
+        <button class="button button-secondary w-full sm:w-fit" on:click={() => page--}>
           <Icon class="h-3 pr-2" style="solid" name="chevron-left"/>
           Back
         </button>
-        <button class="button button-primary w-full" on:click={() => isOpened=false}>Assign</button>
+        <button class="button button-primary w-full sm:w-fit" on:click={() => isOpened=false}>Assign</button>
       </div>
     {/if}
   </div>
