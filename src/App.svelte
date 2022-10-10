@@ -30,7 +30,7 @@
         }
     };
     let isConnected;
-    let batteryLevel = 42;
+    let batteryLevel = 57;
 
 
     onMount(() => {

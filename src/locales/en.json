@@ -115,6 +115,8 @@
     "optional": "optional",
     "community": "Community",
     "enable": "Enable",
-    "save_and_reboot": "Save and reboot"
+    "save_and_reboot": "Save and reboot",
+    "on": "On",
+    "off": "Off"
   }
 }
