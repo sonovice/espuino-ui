@@ -53,11 +53,11 @@
                 <td class="pl-3">
                   {#if "command" in tag && (tag.command in CONSTS.LOCAL_PLAY_MODES || tag.command in CONSTS.ACTIONS || tag.command in CONSTS.WEB_STREAM)}
                     {#if tag.command in CONSTS.LOCAL_PLAY_MODES}
-                      {CONSTS.LOCAL_PLAY_MODES[tag.command].i18n_key}
+                      {$_(CONSTS.LOCAL_PLAY_MODES[tag.command].i18n_key)}
                     {:else if tag.command in CONSTS.ACTIONS}
-                      {CONSTS.ACTIONS[tag.command].i18n_key}
+                      {$_(CONSTS.ACTIONS[tag.command].i18n_key)}
                     {:else if tag.command in CONSTS.WEB_STREAM}
-                      {CONSTS.WEB_STREAM[tag.command].i18n_key}
+                      {$_(CONSTS.WEB_STREAM[tag.command].i18n_key)}
                     {/if}
                   {:else}
                     {$_("tags.assignment_types.none")}
@@ -136,6 +136,17 @@
         {#if selectedPath && (selectedPath.endsWith("/") || selectedPath.endsWith(".m3u"))}
           <div class="flex flex-row text-sm w-full h-11 sm:h-9">
             <div class="flex flex-row items-center font-semibold">
+              <Icon class="mr-1 h-5 w-8 text-zinc-800" name="arrow-right-to-line" style="regular"/>
+              <span class="w-24">Stop after one track:</span>
+            </div>
+            <ToggleButtonOnOff/>
+          </div>
+        {/if}
+
+        {#if selectedPath && (selectedPath.endsWith("/") || selectedPath.endsWith(".m3u"))}
+<!--          Disable if "stop after one track"-->
+          <div class="flex flex-row text-sm w-full h-11 sm:h-9">
+            <div class="flex flex-row items-center font-semibold">
               <Icon class="mr-1 h-5 w-8 text-zinc-800" name="shuffle" style="regular"/>
               <span class="w-24">Shuffle:</span>
             </div>
@@ -143,6 +154,7 @@
           </div>
         {/if}
 
+<!--        Disable if "stop after one track"-->
         <div class="flex flex-row text-sm w-full h-11 sm:h-9">
           <div class="flex flex-row items-center font-semibold">
             <Icon class="mr-1 h-5 w-8 text-zinc-800" name="repeat" style="regular"/>
@@ -151,6 +163,7 @@
           <ToggleButtonOnOff/>
         </div>
 
+<!--        Disable if "stop after one track"-->
         <div class="flex flex-row text-sm w-full h-11 sm:h-9">
           <div class="flex flex-row items-center font-semibold">
             <Icon class="mr-1 h-5 w-8 text-zinc-800" name="book-bookmark" style="regular"/>
@@ -158,16 +171,6 @@
           </div>
           <ToggleButtonOnOff/>
         </div>
-
-        {#if selectedPath && (selectedPath.endsWith("/") || selectedPath.endsWith(".m3u"))}
-          <div class="flex flex-row text-sm w-full h-11 sm:h-9">
-            <div class="flex flex-row items-center font-semibold">
-              <Icon class="mr-1 h-5 w-8 text-zinc-800" name="arrow-right-to-line" style="regular"/>
-              <span class="w-24">Stop after one track:</span>
-            </div>
-            <ToggleButtonOnOff/>
-          </div>
-        {/if}
       </div>
 
       <!--      <ul class="overflow-y-auto border border-t-zinc-100">-->
