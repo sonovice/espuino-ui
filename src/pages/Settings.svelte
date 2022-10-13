@@ -172,9 +172,9 @@
       <SettingsCard title={$_("settings.wifi.card_title")} description={$_("settings.wifi.card_description")} icon="wifi"anchor="wifi">
         <div slot="main">
           <div class="grid grid-cols-2 gap-4">
-            <SettingText class="col-span-2 sm:col-span-1" title={$_("settings.wifi.ssid")} bind:value={settings.wifi.ssid} />
-            <SettingText class="col-span-2 sm:col-span-1" title={$_("common.password")} bind:value={settings.wifi.password} type="password" />
-            <SettingText class="col-span-2" title={$_("settings.wifi.hostname")} bind:value={settings.wifi.hostname} />
+            <SettingText name="wifi.ssid" class="col-span-2 sm:col-span-1" title={$_("settings.wifi.ssid")} bind:value={settings.wifi.ssid} />
+            <SettingText name="wifi.password" class="col-span-2 sm:col-span-1" title={$_("common.password")} bind:value={settings.wifi.password} type="password" />
+            <SettingText name="wifi.hostname" class="col-span-2" title={$_("settings.wifi.hostname")} bind:value={settings.wifi.hostname} />
           </div>
         </div>
         <div slot="actions" class="flex flex-row gap-x-2 sm:justify-end">
@@ -196,8 +196,8 @@
             </div>
           {/if}
           <div class="relative grid grid-cols-2 gap-4">
-            <SettingText class="col-span-2 sm:col-span-1" title={$_("common.username")} bind:value={settings.ftp.username} disabled={settings.ftp.enabled} />
-            <SettingText class="col-span-2 sm:col-span-1" title={$_("common.password")} bind:value={settings.ftp.password} type="password" disabled={settings.ftp.enabled} />
+            <SettingText name="ftp.username" class="col-span-2 sm:col-span-1" title={$_("common.username")} bind:value={settings.ftp.username} disabled={settings.ftp.enabled} />
+            <SettingText name="ftp.password" class="col-span-2 sm:col-span-1" title={$_("common.password")} bind:value={settings.ftp.password} type="password" disabled={settings.ftp.enabled} />
           </div>
         </div>
         <div slot="actions" class="flex flex-row gap-x-2 sm:justify-end">
@@ -217,10 +217,10 @@
             <div class="absolute top-0 left-0 z-10 w-full h-full bg-opacity-60 bg-zinc-50" />
           {/if}
           <div class="relative grid grid-cols-4 gap-4">
-            <SettingText class="col-span-4 sm:col-span-3" title={$_("common.server")} bind:value={settings.mqtt.host} disabled={!settings.mqtt.enabled} />
-            <SettingText class="col-span-4 sm:col-span-1" title={$_("common.port")} bind:value={settings.mqtt.port} type="number" disabled={!settings.mqtt.enabled} />
-            <SettingText class="col-span-4 sm:col-span-2" title="{$_('common.username')} ({$_('common.optional')})" bind:value={settings.mqtt.username} disabled={!settings.mqtt.enabled} />
-            <SettingText class="col-span-4 sm:col-span-2" title="{$_('common.password')} ({$_('common.optional')})" bind:value={settings.mqtt.password} type="password" disabled={!settings.mqtt.enabled} />
+            <SettingText name="mqtt.server" class="col-span-4 sm:col-span-3" title={$_("common.server")} bind:value={settings.mqtt.host} disabled={!settings.mqtt.enabled} />
+            <SettingText name="mqtt.port" class="col-span-4 sm:col-span-1" title={$_("common.port")} bind:value={settings.mqtt.port} type="number" disabled={!settings.mqtt.enabled} />
+            <SettingText name="mqtt.username" class="col-span-4 sm:col-span-2" title="{$_('common.username')} ({$_('common.optional')})" bind:value={settings.mqtt.username} disabled={!settings.mqtt.enabled} />
+            <SettingText name="mqtt.password" class="col-span-4 sm:col-span-2" title="{$_('common.password')} ({$_('common.optional')})" bind:value={settings.mqtt.password} type="password" disabled={!settings.mqtt.enabled} />
           </div>
         </div>
         <div slot="actions" class="flex items-center justify-between">

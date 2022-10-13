@@ -24,11 +24,11 @@
                   class="sm:max-w-xl ">
       <div slot="main">
         <div class="grid grid-cols-2 gap-4">
-          <SettingText class="col-span-2 sm:col-span-1" title={$_("settings.wifi.ssid")}
+          <SettingText name="wifi.ssid" class="col-span-2 sm:col-span-1" title={$_("settings.wifi.ssid")}
                        bind:value={settings.ssid}/>
-          <SettingText class="col-span-2 sm:col-span-1" title={$_("common.password")} bind:value={settings.password}
+          <SettingText name="wifi.password" class="col-span-2 sm:col-span-1" title={$_("common.password")} bind:value={settings.password}
                        type="password"/>
-          <SettingText class="col-span-2" title={$_("settings.wifi.hostname")} bind:value={settings.hostname}/>
+          <SettingText name="wifi.hostname" class="col-span-2" title={$_("settings.wifi.hostname")} bind:value={settings.hostname}/>
         </div>
       </div>
       <div slot="actions" class="flex flex-col-reverse gap-y-2 sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:justify-end">
